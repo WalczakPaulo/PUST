@@ -1,3 +1,5 @@
+clear
+
 Upp = 0.9;
 dU = 0.3;
 Ypp = 3;
@@ -10,4 +12,7 @@ for k = 12:N
 end
 s = (Y - Ypp)/dU;
 % s(1:11) = [];
-plot(s)
+stairs(s)
+title('Odpowiedz skokowa')
+xlabel('k')
+ylabel('s')
