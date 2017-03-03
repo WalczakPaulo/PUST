@@ -16,7 +16,7 @@ for skok = skoki
        Y(k)=symulacja_obiektu2Y(U(k-10),U(k-11),Y(k-1),Y(k-2));
    end
    hold on
-   plot(Y)
+   stairs(Y)
 end
 
 legend(string(skoki))

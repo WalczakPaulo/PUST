@@ -4,12 +4,12 @@ clear all
 
 % Ustawienia symulacji
 N = 300;
-Yzad = ones(N, 1) * 5;
+Yzad = ones(N, 1) * 0.2;
 
 % Nastawy regulatora
-K = 0.1;
-Ti = Inf;
-Td = 0;
+K = 1.85 / 2; %1.85 oscylacje niegasnace
+Ti = 30;
+Td = 2.5;
 T = 0.5;
 
 % Charakterystyka obiektu
@@ -70,5 +70,19 @@ for k = 12:N
    Y(k) = symulacja_obiektu2Y(U(k - 10), U(k - 11), Y(k - 1), Y(k - 2));
 end
 
-hold on
-plot(Y)
+figure;
+subplot(2, 1, 1);
+stairs(Y)
+% % Zakomentowany fragment wyznacza przedział +/- 10% wartości zadanej
+% hold on
+% plot(Yzad*0.9 + Ypp, '--', 'Color', [.9 0 0])
+% hold on
+% plot(Yzad*1.1 + Ypp, '--', 'Color', [.9 0 0])
+title('Wyjście obiektu');
+xlabel('Czas');
+ylabel('Wyjście (y)');
+subplot(2, 1, 2);
+stairs(U)
+title('Sterowanie')
+xlabel('Czas')
+ylabel('Sterowanie (u)')

@@ -1,0 +1,11 @@
+\chapter{Opis obiektu}
+\label{sec:opis}
+Obiekt używany w projekcie jest symulacją obiektu, napisaną w języku MATLAB.
+Opisywany jest on wzorem
+\begin{equation}
+  Y(k) = f(U(k - 10), U(k - 11), Y(k - 1), Y(k - 2))
+\end{equation}
+gdzie $k$ jest aktualną chwilą symulacji.
+Punkt pracy obiektu jest osiągany dla wartości sterowania równej $0,9$,
+natomiast wyjście w owym punkcie ustala się na wartości $3,0$. Okres próbkowania
+obiektu wynosi $0,5$s.

@@ -10,6 +10,6 @@ end
 stairs(Y)
 hold on
 stairs(U)
-xlabel('k')
-ylabel('value')
+xlabel('Chwila k')
+ylabel('Watość wyjścia/sterowania')
 legend('Y(k)','U(k)','position','best');

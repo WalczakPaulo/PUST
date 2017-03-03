@@ -13,6 +13,6 @@ end
 s = (Y - Ypp)/dU;
 % s(1:11) = [];
 stairs(s)
-title('Odpowiedz skokowa')
-xlabel('k')
-ylabel('s')
+% title('Odpowiedz skokowa')
+xlabel('chwila k')
+ylabel('wartość s_n')
