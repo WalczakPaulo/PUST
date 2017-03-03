@@ -3,8 +3,8 @@ function [ error ] = dmcE(argN, argNu, argLambda, draw)
 %   Detailed explanation goes here
 load('s.mat');
 D = 150;
-N = (int)argN;
-Nu = (int)argNu;
+N = argN;
+Nu = argNu;
 lambda = argLambda;
 error = 0;
 Ypp = 3;

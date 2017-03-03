@@ -1,4 +1,4 @@
-function [ error ] = E( argK,argTi,argTd, draw )
+function [ error ] = pidE( argK,argTi,argTd, draw )
 N = 300;
 Yzad = ones(N, 1) * 0.2;
 
