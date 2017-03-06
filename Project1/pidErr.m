@@ -13,8 +13,8 @@ Yzad(800:10000)=0.4;
 error = 0;
 % Nastawy regulatora
 K = 1.85 / 2; %1.85 oscylacje niegasnace
-Ti = 30;
-Td = 2.5;
+Ti = 20;
+Td = 4;
 T = 0.5;
 
 % Charakterystyka obiektu
@@ -85,6 +85,9 @@ stairs(Y)
 % hold on
 % plot(Yzad*1.1 + Ypp, '--', 'Color', [.9 0 0])
 title('Wyjœcie obiektu');
+mTextBox = uicontrol('style','text')
+set(mTextBox,'String','K = 0.92, Td = 4, Ti = 20. Err = 0.7066')
+set(mTextBox,'Position',[20; 200; 220; 20])
 xlabel('Czas');
 ylabel('Wyjœcie (y)');
 subplot(2, 1, 2);

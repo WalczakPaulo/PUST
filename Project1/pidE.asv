@@ -5,12 +5,9 @@ clear all
 % Ustawienia symulacji
 N = 1000;
 Yzad = ones(N,1);
-Yzad(1:200) = 0.1;
-Yzad(200:400)=0.2;
-Yzad(400:600)=0.3;
-Yzad(600:800)=0.35;
-Yzad(800:10000)=0.4;
-error = 0;
+
+Yzad = ones(N, 1) * 0.2;
+
 % Nastawy regulatora
 K = 1.85 / 2; %1.85 oscylacje niegasnace
 Ti = 30;
