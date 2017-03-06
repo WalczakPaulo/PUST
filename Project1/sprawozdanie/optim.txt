@@ -19,9 +19,9 @@ Nu - horyzont sterowania
 Lambda - współczynnik 'kary' za zmiany sterowania.
 Użycie algorytmu GA motywujemy tym, że w przeciwieństwie do fmincon, możemy wprowadzić ograniczenie na N oraz Nu, tak aby ich wartości mogły być dodatnie całkowite.
 Po uruchomieniu GA otrzymujemy następujące parametry:
-N = 74
-Nu = 1
-Lambda = 30.2824 
+N = 150
+Nu = 13
+Lambda = 1.2202 
 Zauważamy, że funkcja celu przyjmuje niższą wartość niż dla parametrów regulatora DMC wyznaczonego na chybił trafił, oraz zdecydowanie lepsze niż parametry optymalne regulatora PID.
 
 /***zdj***/

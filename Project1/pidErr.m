@@ -1,5 +1,5 @@
 % Regulator PID
-
+function [error] = pidE(argK, argTd, argTi, draw)
 clear all
 
 % Ustawienia symulacji
@@ -12,9 +12,9 @@ Yzad(600:800)=0.35;
 Yzad(800:10000)=0.4;
 error = 0;
 % Nastawy regulatora
-K = 1.85 / 2; %1.85 oscylacje niegasnace
-Ti = 20;
-Td = 4;
+K = argK; %1.85 oscylacje niegasnace
+Ti =argTi;
+Td = argTd;
 T = 0.5;
 
 % Charakterystyka obiektu
@@ -75,7 +75,7 @@ for k = 12:N
    Y(k) = symulacja_obiektu2Y(U(k - 10), U(k - 11), Y(k - 1), Y(k - 2));
    error = error + (Yzad(k) + Ypp - Y(k))^2;
 end
-
+if draw == true
 figure;
 subplot(2, 1, 1);
 stairs(Y)
@@ -95,3 +95,5 @@ stairs(U)
 title('Sterowanie')
 xlabel('Czas')
 ylabel('Sterowanie (u)')
+end
+end
