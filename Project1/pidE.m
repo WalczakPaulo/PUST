@@ -1,15 +1,20 @@
-function [ error ] = pidE( argK,argTi,argTd, draw )
-N = 300;
-Yzad = ones(N, 1) * 0.2;
+% Regulator PID
 
+clear all
+
+% Ustawienia symulacji
+N = 1000;
+Yzad = ones(N,1);
+Yzad(1:200) = 0.1;
+Yzad(200:400)=0.2;
+Yzad(400:600)=0.3;
+Yzad(600:800)=0.35;
+Yzad(800:10000)=0.4;
+error = 0;
 % Nastawy regulatora
-% K = 1.85 / 2; %1.85 oscylacje niegasnace
-% Ti = 30;
-% Td = 2.5;
-% 
-K = argK;
-Ti = argTi;
-Td = argTd;
+K = 1.85 / 2; %1.85 oscylacje niegasnace
+Ti = 30;
+Td = 2.5;
 T = 0.5;
 
 % Charakterystyka obiektu
@@ -26,7 +31,7 @@ dUmax = 0.1;
 dUmin = -0.1;
 
 % Symulacja
-error = 0;
+
 prevE = 0;
 prevUi = 0;
 
@@ -68,21 +73,22 @@ for k = 12:N
    
    % Aplikacja do obiektu
    Y(k) = symulacja_obiektu2Y(U(k - 10), U(k - 11), Y(k - 1), Y(k - 2));
-   error = error + (Yzad(k) + Ypp - Y(k))^2; %magic
-end
-if draw == true
-    figure;
-    subplot(2, 1, 1);
-    stairs(Y)
-    title('Wyjœcie obiektu');
-    xlabel('Czas');
-    ylabel('Wyjœcie (y)');
-    subplot(2, 1, 2);
-    stairs(U)
-    title('Sterowanie')
-    xlabel('Czas')
-    ylabel('Sterowanie (u)')
-end
+   error = error + (Yzad(k) + Ypp - Y(k))^2;
 end
 
-
+figure;
+subplot(2, 1, 1);
+stairs(Y)
+% % Zakomentowany fragment wyznacza przedzia³ +/- 10% wartoœci zadanej
+% hold on
+% plot(Yzad*0.9 + Ypp, '--', 'Color', [.9 0 0])
+% hold on
+% plot(Yzad*1.1 + Ypp, '--', 'Color', [.9 0 0])
+title('Wyjœcie obiektu');
+xlabel('Czas');
+ylabel('Wyjœcie (y)');
+subplot(2, 1, 2);
+stairs(U)
+title('Sterowanie')
+xlabel('Czas')
+ylabel('Sterowanie (u)')

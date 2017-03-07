@@ -43,10 +43,11 @@ end
 
 K = (M'*M + lambda * eye(Nu))\M';
 
-yzad(1:200) = 2.5;
-yzad(201:400) = 2.8;
-yzad(401:700) = 3.1;
-yzad(701:1000) = 3.4;
+yzad(1:200) = 3.1;
+yzad(201:400) = 3.2;
+yzad(401:600) = 3.3;
+yzad(601:800) = 3.35;
+yzad(801:1000) = 3.4;
 
 for k = 12:1000
     Yk(1:end) = Y(k-1);
@@ -71,22 +72,16 @@ for k = 12:1000
     error = error + (yzad(k) - Y(k))^2;
 end
 if draw == true
-   figure;
-   subplot(2, 1, 1)
     stairs(Y)
     hold on
-    stairs(yzad)
-    title('Wyjście obiektu');
-    xlabel('Chwila (k)')
-    ylabel('Wartość wyjścia/zadana')
-    legend('Y','Yzad','location','best');
-    legend('boxoff')
-    
-    subplot(2, 1, 2)
+    mTextBox = uicontrol('style','text')
+    set(mTextBox,'String','N = 60, Nu = 40, Lambda = 1. Err = 0.6203')
+    set(mTextBox,'Position',[140; 200; 220; 20])
     stairs(U)
-    title('Sterowanie');
-    xlabel('Chwila (k)')
-    ylabel('Wartość sterowania')
+    stairs(yzad)
+    xlabel('k')
+    ylabel('value')
+    legend('Y(k)','U(k)','Yzad(k)','location','best');
 end
 end
 

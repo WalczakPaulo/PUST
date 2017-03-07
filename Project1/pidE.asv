@@ -3,7 +3,9 @@
 clear all
 
 % Ustawienia symulacji
-N = 300;
+N = 1000;
+Yzad = ones(N,1);
+
 Yzad = ones(N, 1) * 0.2;
 
 % Nastawy regulatora
@@ -31,7 +33,7 @@ prevE = 0;
 prevUi = 0;
 
 for k = 12:N
-   % Przesuniƒôcie punktu pracy
+   % PrzesuniÍcie punktu pracy
    Ytemp(k - 1) = Y(k - 1) - Ypp;
    
    % PID
@@ -46,10 +48,10 @@ for k = 12:N
    prevE = e;
    prevUi = uI;
    
-   % Przesuniƒôcie punktu pracy pt. 2
+   % PrzesuniÍcie punktu pracy pt. 2
    U(k) = U(k) + Upp;
    
-   % Uwzglƒôdnienie ogranicze≈Ñ
+   % UwzglÍdnienie ograniczeÒ
    if U(k) - U(k - 1) > dUmax
       U(k) = U(k - 1) + dUmax;
       disp('dUmax')
@@ -68,23 +70,22 @@ for k = 12:N
    
    % Aplikacja do obiektu
    Y(k) = symulacja_obiektu2Y(U(k - 10), U(k - 11), Y(k - 1), Y(k - 2));
+   error = error + (Yzad(k) + Ypp - Y(k))^2;
 end
 
 figure;
 subplot(2, 1, 1);
 stairs(Y)
-% % Zakomentowany fragment wyznacza przedzia≈Ç +/- 10% warto≈õci zadanej
+% % Zakomentowany fragment wyznacza przedzia≥ +/- 10% wartoúci zadanej
 % hold on
 % plot(Yzad*0.9 + Ypp, '--', 'Color', [.9 0 0])
 % hold on
 % plot(Yzad*1.1 + Ypp, '--', 'Color', [.9 0 0])
-title('Wyj≈õcie obiektu');
-xlabel('Chwila (k)');
-ylabel('Wyj≈õcie (y)');
-legend('Y','Yzad','location','best');
-    legend('boxoff')
+title('Wyjúcie obiektu');
+xlabel('Czas');
+ylabel('Wyjúcie (y)');
 subplot(2, 1, 2);
 stairs(U)
 title('Sterowanie')
-xlabel('Chwila (k)')
+xlabel('Czas')
 ylabel('Sterowanie (u)')

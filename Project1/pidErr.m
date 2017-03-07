@@ -1,15 +1,19 @@
 % Regulator PID
-
-clear all
+function [error] = pidE(argK, argTd, argTi, draw)
 
 % Ustawienia symulacji
-N = 300;
-Yzad = ones(N, 1) * 0.2;
-
+N = 1000;
+Yzad = ones(N,1);
+Yzad(1:200) = 0.1;
+Yzad(200:400)=0.2;
+Yzad(400:600)=0.3;
+Yzad(600:800)=0.35;
+Yzad(800:1000)=0.4;
+error = 0;
 % Nastawy regulatora
-K = 1.85 / 2; %1.85 oscylacje niegasnace
-Ti = 30;
-Td = 2.5;
+K = argK; %1.85 oscylacje niegasnace
+Ti =argTi;
+Td = argTd;
 T = 0.5;
 
 % Charakterystyka obiektu
@@ -31,7 +35,7 @@ prevE = 0;
 prevUi = 0;
 
 for k = 12:N
-   % Przesunięcie punktu pracy
+   % Przesuni�cie punktu pracy
    Ytemp(k - 1) = Y(k - 1) - Ypp;
    
    % PID
@@ -46,10 +50,10 @@ for k = 12:N
    prevE = e;
    prevUi = uI;
    
-   % Przesunięcie punktu pracy pt. 2
+   % Przesuni�cie punktu pracy pt. 2
    U(k) = U(k) + Upp;
    
-   % Uwzględnienie ograniczeń
+   % Uwzgl�dnienie ogranicze�
    if U(k) - U(k - 1) > dUmax
       U(k) = U(k - 1) + dUmax;
       disp('dUmax')
@@ -68,23 +72,31 @@ for k = 12:N
    
    % Aplikacja do obiektu
    Y(k) = symulacja_obiektu2Y(U(k - 10), U(k - 11), Y(k - 1), Y(k - 2));
+   error = error + (Yzad(k) + Ypp - Y(k))^2;
 end
-
+if draw == true
 figure;
 subplot(2, 1, 1);
 stairs(Y)
-% % Zakomentowany fragment wyznacza przedział +/- 10% wartości zadanej
+hold on
+stairs(Yzad + Ypp)
+legend('Y','Yzad','location','best');
+    legend('boxoff')
+% % Zakomentowany fragment wyznacza przedzia� +/- 10% warto�ci zadanej
 % hold on
 % plot(Yzad*0.9 + Ypp, '--', 'Color', [.9 0 0])
 % hold on
 % plot(Yzad*1.1 + Ypp, '--', 'Color', [.9 0 0])
 title('Wyjście obiektu');
-xlabel('Chwila (k)');
+% mTextBox = uicontrol('style','text')
+% set(mTextBox,'String','K = 0.92, Td = 4, Ti = 20. Err = 0.7066')
+% set(mTextBox,'Position',[20; 200; 220; 20])
+xlabel('Czas');
 ylabel('Wyjście (y)');
-legend('Y','Yzad','location','best');
-    legend('boxoff')
 subplot(2, 1, 2);
 stairs(U)
 title('Sterowanie')
-xlabel('Chwila (k)')
+xlabel('Czas')
 ylabel('Sterowanie (u)')
+end
+end
