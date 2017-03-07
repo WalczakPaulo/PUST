@@ -1,5 +1,56 @@
-\chapter{chapter name}
-
-Eksperymentalne testy w poszukiwaniu lepszy nastaw regulatora PID rozpoczynamy od tych wyznaczonych za pomocą eksperymentu ZN.
+\chapter{Dobór nastaw}
+Eksperymentalne testy w poszukiwaniu lepszych nastaw regulatora PID rozpoczynamy od tych wyznaczonych za pomocą eksperymentu ZN.
 Najpierw zaczniemy regulować nastawę Td. Po kilku testach zauważamy spadek błędu, dla wartości Ti = 20. Poprawę oceniamy za pomocą wskaźnika numerycznego Error,
-gdyż ciężko jest ujrzeć zmianę obserwując jedynie przebiegi. Następnie sprawdzamy wartość Td. Po testach uważamy za dobrą wartość Td = 4.
+gdyż ciężko jest ujrzeć zmianę obserwując jedynie przebiegi. Następnie sprawdzamy wartość Td. Po testach uważamy za dobrą wartość Td = 4. Działanie takiego regulatora
+obrazują wykresy \ref{fig:inz_pid_out} i \ref{fig:inz_pid_ster}.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height=0.375\textwidth,
+xmin=0,xmax=1000,ymin=2.5,ymax=3.5,
+xlabel={Chwila (k)},
+ylabel={Wyjście (y)},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={2.5, 3, 3.5},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/pid_inz_y.txt};
+\addplot[red,semithick] file {wykresy/pid_inz_yzad.txt};
+
+\legend{Wyjście, Wartość zadana}
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście obiektu z regulatorem PID z nastawami wyznaczonymi metodą inżynierską.}
+\label{fig:inz_pid_out}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height=0.375\textwidth,
+xmin=0,xmax=1000,ymin=0.6,ymax=1.2,
+xlabel={Chwila (k)},
+ylabel={Sterowanie (u)},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0.6, 0.8, 1, 1.2},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/pid_inz_u.txt};
+
+% \legend{Wyjście, Wartość zadana}
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie obiektu z regulatorem PID z nastawami wyznaczonymi metodą inżynierską.}
+\label{fig:inz_pid_ster}
+\end{figure}

@@ -2,4 +2,5 @@
 \contentsline {chapter}{\numberline {2\relax .\kern .5em }Punkt pracy}{3}
 \contentsline {chapter}{\numberline {3\relax .\kern .5em }Badanie zachowania obiektu}{4}
 \contentsline {chapter}{\numberline {4\relax .\kern .5em }Odpowied\IeC {\'z} skokowa na potrzeby DMC}{6}
-\contentsline {chapter}{\numberline {5\relax .\kern .5em }Optymalizacja}{7}
+\contentsline {chapter}{\numberline {5\relax .\kern .5em }Dob\IeC {\'o}r nastaw}{7}
+\contentsline {chapter}{\numberline {6\relax .\kern .5em }Optymalizacja}{8}
