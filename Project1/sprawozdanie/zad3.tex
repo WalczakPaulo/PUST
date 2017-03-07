@@ -11,8 +11,25 @@ skoku sterowania.
 \end{equation}
 Wyniki zostały przedstawione na wykresie \ref{fig:skok_DMC}. Widać na nich
 poprawność wyliczonego w rozdziale \ref{sec:zad2} wzmocnienia statycznego.
-\begin{figure}
-  \includegraphics{wykresy/3.eps}
-  \caption{Odpowiedź skokowa znormalizowana na potrzeby algorytmu DMC}
-  \label{fig:skok_DMC}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=0,xmax=150,ymin=0,ymax=1.8,
+xlabel={Chwila (k)},
+ylabel={Wartość $s_n$},
+xtick={0, 50, 100, 150},
+ytick={0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8},
+% legend pos=north east,
+y ==tick label style={/pgf/number format/1000 sep=},
+]
+\addplot[blue,semithick] file {wykresy/zad3.txt};
+% \addplot[red,semithick] file {wykresy/zad1U.txt};
+% \legend{Wyjście, Sterowanie}
+\end{axis}
+\end{tikzpicture}
+\caption{Odpowiedź skokowa znormalizowana na potrzeby algorytmu DMC.}
+\label{fig:skok_DMC}
 \end{figure}

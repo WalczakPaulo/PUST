@@ -8,21 +8,56 @@ do zaplanowanej wcześniej wartości sterowania. Biorąc pod uwagę ograniczenia
 na wartość sterowania $U^{min} = 0,6$ i $U^{max} = 1,2$ wartość sterowania
 po skoku mieściła się w owym zakresie. Wyniki eksperymentu zostały zobrazowane
 na wykresie \ref{fig:skoki}.
-\begin{figure}
-  \includegraphics{wykresy/skoki.eps}
-  \caption{Wyniki eksperymentu skoków do różnych wartości sterowania. Konkretne
-  wartości zostały opisane w legendzie.}
-  \label{fig:skoki}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=0,xmax=150,ymin=2.4,ymax=3.6,
+xlabel={Chwila (k)},
+ylabel={Wyjście (y)},
+xtick={0, 50, 100, 150},
+ytick={2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6},
+legend pos=north west,
+y tick label style={/pgf/number format/1000 sep=},
+]
+\addplot[red,semithick] file {wykresy/skok0.6.txt};
+\addplot[blue,semithick] file {wykresy/skok0.8.txt};
+\addplot[green,semithick] file {wykresy/skok1.txt};
+\addplot[orange,semithick] file {wykresy/skok1.1.txt};
+\addplot[purple,semithick] file {wykresy/skok1.2.txt};
+\legend{$0.6$,$0.8$,$1$,$1.1$,$1.2$}
+\end{axis}
+\end{tikzpicture}
+\caption{Odpowiedzi skokowe dla różnych wartości sterowania.
+(Wartość końcowa sterowania w legendzie)}
+\label{fig:skoki}
 \end{figure}
+
 Następnie wyznaczona została charakterystyka statyczna obiektu. Znaleziona
 została poprzez sprawdzenie przy jakiej wartości wyjścia obiekt stabilizuje
 się dla danej wartości sterowania. Na podstawie tego sporządzony został wykres.
 Wartości zostały zmierzone dla wartości pomiędzy ograniczeniam, z krokiem $0.01$.
 Wyniki zostały zamieszczone na wykresie \ref{fig:char_stat}.
-\begin{figure}
-  \includegraphics{wykresy/char_stat.eps}
-  \caption{Charakterystyka statyczna obiektu.}
-  \label{fig:char_stat}
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=0.6,xmax=1.2,ymin=2.4,ymax=3.6,
+xlabel={Sterowanie (u)},
+ylabel={Wyjście (y)},
+xtick={0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2},
+ytick={2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6},
+% legend pos=north west,
+y ==tick label style={/pgf/number format/1000 sep=},
+]
+\addplot[blue,semithick] file {wykresy/zad2b.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Charakterystyka statyczna obiektu.}
+\label{fig:char_stat}
 \end{figure}
 Otrzymana charakterystyka jest liniowa. Wzmocnienie statyczne, będące pochodną
 charakterystyki statycznej ma wartość $1,7$.

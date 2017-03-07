@@ -4,8 +4,25 @@ zweryfikowane. Weryfikacja polegała na prostym sprawdzeniu na jakiej
 wartości wyjścia stabilizuje się obiekt przy zadanym sterowaniu.
 Eksperyment potwierdził wcześniej opisane wartości, a jego przebieg
 obrazuje wykres \ref{fig:pkt_prac}
-\begin{figure}
-  \includegraphics{wykresy/1.eps}
-  \caption{Zachowanie obiektu dla stałej wartości sterowania $U = 0.9$}
-  \label{fig:pkt_prac}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=0,xmax=300,ymin=0,ymax=3,
+xlabel={Chwila (k)},
+ylabel={Wartość wyjścia/sterowania},
+xtick={0, 50, 100, 150, 200, 250, 300},
+ytick={0, 0.5, 1, 1.5, 2, 2.5, 3},
+legend pos=north east,
+y ==tick label style={/pgf/number format/1000 sep=},
+]
+\addplot[blue,semithick] file {wykresy/zad1Y.txt};
+\addplot[red,semithick] file {wykresy/zad1U.txt};
+\legend{Wyjście, Sterowanie}
+\end{axis}
+\end{tikzpicture}
+\caption{Zachowanie obiektu dla stałej wartości sterowania $U = 0.9$.}
+\label{fig:pkt_prac}
 \end{figure}

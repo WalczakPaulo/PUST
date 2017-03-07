@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.1.17)  7 MAR 2017 11:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.1.17)  7 MAR 2017 19:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1688,85 +1688,26 @@ Rozdzia\PlPrIeC {\l } 1.
 
 ]
 Rozdzia\PlPrIeC {\l } 2.
-Package epstopdf Info: Source file: <wykresy/1.eps>
-(epstopdf)                    date: 2017-03-03 11:31:16
-(epstopdf)                    size: 45291 bytes
-(epstopdf)             Output file: <wykresy/1-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-03-03 11:31:28
-(epstopdf)                    size: 14419 bytes
-(epstopdf)             Command: <repstopdf --outfile=wykresy/1-eps-converted-to
-.pdf wykresy/1.eps>
-(epstopdf)             \includegraphics on input line 8.
-Package epstopdf Info: Output file is already uptodate.
-<wykresy/1-eps-converted-to.pdf, id=20, 414.54875pt x 294.09875pt>
-File: wykresy/1-eps-converted-to.pdf Graphic file (type pdf)
-
-<use wykresy/1-eps-converted-to.pdf>
-Package pdftex.def Info: wykresy/1-eps-converted-to.pdf used on input line 8.
-(pdftex.def)             Requested size: 414.54773pt x 294.09802pt.
+PGFPlots: reading {wykresy/zad1Y.txt}
+PGFPlots: reading {wykresy/zad1U.txt}
 ) (./zad2.tex [3
 
- <./wykresy/1-eps-converted-to.pdf>]
+]
 Rozdzia\PlPrIeC {\l } 3.
-Package epstopdf Info: Source file: <wykresy/skoki.eps>
-(epstopdf)                    date: 2017-03-03 12:27:38
-(epstopdf)                    size: 43572 bytes
-(epstopdf)             Output file: <wykresy/skoki-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-03-03 12:27:43
-(epstopdf)                    size: 12121 bytes
-(epstopdf)             Command: <repstopdf --outfile=wykresy/skoki-eps-converte
-d-to.pdf wykresy/skoki.eps>
-(epstopdf)             \includegraphics on input line 12.
-Package epstopdf Info: Output file is already uptodate.
-<wykresy/skoki-eps-converted-to.pdf, id=29, 421.575pt x 316.18124pt>
-File: wykresy/skoki-eps-converted-to.pdf Graphic file (type pdf)
-
-<use wykresy/skoki-eps-converted-to.pdf>
-Package pdftex.def Info: wykresy/skoki-eps-converted-to.pdf used on input line 
-12.
-(pdftex.def)             Requested size: 421.57396pt x 316.18047pt.
-Package epstopdf Info: Source file: <wykresy/char_stat.eps>
-(epstopdf)                    date: 2017-03-02 10:43:36
-(epstopdf)                    size: 20164 bytes
-(epstopdf)             Output file: <wykresy/char_stat-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-03-03 11:52:22
-(epstopdf)                    size: 8443 bytes
-(epstopdf)             Command: <repstopdf --outfile=wykresy/char_stat-eps-conv
-erted-to.pdf wykresy/char_stat.eps>
-(epstopdf)             \includegraphics on input line 23.
-Package epstopdf Info: Output file is already uptodate.
-
-<wykresy/char_stat-eps-converted-to.pdf, id=30, 429.605pt x 339.2675pt>
-File: wykresy/char_stat-eps-converted-to.pdf Graphic file (type pdf)
-
-<use wykresy/char_stat-eps-converted-to.pdf>
-Package pdftex.def Info: wykresy/char_stat-eps-converted-to.pdf used on input l
-ine 23.
-(pdftex.def)             Requested size: 429.60394pt x 339.26666pt.
+PGFPlots: reading {wykresy/skok0.6.txt}
+PGFPlots: reading {wykresy/skok0.8.txt}
+PGFPlots: reading {wykresy/skok1.txt}
+PGFPlots: reading {wykresy/skok1.1.txt}
+PGFPlots: reading {wykresy/skok1.2.txt}
+PGFPlots: reading {wykresy/zad2b.txt}
 ) (./zad3.tex [4
 
- <./wykresy/skoki-eps-converted-to.pdf>] [5 <./wykresy/char_stat-eps-converted-
-to.pdf>]
+] [5]
 Rozdzia\PlPrIeC {\l } 4.
-Package epstopdf Info: Source file: <wykresy/3.eps>
-(epstopdf)                    date: 2017-03-03 12:14:39
-(epstopdf)                    size: 24620 bytes
-(epstopdf)             Output file: <wykresy/3-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-03-03 12:23:29
-(epstopdf)                    size: 9085 bytes
-(epstopdf)             Command: <repstopdf --outfile=wykresy/3-eps-converted-to
-.pdf wykresy/3.eps>
-(epstopdf)             \includegraphics on input line 15.
-Package epstopdf Info: Output file is already uptodate.
-<wykresy/3-eps-converted-to.pdf, id=49, 429.605pt x 339.2675pt>
-File: wykresy/3-eps-converted-to.pdf Graphic file (type pdf)
-
-<use wykresy/3-eps-converted-to.pdf>
-Package pdftex.def Info: wykresy/3-eps-converted-to.pdf used on input line 15.
-(pdftex.def)             Requested size: 429.60394pt x 339.26666pt.
+PGFPlots: reading {wykresy/zad3.txt}
 ) (./optymalizacja.tex [6
 
- <./wykresy/3-eps-converted-to.pdf>]
+]
 Rozdzia\PlPrIeC {\l } 5.
 Package epstopdf Info: Source file: <wykresy/optim_pid.eps>
 (epstopdf)                    date: 2017-03-07 11:15:43
@@ -1778,7 +1719,7 @@ Package epstopdf Info: Source file: <wykresy/optim_pid.eps>
 erted-to.pdf wykresy/optim_pid.eps>
 (epstopdf)             \includegraphics on input line 15.
 Package epstopdf Info: Output file is already uptodate.
-<wykresy/optim_pid-eps-converted-to.pdf, id=59, 414.54875pt x 294.09875pt>
+<wykresy/optim_pid-eps-converted-to.pdf, id=37, 414.54875pt x 294.09875pt>
 File: wykresy/optim_pid-eps-converted-to.pdf Graphic file (type pdf)
 
 <use wykresy/optim_pid-eps-converted-to.pdf>
@@ -1789,17 +1730,17 @@ ine 15.
 
  <./wykresy/optim_pid-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <wykresy/optim_dmc.eps>
-(epstopdf)                    date: 2017-03-07 11:12:20
-(epstopdf)                    size: 141867 bytes
+(epstopdf)                    date: 2017-03-07 14:55:40
+(epstopdf)                    size: 145939 bytes
 (epstopdf)             Output file: <wykresy/optim_dmc-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-03-07 11:20:33
-(epstopdf)                    size: 35798 bytes
+(epstopdf)                    date: 2017-03-07 15:33:27
+(epstopdf)                    size: 35709 bytes
 (epstopdf)             Command: <repstopdf --outfile=wykresy/optim_dmc-eps-conv
 erted-to.pdf wykresy/optim_dmc.eps>
 (epstopdf)             \includegraphics on input line 33.
 Package epstopdf Info: Output file is already uptodate.
 
-<wykresy/optim_dmc-eps-converted-to.pdf, id=71, 421.575pt x 316.18124pt>
+<wykresy/optim_dmc-eps-converted-to.pdf, id=49, 421.575pt x 316.18124pt>
 File: wykresy/optim_dmc-eps-converted-to.pdf Graphic file (type pdf)
 
 <use wykresy/optim_dmc-eps-converted-to.pdf>
@@ -1808,27 +1749,29 @@ ine 33.
 (pdftex.def)             Requested size: 421.57396pt x 316.18047pt.
 ) [8 <./wykresy/optim_dmc-eps-converted-to.pdf>] (./sprawozdanie.aux) ) 
 Here is how much of TeX's memory you used:
- 35897 strings out of 494918
- 854071 string characters out of 6180101
- 908516 words of memory out of 5000000
- 38603 multiletter control sequences out of 15000+600000
+ 36388 strings out of 494918
+ 868282 string characters out of 6180101
+ 1017380 words of memory out of 5000000
+ 39090 multiletter control sequences out of 15000+600000
  22644 words of font info for 67 fonts, out of 8000000 for 9000
  34 hyphenation exceptions out of 8191
- 55i,8n,77p,10403b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 57i,19n,100p,10403b,2122s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/sh
-are/texlive/texmf-dist/fonts/enc/dvips/pl/plit.enc}{/usr/share/texlive/texmf-di
-st/fonts/enc/dvips/pl/plmi.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/p
-l/plms.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/plrm.enc}</usr/sha
+are/texlive/texmf-dist/fonts/enc/dvips/pl/plmi.enc}{/usr/share/texlive/texmf-di
+st/fonts/enc/dvips/pl/plit.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/p
+l/plrm.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/plms.enc}</usr/sha
 re/texlive/texmf-dist/fonts/type1/public/pl/plbx10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/pl/plbx12.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/pl/plmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/p
-lmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/plr10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/pl/plsy10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/pl/plti10.pfb>
-Output written on sprawozdanie.pdf (9 pages, 160982 bytes).
+lmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/plmi8.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/pl/plr10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/pl/plr8.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/pl/plsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/pl
+ti10.pfb>
+Output written on sprawozdanie.pdf (9 pages, 151746 bytes).
 PDF statistics:
- 111 PDF objects out of 1000 (max. 8388607)
- 78 compressed objects within 1 object stream
+ 95 PDF objects out of 1000 (max. 8388607)
+ 68 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 43 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 23 words of extra memory for PDF output out of 10000 (max. 10000000)
 
