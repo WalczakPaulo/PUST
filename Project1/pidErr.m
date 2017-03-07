@@ -1,14 +1,13 @@
 % Regulator PID
-function [error] = pidE(argK, argTd, argTi, draw)
+function [error] = pidErr(argK, argTd, argTi, draw)
 
 % Ustawienia symulacji
 N = 1000;
 Yzad = ones(N,1);
-Yzad(1:200) = 0.1;
-Yzad(200:400)=0.2;
-Yzad(400:600)=0.3;
-Yzad(600:800)=0.35;
-Yzad(800:1000)=0.4;
+Yzad(1:200) = 2.6;
+Yzad(201:400) = 2.8;
+Yzad(401:700) = 3.1;
+Yzad(701:1000) = 3.4;
 error = 0;
 % Nastawy regulatora
 K = argK; %1.85 oscylacje niegasnace
@@ -21,7 +20,6 @@ Upp = 0.9;
 Ypp = 3.0;
 U = ones(N, 1) * Upp;
 Y = ones(N, 1) * Ypp;
-Ytemp = zeros(N, 1);
 
 % Ograniczenia
 Umax = 1.2;
@@ -36,10 +34,10 @@ prevUi = 0;
 
 for k = 12:N
    % Przesuni�cie punktu pracy
-   Ytemp(k - 1) = Y(k - 1) - Ypp;
-   
+   Yk = Y(k - 1) - Ypp;
+   yzad = Yzad(k-1) - Ypp;
    % PID
-   e = Yzad(k - 1) - Ytemp(k - 1);
+   e = yzad - Yk;
 %    e = Yzad(k - 1) - Y(k - 1);
    
    uP = K * e;
@@ -58,7 +56,7 @@ for k = 12:N
       U(k) = U(k - 1) + dUmax;
       disp('dUmax')
    elseif U(k) - U(k - 1) < dUmin
-      U(k) = U(k - 1) - dUmin;
+      U(k) = U(k - 1) + dUmin;
       disp('dUmin')
    end
    
@@ -72,25 +70,18 @@ for k = 12:N
    
    % Aplikacja do obiektu
    Y(k) = symulacja_obiektu2Y(U(k - 10), U(k - 11), Y(k - 1), Y(k - 2));
-   error = error + (Yzad(k) + Ypp - Y(k))^2;
+   error = error + (Yzad(k) - Y(k))^2;
 end
 if draw == true
 figure;
 subplot(2, 1, 1);
 stairs(Y)
 hold on
-stairs(Yzad + Ypp)
+stairs(Yzad)
 legend('Y','Yzad','location','best');
-    legend('boxoff')
-% % Zakomentowany fragment wyznacza przedzia� +/- 10% warto�ci zadanej
-% hold on
-% plot(Yzad*0.9 + Ypp, '--', 'Color', [.9 0 0])
-% hold on
-% plot(Yzad*1.1 + Ypp, '--', 'Color', [.9 0 0])
+legend('boxoff')
 title('Wyjście obiektu');
-% mTextBox = uicontrol('style','text')
-% set(mTextBox,'String','K = 0.92, Td = 4, Ti = 20. Err = 0.7066')
-% set(mTextBox,'Position',[20; 200; 220; 20])
+
 xlabel('Czas');
 ylabel('Wyjście (y)');
 subplot(2, 1, 2);
