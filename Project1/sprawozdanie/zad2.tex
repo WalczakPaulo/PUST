@@ -20,7 +20,9 @@ ylabel={Wyjście (y)},
 xtick={0, 50, 100, 150},
 ytick={2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6},
 legend pos=north west,
-y tick label style={/pgf/number format/1000 sep=},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
 ]
 \addplot[red,semithick] file {wykresy/skok0.6.txt};
 \addplot[blue,semithick] file {wykresy/skok0.8.txt};
@@ -51,7 +53,9 @@ ylabel={Wyjście (y)},
 xtick={0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2},
 ytick={2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6},
 % legend pos=north west,
-y ==tick label style={/pgf/number format/1000 sep=},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
 ]
 \addplot[blue,semithick] file {wykresy/zad2b.txt};
 \end{axis}

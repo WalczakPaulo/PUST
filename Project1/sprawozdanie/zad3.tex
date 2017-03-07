@@ -23,7 +23,9 @@ ylabel={Wartość $s_n$},
 xtick={0, 50, 100, 150},
 ytick={0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8},
 % legend pos=north east,
-y ==tick label style={/pgf/number format/1000 sep=},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
 ]
 \addplot[blue,semithick] file {wykresy/zad3.txt};
 % \addplot[red,semithick] file {wykresy/zad1U.txt};

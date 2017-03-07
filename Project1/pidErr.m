@@ -89,5 +89,24 @@ stairs(U)
 title('Sterowanie')
 xlabel('Czas')
 ylabel('Sterowanie (u)')
+
+file = fopen('pid_optim_y.txt', 'w');
+for i = 1:N
+   fprintf(file, '%f %f\n', i, Y(i));
+end
+fclose(file);
+
+file = fopen('pid_optim_yzad.txt', 'w');
+for i = 1:N
+   fprintf(file, '%f %f\n', i, Yzad(i));
+end
+fclose(file);
+
+file = fopen('pid_optim_u.txt', 'w');
+for i = 1:N
+   fprintf(file, '%f %f\n', i, U(i));
+end
+fclose(file);
+
 end
 end

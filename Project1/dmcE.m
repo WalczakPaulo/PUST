@@ -92,6 +92,24 @@ if draw == true
     title('Sterowanie');
     xlabel('Chwila (k)')
     ylabel('Wartość sterowania')
+    
+    file = fopen('dmc_optim_y.txt', 'w');
+    for i = 1:1000
+       fprintf(file, '%f %f\n', i, Y(i));
+    end
+    fclose(file);
+    
+    file = fopen('dmc_optim_yzad.txt', 'w');
+    for i = 1:1000
+       fprintf(file, '%f %f\n', i, yzad(i));
+    end
+    fclose(file);
+    
+    file = fopen('dmc_optim_u.txt', 'w');
+    for i = 1:1000
+       fprintf(file, '%f %f\n', i, U(i));
+    end
+    fclose(file);
 end
 end
 

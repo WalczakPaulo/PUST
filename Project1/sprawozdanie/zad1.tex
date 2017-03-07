@@ -16,7 +16,9 @@ ylabel={Wartość wyjścia/sterowania},
 xtick={0, 50, 100, 150, 200, 250, 300},
 ytick={0, 0.5, 1, 1.5, 2, 2.5, 3},
 legend pos=north east,
-y ==tick label style={/pgf/number format/1000 sep=},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
 ]
 \addplot[blue,semithick] file {wykresy/zad1Y.txt};
 \addplot[red,semithick] file {wykresy/zad1U.txt};

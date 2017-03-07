@@ -5,17 +5,64 @@ W obu przypadkach regulatorów, funkcję celu traktujemy jako suma kwadratów b�
 Do wyznaczenia optymalnych parametrów regulatora PID użyliśmy funkcji \emph{fmincon}. Optymalizujemy trzy parametry: $K$ (wzmocnienie - $X(1)$), $T_i$ ($X(2)$) oraz $T_d$ ($X(3)$).
 Ograniczeniem jakie przyjmujemy są dodatnie wartości parametrów regulatora. Po uruchomieniu \emph{fmincon} otrzymujemy następujące parametry:
 \begin{align}
-  K &= 1.2958 \nonumber \\
-  T_d &= 21.8912 \\
-  T_i &= 4.7082 \nonumber
+  K &= 1,2253 \nonumber \\
+  T_d &= 4,4339 \\
+  T_i &= 27,3968 \nonumber
 \end{align}
-Wyniki zostały zobrazowane na wykresie \ref{fig:optim_pid}.
+Wyniki zostały zobrazowane na wykresach \ref{fig:optim_pid_out}, oraz \ref{fig:optim_pid_ster}.
 Zauważamy, że funkcja celu przyjmuje niższą wartość niż dla parametrów regulatora wyznaczonego metodą inżynierską, co sugeruje prawidłowe działanie funkcji optymalizacji.
-\begin{figure}
-  \includegraphics{wykresy/optim_pid.eps}
-  \caption{Regulator PID z nastawami wyznaczonymi funkcją \emph{fmincon}.}
-  \label{fig:optim_pid}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height=0.375\textwidth,
+xmin=0,xmax=1000,ymin=2.5,ymax=3.5,
+xlabel={Chwila (k)},
+ylabel={Wyjście (y)},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={2.5, 3, 3.5},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/pid_optim_y.txt};
+\addplot[red,semithick] file {wykresy/pid_optim_yzad.txt};
+
+\legend{Wyjście, Wartość zadana}
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście obiektu z regulatorem PID z nastawami wyznaczonymi funkcją \emph{fmincon}.}
+\label{fig:optim_pid_out}
 \end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height=0.375\textwidth,
+xmin=0,xmax=1000,ymin=0.6,ymax=1.2,
+xlabel={Chwila (k)},
+ylabel={Sterowanie (u)},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0.6, 0.8, 1, 1.2},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/pid_optim_u.txt};
+
+% \legend{Wyjście, Wartość zadana}
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie obiektu z regulatorem PID z nastawami wyznaczonymi funkcją \emph{fmincon}.}
+\label{fig:optim_pid_ster}
+\end{figure}
+
 Do wyznaczenia optymalnych parametrów regulatora DMC użyliśmy funkcji \emph{GA}. Jest to algorytm genetyczny umożliwiający znalezienie minimum danej funkcji. Optymalizujemy trzy parametry:
 $N$ - horyzont predykcji,
 $N_u$ - horyzont sterowania,
@@ -24,13 +71,58 @@ Użycie algorytmu \emph{GA} motywujemy tym, że w przeciwieństwie do \emph{fmin
 Po uruchomieniu \emph{GA} otrzymujemy następujące parametry:
 \begin{align}
   N &= 150 \nonumber \\
-  N_u &= 3 \\
-  \lambda &= 8.3076 \nonumber
+  N_u &= 2 \\
+  \lambda &= 3,3089 \nonumber
 \end{align}
-Wyniki obrazuje wykres \ref{fig:optim_dmc}.
+Wyniki obrazują wykresy \ref{fig:optim_dmc_out} i \ref{fig:optim_dmc_ster}.
 Zauważamy, że funkcja celu przyjmuje niższą wartość niż dla parametrów regulatora DMC wyznaczonego na chybił trafił, oraz zdecydowanie lepsze niż parametry optymalne regulatora PID.
-\begin{figure}
-  \includegraphics{wykresy/optim_dmc.eps}
-  \caption{Regulator DMC z nastawami wyznaczonymi funkcją \emph{GA}.}
-  \label{fig:optim_dmc}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height=0.375\textwidth,
+xmin=0,xmax=1000,ymin=2.5,ymax=3.5,
+xlabel={Chwila (k)},
+ylabel={Wyjście (y)},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={2.5, 3, 3.5},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/dmc_optim_y.txt};
+\addplot[red,semithick] file {wykresy/dmc_optim_yzad.txt};
+
+\legend{Wyjście, Wartość zadana}
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście obiektu z regulatorem DMC z nastawami wyznaczonymi funkcją \emph{GA}.}
+\label{fig:optim_dmc_out}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height=0.375\textwidth,
+xmin=0,xmax=1000,ymin=0.6,ymax=1.2,
+xlabel={Chwila (k)},
+ylabel={Sterowanie (u)},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0.6, 0.8, 1, 1.2},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}]
+\addplot[blue,semithick] file {wykresy/dmc_optim_u.txt};
+
+% \legend{Wyjście, Wartość zadana}
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie obiektu z regulatorem DMC z nastawami wyznaczonymi funkcją \emph{GA}.}
+\label{fig:optim_dmc_ster}
 \end{figure}
