@@ -12,6 +12,7 @@ Upp = 0.9;
 Umin = 0.6;
 Umax = 1.2;
 dUmax = 0.1;
+dUmin = -0.1;
 
 Yzad = zeros(N,1);
 Y0 = zeros(N,1);
@@ -55,6 +56,8 @@ for k = 12:1000
     dU = K*(Yzad - Y0);
     if dU(1) > dUmax
         dU(1) = dUmax;
+    elseif dU(1) < dUmin
+       dU(1) = dUmin;
     end
     
     dUp(2:end) = dUp(1:end-1);

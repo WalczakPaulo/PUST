@@ -2,7 +2,7 @@
 \chapter{Optymalizacja}
 Do wyznaczenia optymalnych parametrów regulatorów PID i DMC użyliśmy funkcji \emph{fmincon} oraz \emph{GA}. Są to funkcje pozwalające wyznaczyć minimum (globalne) zadanej funkcji celu.
 W obu przypadkach regulatorów, funkcję celu traktujemy jako suma kwadratów błędów ( między wyjściem obiektu a wartością zadaną ).
-Do wyznaczenia optymalnych parametrów regulatora PID użyliśmy funkcji \emph{fmincon}. Optymalizujemy trzy parametry: K (wzmocnienie - X(1)), Ti (X(2)) oraz Td (X(3)).
+Do wyznaczenia optymalnych parametrów regulatora PID użyliśmy funkcji \emph{fmincon}. Optymalizujemy trzy parametry: $K$ (wzmocnienie - $X(1)$), $T_i$ ($X(2)$) oraz $T_d$ ($X(3)$).
 Ograniczeniem jakie przyjmujemy są dodatnie wartości parametrów regulatora. Po uruchomieniu \emph{fmincon} otrzymujemy następujące parametry:
 \begin{align}
   K &= 1.2958 \nonumber \\
@@ -17,8 +17,8 @@ Zauważamy, że funkcja celu przyjmuje niższą wartość niż dla parametrów r
   \label{fig:optim_pid}
 \end{figure}
 Do wyznaczenia optymalnych parametrów regulatora DMC użyliśmy funkcji \emph{GA}. Jest to algorytm genetyczny umożliwiający znalezienie minimum danej funkcji. Optymalizujemy trzy parametry:
-N - horyzont predykcji,
-Nu - horyzont sterowania,
+$N$ - horyzont predykcji,
+$N_u$ - horyzont sterowania,
 $\lambda$ - współczynnik 'kary' za zmiany sterowania.
 Użycie algorytmu \emph{GA} motywujemy tym, że w przeciwieństwie do \emph{fmincon}, możemy wprowadzić ograniczenie na N oraz Nu, tak aby ich wartości mogły być dodatnie całkowite.
 Po uruchomieniu \emph{GA} otrzymujemy następujące parametry:
