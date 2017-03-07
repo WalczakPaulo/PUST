@@ -50,8 +50,8 @@ yzad(401:700) = 3.1;
 yzad(701:1000) = 3.4;
 
 for k = 12:1000
-    Yk(1:end) = Y(k-1);
-    Yzad(1:end) = yzad(k);
+    Yk(1:end) = Y(k-1) - Ypp;
+    Yzad(1:end) = yzad(k) - Ypp;
     Y0 = Yk + Mp*dUp;
     dU = K*(Yzad - Y0);
     if dU(1) > dUmax
@@ -63,13 +63,15 @@ for k = 12:1000
     dUp(2:end) = dUp(1:end-1);
     dUp(1) = dU(1);
     
-    ukk = U(k-1) + dU(1);
-    if ukk < Umin
-        ukk = Umin;
-    elseif ukk > Umax
-        ukk = Umax;
+    uk_1 = U(k-1) - Upp;
+    ukk = uk_1 + dU(1);
+
+    if ukk < Umin - Upp
+        ukk = Umin - Upp;
+    elseif ukk > Umax - Upp
+        ukk = Umax - Upp;
     end
-    U(k) = ukk;
+    U(k) = ukk + Upp;
     Y(k) = symulacja_obiektu2Y(U(k-10),U(k-11),Y(k-1),Y(k-2));
     error = error + (yzad(k) - Y(k))^2;
 end
