@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.1.17)  7 MAR 2017 22:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.1.17)  7 MAR 2017 22:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1734,22 +1734,20 @@ Here is how much of TeX's memory you used:
  34 hyphenation exceptions out of 8191
  57i,19n,100p,10403b,2124s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/p
-ltt.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/plmi.enc}{/usr/share/
-texlive/texmf-dist/fonts/enc/dvips/pl/plit.enc}{/usr/share/texlive/texmf-dist/f
-onts/enc/dvips/pl/plrm.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/pl
-ms.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/pl/plbx10.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/pl/plbx12.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/pl/plmi10.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/pl/plmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/p
-lmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/plr10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/pl/plr8.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/pl/plsy10.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/pl/plti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/p
-ltt10.pfb>
-Output written on sprawozdanie.pdf (10 pages, 156613 bytes).
+lmi.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/plit.enc}{/usr/share/
+texlive/texmf-dist/fonts/enc/dvips/pl/plrm.enc}{/usr/share/texlive/texmf-dist/f
+onts/enc/dvips/pl/plms.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/pl
+/plbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/plbx12.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/pl/plmi10.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/pl/plmi7.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/pl/plmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+pl/plr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/plr8.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/pl/plsy10.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/pl/plti10.pfb>
+Output written on sprawozdanie.pdf (10 pages, 152982 bytes).
 PDF statistics:
- 85 PDF objects out of 1000 (max. 8388607)
- 62 compressed objects within 1 object stream
+ 80 PDF objects out of 1000 (max. 8388607)
+ 58 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
