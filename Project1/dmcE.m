@@ -71,13 +71,22 @@ for k = 12:1000
     error = error + (yzad(k) - Y(k))^2;
 end
 if draw == true
+   figure;
+   subplot(2, 1, 1)
     stairs(Y)
     hold on
-    stairs(U)
     stairs(yzad)
-    xlabel('k')
-    ylabel('value')
-    legend('Y(k)','U(k)','Yzad(k)','location','best');
+    title('Wyjście obiektu');
+    xlabel('Chwila (k)')
+    ylabel('Wartość wyjścia/zadana')
+    legend('Y','Yzad','location','best');
+    legend('boxoff')
+    
+    subplot(2, 1, 2)
+    stairs(U)
+    title('Sterowanie');
+    xlabel('Chwila (k)')
+    ylabel('Wartość sterowania')
 end
 end
 

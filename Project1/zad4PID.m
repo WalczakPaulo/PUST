@@ -79,10 +79,12 @@ stairs(Y)
 % hold on
 % plot(Yzad*1.1 + Ypp, '--', 'Color', [.9 0 0])
 title('Wyjście obiektu');
-xlabel('Czas');
+xlabel('Chwila (k)');
 ylabel('Wyjście (y)');
+legend('Y','Yzad','location','best');
+    legend('boxoff')
 subplot(2, 1, 2);
 stairs(U)
 title('Sterowanie')
-xlabel('Czas')
+xlabel('Chwila (k)')
 ylabel('Sterowanie (u)')

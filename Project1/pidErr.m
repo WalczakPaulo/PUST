@@ -1,6 +1,5 @@
 % Regulator PID
 function [error] = pidE(argK, argTd, argTi, draw)
-clear all
 
 % Ustawienia symulacji
 N = 1000;
@@ -9,7 +8,7 @@ Yzad(1:200) = 0.1;
 Yzad(200:400)=0.2;
 Yzad(400:600)=0.3;
 Yzad(600:800)=0.35;
-Yzad(800:10000)=0.4;
+Yzad(800:1000)=0.4;
 error = 0;
 % Nastawy regulatora
 K = argK; %1.85 oscylacje niegasnace
@@ -36,7 +35,7 @@ prevE = 0;
 prevUi = 0;
 
 for k = 12:N
-   % Przesuniêcie punktu pracy
+   % Przesuniï¿½cie punktu pracy
    Ytemp(k - 1) = Y(k - 1) - Ypp;
    
    % PID
@@ -51,10 +50,10 @@ for k = 12:N
    prevE = e;
    prevUi = uI;
    
-   % Przesuniêcie punktu pracy pt. 2
+   % Przesuniï¿½cie punktu pracy pt. 2
    U(k) = U(k) + Upp;
    
-   % Uwzglêdnienie ograniczeñ
+   % Uwzglï¿½dnienie ograniczeï¿½
    if U(k) - U(k - 1) > dUmax
       U(k) = U(k - 1) + dUmax;
       disp('dUmax')
@@ -79,17 +78,21 @@ if draw == true
 figure;
 subplot(2, 1, 1);
 stairs(Y)
-% % Zakomentowany fragment wyznacza przedzia³ +/- 10% wartoœci zadanej
+hold on
+stairs(Yzad + Ypp)
+legend('Y','Yzad','location','best');
+    legend('boxoff')
+% % Zakomentowany fragment wyznacza przedziaï¿½ +/- 10% wartoï¿½ci zadanej
 % hold on
 % plot(Yzad*0.9 + Ypp, '--', 'Color', [.9 0 0])
 % hold on
 % plot(Yzad*1.1 + Ypp, '--', 'Color', [.9 0 0])
-title('Wyjœcie obiektu');
-mTextBox = uicontrol('style','text')
-set(mTextBox,'String','K = 0.92, Td = 4, Ti = 20. Err = 0.7066')
-set(mTextBox,'Position',[20; 200; 220; 20])
+title('WyjÅ›cie obiektu');
+% mTextBox = uicontrol('style','text')
+% set(mTextBox,'String','K = 0.92, Td = 4, Ti = 20. Err = 0.7066')
+% set(mTextBox,'Position',[20; 200; 220; 20])
 xlabel('Czas');
-ylabel('Wyjœcie (y)');
+ylabel('WyjÅ›cie (y)');
 subplot(2, 1, 2);
 stairs(U)
 title('Sterowanie')

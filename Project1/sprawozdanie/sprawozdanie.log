@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.1.17)  3 MAR 2017 12:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.1.17)  7 MAR 2017 11:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1764,31 +1764,71 @@ File: wykresy/3-eps-converted-to.pdf Graphic file (type pdf)
 <use wykresy/3-eps-converted-to.pdf>
 Package pdftex.def Info: wykresy/3-eps-converted-to.pdf used on input line 15.
 (pdftex.def)             Requested size: 429.60394pt x 339.26666pt.
-) [6
+) (./optymalizacja.tex [6
 
  <./wykresy/3-eps-converted-to.pdf>]
-(./sprawozdanie.aux) ) 
+Rozdzia\PlPrIeC {\l } 5.
+Package epstopdf Info: Source file: <wykresy/optim_pid.eps>
+(epstopdf)                    date: 2017-03-07 11:15:43
+(epstopdf)                    size: 130174 bytes
+(epstopdf)             Output file: <wykresy/optim_pid-eps-converted-to.pdf>
+(epstopdf)                    date: 2017-03-07 11:20:14
+(epstopdf)                    size: 31968 bytes
+(epstopdf)             Command: <repstopdf --outfile=wykresy/optim_pid-eps-conv
+erted-to.pdf wykresy/optim_pid.eps>
+(epstopdf)             \includegraphics on input line 15.
+Package epstopdf Info: Output file is already uptodate.
+<wykresy/optim_pid-eps-converted-to.pdf, id=59, 414.54875pt x 294.09875pt>
+File: wykresy/optim_pid-eps-converted-to.pdf Graphic file (type pdf)
+
+<use wykresy/optim_pid-eps-converted-to.pdf>
+Package pdftex.def Info: wykresy/optim_pid-eps-converted-to.pdf used on input l
+ine 15.
+(pdftex.def)             Requested size: 414.54773pt x 294.09802pt.
+ [7
+
+ <./wykresy/optim_pid-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <wykresy/optim_dmc.eps>
+(epstopdf)                    date: 2017-03-07 11:12:20
+(epstopdf)                    size: 141867 bytes
+(epstopdf)             Output file: <wykresy/optim_dmc-eps-converted-to.pdf>
+(epstopdf)                    date: 2017-03-07 11:20:33
+(epstopdf)                    size: 35798 bytes
+(epstopdf)             Command: <repstopdf --outfile=wykresy/optim_dmc-eps-conv
+erted-to.pdf wykresy/optim_dmc.eps>
+(epstopdf)             \includegraphics on input line 33.
+Package epstopdf Info: Output file is already uptodate.
+
+<wykresy/optim_dmc-eps-converted-to.pdf, id=71, 421.575pt x 316.18124pt>
+File: wykresy/optim_dmc-eps-converted-to.pdf Graphic file (type pdf)
+
+<use wykresy/optim_dmc-eps-converted-to.pdf>
+Package pdftex.def Info: wykresy/optim_dmc-eps-converted-to.pdf used on input l
+ine 33.
+(pdftex.def)             Requested size: 421.57396pt x 316.18047pt.
+) [8 <./wykresy/optim_dmc-eps-converted-to.pdf>] (./sprawozdanie.aux) ) 
 Here is how much of TeX's memory you used:
- 35881 strings out of 494918
- 853606 string characters out of 6180101
- 907496 words of memory out of 5000000
- 38592 multiletter control sequences out of 15000+600000
- 22108 words of font info for 66 fonts, out of 8000000 for 9000
+ 35897 strings out of 494918
+ 854071 string characters out of 6180101
+ 908516 words of memory out of 5000000
+ 38603 multiletter control sequences out of 15000+600000
+ 22644 words of font info for 67 fonts, out of 8000000 for 9000
  34 hyphenation exceptions out of 8191
  55i,8n,77p,10403b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/plit.en
-c}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/plmi.enc}{/usr/share/texliv
-e/texmf-dist/fonts/enc/dvips/pl/plms.enc}{/usr/share/texlive/texmf-dist/fonts/e
-nc/dvips/pl/plrm.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/pl/plbx1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/plbx12.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/pl/plmi10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/pl/plmi8.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/pl/plr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/pls
-y10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/plti10.pfb>
-Output written on sprawozdanie.pdf (7 pages, 91659 bytes).
+{/usr/sh
+are/texlive/texmf-dist/fonts/enc/dvips/pl/plit.enc}{/usr/share/texlive/texmf-di
+st/fonts/enc/dvips/pl/plmi.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/p
+l/plms.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/plrm.enc}</usr/sha
+re/texlive/texmf-dist/fonts/type1/public/pl/plbx10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/pl/plbx12.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/pl/plmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/p
+lmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/plr10.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/pl/plsy10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/pl/plti10.pfb>
+Output written on sprawozdanie.pdf (9 pages, 160801 bytes).
 PDF statistics:
- 87 PDF objects out of 1000 (max. 8388607)
- 62 compressed objects within 1 object stream
+ 111 PDF objects out of 1000 (max. 8388607)
+ 78 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 43 words of extra memory for PDF output out of 10000 (max. 10000000)
 
