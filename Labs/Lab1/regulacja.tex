@@ -21,15 +21,24 @@ Uwzględniając taki scenariusz stwierdzamy, iż jakość regulacji regulatora
 DMC jest lepsza niż regulatora PID. Niestety pomiary nie były dość długie aby
 dobrze określić jak szybko regulacja kończy oscylacje po drugim kroku, jednak
 w tym przypadku zdaje się, iż regulator DMC ustabilizuje obiekt szybciej.
+W celu uniknięcia przeregulowania w regulatorze DMC, mogliyśmy zastsować 
+większą wartość lambdy w celu mniej "agresywnego" sterowania, jednakże 
+skutkowałoby to spowolnieniem czasu regulacji. Odwrotnie: w celu jeszcze szybszego
+działania regulatora DMC moglibyśmy zmniejszyć parametr Lambda, jednakże wiązałoby
+się to z bardziej agresywnym sterowaniem (w przypadku bardzo małej lambdy, dochodziłoby
+do osiągania ograniczeń nałożonych na sterowanie grzałki). 
 W momencie przed skokiem możemy zauważyć, że utrzymywanie stałej temperatury
 obydu regulatorom wychodzi tak samo dobrze. Ocena jakości sterowania wypada
 zdecydowanie na korzyść regulatora DMC, które jest dużo spokojniejsze, zmiany
 są mniej drastyczne i, w przeciwieństwie do regulatora PID, nie dochodzi do
 ograniczeń. Przy wyliczaniu jakości regulacji jako druga norma odległości
 między wyjściem obiektu, a odpowiadającą mu wartością zadaną otrzymujemy
-wyniki: $E_{PID} = 26.4061$, $E_{DMC} = 27.2064$. Widać, że jakość regulacji
-regulatora PID zdaje się być nieznacznie lepsza. Moim zdaniem nie jest to
-różnica, która skłoniła by mnie do wybrania regulatora PID nad DMC, biorąc
+wyniki: $E_{PID} = 26.4061$, $E_{DMC} = 27.2064$. Należy jednocześnie zwrócić
+uwagę, na fakt że regulator PID startuje z wyższej temperatury, co powoduje,
+że błąd regulacji będzie zaniżony względem regulatora DMC, startującego z niższej 
+temperatury. Widać, że jakość regulacji
+regulatora PID zdaje się być nieznacznie lepsza. Reasumując, naszym zdaniem nie jest to
+różnica, która skłoniła by nas do wybrania regulatora PID nad DMC, biorąc
 pod uwagę wcześniejsze rozważania.
 
 \begin{figure}[tb]
