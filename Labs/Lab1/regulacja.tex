@@ -1,0 +1,82 @@
+\chapter{Regulacja DMC i PID}
+Na koniec laboratorium przygotowaliśmy dwa alogrytmy regulacji. Algorytm PID,
+oraz algorytm DMC w wersji analitycznej, a następnie sprawdziliśmy
+zachowanie obiektu dla tych algorytmów. Przy algorytmach uwzględnione
+zostało ograniczenie na wartość sterowania w granicach $0 \leq u \leq 100$.
+Nastawy dla regulatora PID zostały dobrane eksperymentalnie, na podstawie
+naszych własnych doświadczeń z regulatorem i obiektem. Pierwsze wybrane
+nastawy były dla nas zadowalające, więc pozostaliśmy przy nich.
+\begin{equation}
+  K = 9 \quad T_i = 30 \quad T_d = 2,5
+\end{equation}
+Dla regulatora DMC, z braku odpowiedniej wiedzy o obiekcie,
+przyjęliśmy opcję bezpieczną, czyli długości horyzontów predykcji,
+oraz sterowania równe horyzontowi dynamiki obiektu, oraz parametr $\lambda = 1$.
+Wyniki działania algorytmów ukazuje wykres \ref{fig:reg}, natomiast sterowanie
+generowane przez regulatory wykres \ref{fig:ster}. Na początku regulator
+DMC zdaje się działać dużo wolniej niż PID, jednak przy następnym skoku
+różnica ta już nie jest tak drastyczna, więc prawdopodobnie przy tym pomiarze
+wystąpiły jakieś zakłócenia, na które nie jest odporny żaden z regulatorów.
+Uwzględniając taki scenariusz stwierdzamy, iż jakość regulacji regulatora
+DMC jest lepsza niż regulatora PID. Niestety pomiary nie były dość długie aby
+dobrze określić jak szybko regulacja kończy oscylacje po drugim kroku, jednak
+w tym przypadku zdaje się, iż regulator DMC ustabilizuje obiekt szybciej.
+W momencie przed skokiem możemy zauważyć, że utrzymywanie stałej temperatury
+obydu regulatorom wychodzi tak samo dobrze. Ocena jakości sterowania wypada
+zdecydowanie na korzyść regulatora DMC, które jest dużo spokojniejsze, zmiany
+są mniej drastyczne i, w przeciwieństwie do regulatora PID, nie dochodzi do
+ograniczeń. Przy wyliczaniu jakości regulacji jako druga norma odległości
+między wyjściem obiektu, a odpowiadającą mu wartością zadaną otrzymujemy
+wyniki: $E_{PID} = 26.4061$, $E_{DMC} = 27.2064$. Widać, że jakość regulacji
+regulatora PID zdaje się być nieznacznie lepsza. Moim zdaniem nie jest to
+różnica, która skłoniła by mnie do wybrania regulatora PID nad DMC, biorąc
+pod uwagę wcześniejsze rozważania.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=0,xmax=800,ymin=33,ymax=42,
+xlabel={Czas (s)},
+ylabel={Wartość temperatury (${}^\circ$C)},
+xtick={0, 100, 200, 300, 400, 500, 600, 700, 800},
+ytick={33, 34, 35, 36, 37, 38, 39, 40, 41, 42},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {PID_Y.txt};
+\addplot[red,semithick] file {DMC_Y.txt};
+\addplot[violet,semithick] file {Yzad.txt};
+\legend{Regulator PID, Regulator DMC, Wartość zadana}
+\end{axis}
+\end{tikzpicture}
+\caption{Działanie alogrytmów regulatorów.}
+\label{fig:reg}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=0,xmax=800,ymin=20,ymax=100,
+xlabel={Czas (s)},
+ylabel={Wartość temperatury (${}^\circ$C)},
+xtick={0, 100, 200, 300, 400, 500, 600, 700, 800},
+ytick={20, 30, 40, 50, 60, 70, 80, 90, 100},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {PID_U.txt};
+\addplot[red,semithick] file {DMC_U.txt};
+\legend{Regulator PID, Regulator DMC}
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie generowane przez regulatory.}
+\label{fig:ster}
+\end{figure}

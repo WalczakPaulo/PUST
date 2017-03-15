@@ -1,0 +1,50 @@
+\chapter{Charakterystyka obiektu}
+\label{sec:zad12}
+Pierwszym krokiem tego laboratorium było określenie punktu pracy naszego
+stanowiska dla sterowania $U_{pp} = 27$. Zadanie to było o tyle trudne, że
+w trakcie jego wykonywania zmieniało się nasze stanowisko pracy, z powodu
+problemów z jego użytkowaniem. Stąd punkt pracy został przeprowadzony dla
+dwóch różnych stanowisk, jednak nie różnił on się zbytnio. Dla pierwszego
+stanowiska wynosił $Y_{pp} \approx 33,8$, podczas gdy dla drugiego stanowiska
+przyjęliśmy $Y_{pp} = 33,43$. Następnie wykonane zostały trzy skoki, jednak
+znów problem tutaj był ze zmianą stanowiska. Pierwsze dwa skoki zostały
+wykonane dla pierwszego obiektu, a ostatni dla trzeciego. Skoki te nie
+różnią się drastycznie, jednak biorąc pod uwagę, iż dalsze pracę będą wykonywane
+na drugim obiekcie, to nasze obliczenia zostały opartę na tym ostatnim pomiarze.
+Oczywiście zostały tu zamieszczone wszystkie one na wykresie \ref{fig:skoki}.
+Odpowiedź skokowa przy skoku do wartości sterowania $40$ w zupełności nie
+odpowiada zachowaniu obiektu. Uważamy, że wynika to z tego iż obiekt w trakcie
+skoku nie był w stanie ustalonym a jedynie miał temperaturę początkową taką
+jak w stanie początkowym. Jednak średnia temperatura obiektu była wyższa
+niż w punkcie pomiaru, stąd nieregularny wzrost, oraz wyniki dużo wyższe niż
+wynikałoby ze wzmocnienia statycznego obiektu. Pozostałe dwa skoki zostały
+przeprowadzone staranniej i widać niemal podręcznikową odpowiedż obiektu
+dwuinercyjnego. Warto przy tym zauważyć, że owe dwa skoki zostały przeprowadzone
+na dwóch różnych obiektach, więc możemy wykluczyć lepszą charakterystykę
+jednego obiektu w porównaniu z drugim.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=0,xmax=350,ymin=32,ymax=44,
+xlabel={Czas (s)},
+ylabel={Wartość wyjścia},
+xtick={0, 50, 100, 150, 200, 250, 300, 350},
+ytick={32, 34, 36, 38, 40, 42, 44},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {skok40.txt};
+\addplot[red,semithick] file {skok50.txt};
+\addplot[violet,semithick] file {skok60.txt};
+\legend{Skok do 40, Skok do 50, Skok do 60}
+\end{axis}
+\end{tikzpicture}
+\caption{Odpowiedzi skokowe przy skokach sterowania do wartości opisanych w
+legendzie.}
+\label{fig:skoki}
+\end{figure}
