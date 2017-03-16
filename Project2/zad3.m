@@ -21,7 +21,7 @@ s_u = (s_u-Ypp)/dU;
 
 %%Wykres
 figure;
-plot(s_u)
+stairs(s_u)
 ylabel('Wyjscie (y)')
 xlabel('Iteracje')
 title('Odp. skokowa na sterowanie')
@@ -43,7 +43,7 @@ end
 s_z = (s_z - Ypp)/dZ
 %%I wykres odp skokowej
 figure;
-plot(s_z);
+stairs(s_z);
 title('Odp skokowa na zaklocenie');
 ylabel('Wyjscie (y)');
 xlabel('Iteracje');
