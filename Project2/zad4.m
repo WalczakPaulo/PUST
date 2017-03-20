@@ -9,8 +9,8 @@ Nu = D;
 lambda = 1;
 error = 0;
 
-Ypp = 1.1022;
-Upp = 1;
+Ypp = 0;
+Upp = 0;
 
 Yzad = zeros(N,1);
 Y0 = zeros(N,1);
