@@ -1,0 +1,118 @@
+\chapter{Odpowiedzi skokowe}
+\section{Tor sterowania}
+W tym punkcie badane są odpowiedzi skokowe obiektu na różne wartości skoku sygnału sterowania. Założono, że w chwili początkowej obiekt znajduje się w punkcie pracy. W chwili $k=9$ wykonywany jest sterowania do zadanej wartości. Sygnał zakłócenia ma wartość $Z=0$. Wyniki badań przedstawia wykres \ref{fig:z2_yu}.
+\begin{figure}[!htb]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	width=0.9\textwidth,
+	width=0.9\textwidth,
+	xmin=0,xmax=200,ymin=-3,ymax=3,
+	xlabel={$k$},
+	ylabel={$Y(k)$},
+	xtick={0,50,100,150,200},
+	ytick={-3,-2,-1,0,1,2,3},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+	]
+	\addplot[blue,semithick] file {wykresy/zad2_yu_1.txt};
+	\addplot[brown,semithick] file {wykresy/zad2_yu_2.txt};
+	\addplot[cyan,semithick] file {wykresy/zad2_yu_3.txt};
+	\addplot[green,semithick] file {wykresy/zad2_yu_4.txt};
+	\addplot[lime,semithick] file {wykresy/zad2_yu_5.txt};
+	\addplot[magenta,semithick] file {wykresy/zad2_yu_6.txt};
+	\addplot[orange,semithick] file {wykresy/zad2_yu_7.txt};
+	\addplot[pink,semithick] file {wykresy/zad2_yu_8.txt};
+	\legend{$U=-\num{2}$,$U=-\num{1,5}$,$U=-\num{1}$,$U=-\num{0,5}$,$U=\num{0,5}$,$U=\num{1}$,$U=\num{1,5}$,$U=\num{2}$}
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Odpowiedź $Y(k)$ dla skoków sterowania $U$}
+\label{fig:z2_yu}
+\end{figure}
+
+\section{Charakterystyka statyczna toru sterowania}
+Charakterystyka statyczna toru sterowania wyznaczona została poprzez sprawdzenie, na jakich wartościach stabilizuje się wyjście obiektu dla różnych wartości sygnału $U$. Liniowości charakterystki statycznej dowodzi wykres \ref{fig:z2_y_stat_u}, który (w przybliżeniu) jest liniowy.
+
+Wartość wzmocnienia statycznego można wyznaczyć normalizując odpowiedź skokową. Wynosi ona $s_u=1,1022$.
+
+\begin{figure}[!htb]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	width=0.9\textwidth,
+	width=0.9\textwidth,
+	xmin=-1.5,xmax=1.5,ymin=-2,ymax=2,
+	xlabel={$U$},
+	ylabel={$Y(U)$},
+	xtick={-1.5,-1,-0.5,0,0.5,1,1.5},
+	ytick={-2,-1.5,-1,-0.5,0,0.5,1,1.5,2},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+	]
+	\addplot[blue,semithick] file {wykresy/zad2_y_stat_u.txt};
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Charakterystyka statyczna $Y(U)$}
+\label{fig:z2_y_stat_u}
+\end{figure}
+
+\section{Tor zakłócenia}
+W tym punkcie badane są odpowiedzi skokowe obiektu na różne wartości skoku sygnału zakłócenia. Założono, że w chwili początkowej obiekt znajduje się w punkcie pracy. W chwili $k=9$ wykonywany jest sterowania do zadanej wartości. Sygnał sterowania ma wartość $U=0$. Wyniki badań przedstawia wykres \ref{fig:z2_yz}.
+\begin{figure}[!htb]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	width=0.9\textwidth,
+	width=0.9\textwidth,
+	xmin=0,xmax=200,ymin=-1.5,ymax=1.5,
+	xlabel={$k$},
+	ylabel={$Y(k)$},
+	xtick={0,50,100,150,200},
+	ytick={-1.5,-1,-0.5,0,0.5,1,1.5},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+	]
+	\addplot[blue,semithick] file {wykresy/zad2_yz_1.txt};
+	\addplot[brown,semithick] file {wykresy/zad2_yz_2.txt};
+	\addplot[cyan,semithick] file {wykresy/zad2_yz_3.txt};
+	\addplot[green,semithick] file {wykresy/zad2_yz_4.txt};
+	\addplot[lime,semithick] file {wykresy/zad2_yz_5.txt};
+	\addplot[magenta,semithick] file {wykresy/zad2_yz_6.txt};
+	\addplot[orange,semithick] file {wykresy/zad2_yz_7.txt};
+	\addplot[pink,semithick] file {wykresy/zad2_yz_8.txt};
+	\legend{$Z=-\num{2}$,$Z=-\num{1,5}$,$Z=-\num{1}$,$Z=-\num{0,5}$,$Z=\num{0,5}$,$Z=\num{1}$,$Z=\num{1,5}$,$Z=\num{2}$}
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Odpowiedź $Y(k)$ dla skoków zakłócenia $Z$}
+\label{fig:z2_yz}
+\end{figure}
+
+\section{Charakterystyka statyczna toru zakłócenia}
+Charakterystyka statyczna toru zakłócenia wyznaczona została poprzez sprawdzenie, na jakich wartościach stabilizuje się wyjście obiektu dla różnych wartości sygnału $Z$. Liniowości charakterystki statycznej dowodzi wykres \ref{fig:z2_y_stat_z}, który (w przybliżeniu) jest liniowy.
+
+Wartość wzmocnienia statycznego można wyznaczyć normalizując odpowiedź skokową. Wynosi ona $s_z=0,501$.
+
+\begin{figure}[!htb]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	width=0.9\textwidth,
+	width=0.9\textwidth,
+	xmin=-1.5,xmax=1.5,ymin=-1.5,ymax=1.5,
+	xlabel={$U$},
+	ylabel={$Y(Z)$},
+	xtick={-1.5,-1,-0.5,0,0.5,1,1.5},
+	ytick={-1.5,-1,-0.5,0,0.5,1,1.5},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+	]
+	\addplot[blue,semithick] file {wykresy/zad2_y_stat_z.txt};
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Charakterystyka statyczna $Y(Z)$}
+\label{fig:z2_y_stat_z}
+\end{figure}
