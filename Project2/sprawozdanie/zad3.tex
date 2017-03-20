@@ -1,0 +1,45 @@
+\chapter{Odpowiedzi skokowe dla algorytmu DMC}
+Do poprawnego działania algorytmu DMC wymagana jest znajomość odpowiedzi obiektu na skok jednostkowy. Często jednak dla niskich wartości sterowania odpowiedź jest zbyt zaszumiona, by można ją uznać za poprawną. W takich wypadkach stosuje się wyższą wartość sygnału sterowania, a otrzymaną odpowiedź normalizuje. Aby znormalizować odpowiedź skokową, należy od jej wartości odjąć punkt pracy obiektu, a otrzymany wynik podzielić przez wartość skoku sterowania (dla $s_u$) lub zakłócenia (dla $s_z$). Zależność tę określają wzory \ref{eq:su} i \ref{eq:sz}. Przebiegi znormalizowanych odpowiedzi skokowych przedstawia wykres \ref{fig:s}.
+
+\begin{equation} \label{eq:su}
+s_u=\frac{Y-Y_{pp}}{dU}
+\end{equation}
+
+\begin{equation} \label{eq:sz}
+s_z=\frac{Y-Y_{pp}}{dZ}
+\end{equation}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 3}, width=0.9\textwidth, height=0.6\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=200,ymin=0,ymax=1.4,
+xlabel={$k$},
+ylabel={$s_u$},
+xtick={0, 50, 100, 150, 200},
+ytick={0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/zad3_su.txt};
+
+\nextgroupplot
+[
+xmin=0,xmax=200,ymin=0,ymax=1,
+xlabel={$k$},
+ylabel={$s_z$},
+xtick={0, 50, 100, 150, 200},
+ytick={0, 0.2, 0.4, 0.6, 0.8, 1},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[red,semithick] file {wykresy/zad3_sz.txt};
+\end{groupplot}
+\end{tikzpicture}
+\caption{Znormalizowane odpowiedzi skokowe na skoki sygnałów sterowania i zakłócenia}
+\label{fig:s}
+\end{figure}

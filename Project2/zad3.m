@@ -19,6 +19,8 @@ end
 %%Normalizacja odp skokowej
 s_u = (s_u-Ypp)/dU;
 
+write_to_file('zad3_su',1:length(s_u),s_u');
+
 %%Wykres
 figure;
 stairs(s_u)
@@ -40,6 +42,9 @@ for k = 9:N
 end
 %%Normalizacja odp skokowej
 s_z = (s_z - Ypp)/dZ;
+
+write_to_file('zad3_sz',1:length(s_u),s_z');
+
 %%I wykres odp skokowej
 figure;
 stairs(s_z);
