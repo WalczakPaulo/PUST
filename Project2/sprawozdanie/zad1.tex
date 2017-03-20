@@ -1,0 +1,50 @@
+\chapter{Punkt pracy}
+Celem zadania było sprawdzenie poprawności punktu pracy opisanego w sekcji \ref{sec:opis}. W celu weryfikacji zbadano odpowiedź obiektu na sygnał sterowania równy $U=0$ oraz sygnał zakłócenia równy $Z=0$. Zgodnie z oczekiwaniem, wyjście obiektu miało wartość $Y=0$. Stąd podany punkt pracy $u=y=z=0$ jest poprawny. Przebieg symulacji przedstawiony jest na wykresie \ref{fig:pkt_prac}.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 3}, width=0.75\textwidth, height=0.3\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=200,ymin=-1,ymax=1,
+xlabel={$k$},
+ylabel={$U$},
+xtick={0, 50, 100, 150, 200},
+ytick={-1, -0.5, 0, 0.5, 1},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/zad1u.txt};
+
+\nextgroupplot
+[
+xmin=0,xmax=200,ymin=-1,ymax=1,
+xlabel={$k$},
+ylabel={$Z$},
+xtick={0, 50, 100, 150, 200},
+ytick={-1, -0.5, 0, 0.5, 1},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[red,semithick] file {wykresy/zad1z.txt};
+
+\nextgroupplot
+[
+xmin=0,xmax=200,ymin=-1,ymax=1,
+xlabel={k},
+ylabel={Y},
+xtick={0, 50, 100, 150, 200},
+ytick={-1, -0.5, 0, 0.5, 1},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[red,semithick] file {wykresy/zad1y.txt};
+\end{groupplot}
+\end{tikzpicture}
+\caption{Przebiegi sygnałów $U(k)$, $Z(k)$, $Y(k)$ w punkcie pracy.}
+\label{fig:pkt_prac}
+\end{figure}
