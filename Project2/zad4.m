@@ -3,15 +3,19 @@ close all
 
 load('s_u.mat');
 s = s_u;
-D = 140;
-N = D;
-Nu = D;
+D = 100;
+N = 20;
+Nu = 5;
 lambda = 1;
-error = 0;
+
+sim_time = 300;
 
 Ypp = 0;
 Upp = 0;
 
+iter = 1;
+for lambda = [10 5 2 0.5 0.2 0.1]
+error = 0;
 Yzad = zeros(N,1);
 Y0 = zeros(N,1);
 Yk = zeros(N,1);
@@ -42,13 +46,11 @@ end
 
 K = (M'*M + lambda * eye(Nu))\M';
 
-yzad(1:200) = 1.5;
-yzad(201:400) = 2;
-yzad(401:700) = 2.5;
-yzad(701:1000) = 1;
+yzad = zeros(sim_time,1);
+yzad(50:end) = 1;
 Z = zeros(1000,1);
 
-for k = 9:1000
+for k = 9:sim_time
     Yk(1:end) = Y(k-1) - Ypp;
     Yzad(1:end) = yzad(k) - Ypp;
     Y0 = Yk + Mp*dUp;
@@ -72,3 +74,11 @@ stairs(yzad)
 xlabel('k')
 ylabel('value')
 legend('Y(k)','U(k)','Yzad(k)','location','best');
+Err(iter) = error;
+iter = iter+1;
+
+filename_y = strcat('zad4_y_lambda',int2str(lambda*10));
+filename_u = strcat('zad4_u_lambda',int2str(lambda*10));
+write_to_file(filename_y, 1:length(Y),Y);
+write_to_file(filename_u, 1:length(U),U);
+end

@@ -1,0 +1,268 @@
+
+\externaldocument{zad3}
+\chapter{Algorytm DMC}
+\section{Wersja analityczna}
+Do realizacji analitycznej wersji algorytmu DMC wykorzystano następujące wzory:
+
+\begin{equation}
+\boldsymbol{Y}(k)=\left[
+\begin{array}{c}
+y(k)\\
+\vdots\\
+y(k)
+\end{array}
+\right]_{\mathrm{Nx1}}
+\label{ym}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{Y}^{\mathrm{zad}}(k)=\left[
+\begin{array}{c}
+Y^{\mathrm{zad}}(k)\\
+\vdots\\
+Y^{\mathrm{zad}}(k)
+\end{array}
+\right]_{\mathrm{Nx1}}
+\label{yzadm}
+\end{equation}
+
+\begin{equation}
+\triangle\boldsymbol{U}(k)=\left[
+\begin{array}{c}
+\triangle u(k|k)\\
+\vdots\\
+\triangle u(k+N_u -1 |k)
+\end{array}
+\right]_{\mathrm{N_ux1}}
+\label{dUm}
+\end{equation}
+
+\begin{equation}
+\triangle\boldsymbol{U^P}(k)=\left[
+\begin{array}{c}
+\triangle u(k-1)\\
+\vdots\\
+\triangle u(k-(D-1))
+\end{array}
+\right]_{\mathrm{(D-1)x1}}
+\label{dUPm}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{M}=\left[
+\begin{array}
+{cccc}
+s_{1} & 0 & \ldots & 0\\
+s_{2} & s_{1} & \ldots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+s_{N} & s_{N-1} & \ldots &  s_{N-N_{\mathrm{u}}+1}
+\end{array}
+\right]_{\mathrm{NxN_u}}
+\label{Mm}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{M^P}=\left[
+\begin{array}
+{cccc}
+s_{2}-s_{1} & s_{3}-s_{2} & \ldots & s_{D}-s_{D-1}\\
+s_{3}-s_{1} & s_{4}-s_{2} & \ldots & s_{D+1}-s_{D-1}\\
+\vdots & \vdots & \ddots & \vdots\\
+s_{N+1}-s_{1} & s_{N+2}-s_{2} & \ldots &  s_{N+D-1}-S_{D-1}
+\end{array}
+\right]_{\mathrm{NxD-1}}
+\label{MPm}
+\end{equation}
+
+\begin{equation}
+Y^0(k)=Y(k)+M^P
+\triangle U^P(k)
+\label{Y0}
+\end{equation}
+
+\begin{equation}
+K=(M^TM+\lambda*I)^{-1}M^T
+\label{K}
+\end{equation}
+
+\begin{equation}
+\triangle U(k)=K(Y^{zad}(k)-Y^0(k))
+\label{dU1}
+\end{equation}
+
+\section{Dobieranie nastaw}
+Długość horyzontu dynamiki została wyznaczona na podstawie obserwacji odpowiedzi skokowej wyznaczonej w poprzednim zadaniu. Na wykresie \ref{fig:s} można zaobserwować, że jej wartość ustala się w okolicach chwili $k=100$. Dlatego też przyjęto, że wykorzystywaną dalej wartością horyzontu dynamiki jest $D=100$. Parametr ten nie podlega optymalizacji.
+
+Jako początkowe nastawy regulatora przyjęto parametry $D=N=N_u=100$ oraz $\lambda=1$.
+
+\subsection{Horyzont predykcji}
+ Pierwszym optymalizacji nastaw jest badanie zachowania regulatora przy zmniejszaniu horyzontu predykcji $N$. Jak się okazało, wysoka wartość $N$ nie jest konieczna dla prawidłowego działania algorytmu. Dla $N=20$ spadek jakości regulacji jest niewielki i to właśnie ta wartość będzie używana w kolejnych etapach doboru nastaw. Przebiegi sterowania i odpowiedzi obiektu podczas regulacji do wartości zadanej $Y_{zad}=1$ dla różnych horyzontów predykcji przedstawia wykres \ref{fig:z4_y}.
+
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 3}, width=0.9\textwidth, height=0.75\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=300,ymin=0,ymax=1.4,
+xlabel={$k$},
+	ylabel={$Y(k)$},
+	xtick={0,50,100,150,200,250,300},
+	ytick={0,0.2,0.4,0.6,0.8,1,1.2,1.4,1.6},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+]
+	\addplot[blue,semithick] file {wykresy/zad4_y_100.txt};
+	\addplot[brown,semithick] file {wykresy/zad4_y_50.txt};
+	\addplot[purple,semithick] file {wykresy/zad4_y_20.txt};
+	\addplot[green,semithick] file {wykresy/zad4_y_10.txt};
+	\addplot[red,semithick] file {wykresy/zad4_y_8.txt};
+
+\nextgroupplot
+[
+xmin=0,xmax=300,ymin=0,ymax=2.5,
+xlabel={$k$},
+ylabel={$U(k)$},
+xtick={0, 50, 100, 150, 200, 250, 300},
+ytick={0, 0.5, 1, 1.5, 2, 2.5},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+	\addplot[blue,semithick] file {wykresy/zad4_u_100.txt};
+	\addplot[brown,semithick] file {wykresy/zad4_u_50.txt};
+	\addplot[purple,semithick] file {wykresy/zad4_u_20.txt};
+	\addplot[green,semithick] file {wykresy/zad4_u_10.txt};
+	\addplot[red,semithick] file {wykresy/zad4_u_8.txt};
+	\legend{$N=\num{100}$,$N=\num{50}$,$N=\num{20}$,$N=\num{10}$,$N=\num{8}$}
+\end{groupplot}
+\end{tikzpicture}
+\caption{Działanie regulatora DMC dla różnych horyzontów dynamiki}
+\label{fig:z4_y}
+\end{figure}
+
+Wskaźniki jakości regulacji dla różnych horyzontów predykcji:
+\begin{itemize}
+	\item $N=100$, $E=9,9973$
+	\item $N=50$, $E=9,9973$
+	\item $N=20$, $E=10,0289$
+	\item $N=10$, $E=12,2101$
+	\item $N=8$, $E=19,8924$
+\end{itemize}
+\FloatBarrier
+\subsection{Horyzont sterowania}
+Kolejnym krokiem po doborze parametru $N$ jest wybór horyzontu sterowania $N_u$.
+Wskaźniki jakości regulacji dla różnych horyzontów sterowania:
+\begin{itemize}
+	\item $N_u=20$, $E=10,0289$
+	\item $N_u=10$, $E=10,03$
+	\item $N_u=5$, $E=10,1213$
+	\item $N_u=2$, $E=12,1356$
+	\item $N_u=1$, $E=9,8556$
+\end{itemize}
+Dobrym kompromisem między jakością regulacji a przebiegiem sygnału sterowania wydaje się wartość $N_u=5$. Taki horyzont sterowania będzie wykorzystywany w kolejnych etapach projektu. 
+
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 3}, width=0.9\textwidth, height=0.75\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=300,ymin=0,ymax=1.4,
+xlabel={$k$},
+	ylabel={$Y(k)$},
+	xtick={0,50,100,150,200,250,300},
+	ytick={0,0.2,0.4,0.6,0.8,1,1.2,1.4,1.6},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+]
+	\addplot[blue,semithick] file {wykresy/zad4_y_nu20.txt};
+	\addplot[brown,semithick] file {wykresy/zad4_y_nu10.txt};
+	\addplot[purple,semithick] file {wykresy/zad4_y_nu5.txt};
+	\addplot[green,semithick] file {wykresy/zad4_y_nu2.txt};
+	\addplot[red,semithick] file {wykresy/zad4_y_nu1.txt};
+
+\nextgroupplot
+[
+xmin=0,xmax=300,ymin=0,ymax=2.5,
+xlabel={$k$},
+ylabel={$U(k)$},
+xtick={0, 50, 100, 150, 200, 250, 300},
+ytick={0, 0.5, 1, 1.5, 2, 2.5},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+	\addplot[blue,semithick] file {wykresy/zad4_u_nu20.txt};
+	\addplot[brown,semithick] file {wykresy/zad4_u_nu10.txt};
+	\addplot[purple,semithick] file {wykresy/zad4_u_nu5.txt};
+	\addplot[green,semithick] file {wykresy/zad4_u_nu2.txt};
+	\addplot[red,semithick] file {wykresy/zad4_u_nu1.txt};
+	\legend{$N_u=\num{20}$,$N_u=\num{10}$,$N_u=\num{5}$,$N_u=\num{2}$,$N_u=\num{1}$}
+\end{groupplot}
+\end{tikzpicture}
+\caption{Działanie regulatora DMC dla różnych horyzontów dynamiki}
+\label{fig:z4_nu}
+\end{figure}
+\FloatBarrier
+\subsection{Parametr lambda}
+Ostatnim krokiem optymalizacji nastaw regulatora DMC jest dobranie parametru $\lambda$.
+
+Wskaźniki jakości regulacji dla różnych wartości $\lambda$:
+\begin{itemize}
+	\item $\lambda=10$, $E=12,9323$
+	\item $\lambda=5$, $E=11,7987$
+	\item $\lambda=2$, $E=10,7840$
+	\item $\lambda=0,5$, $E=9,4717$
+	\item $\lambda=0,2$, $E=8,7045$
+	\item $\lambda=0,1$, $E=8,2595$
+
+\end{itemize}
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 3}, width=0.9\textwidth, height=0.75\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=300,ymin=0,ymax=1.4,
+xlabel={$k$},
+	ylabel={$Y(k)$},
+	xtick={0,50,100,150,200,250,300},
+	ytick={0,0.2,0.4,0.6,0.8,1,1.2,1.4,1.6},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+]
+	\addplot[blue,semithick] file {wykresy/zad4_y_lambda100.txt};
+	\addplot[brown,semithick] file {wykresy/zad4_y_lambda50.txt};
+	\addplot[purple,semithick] file {wykresy/zad4_y_lambda20.txt};
+	\addplot[green,semithick] file {wykresy/zad4_y_lambda5.txt};
+	\addplot[red,semithick] file {wykresy/zad4_y_lambda2.txt};
+	\addplot[red,semithick] file {wykresy/zad4_y_lambda1.txt};
+
+\nextgroupplot
+[
+xmin=0,xmax=300,ymin=0,ymax=3,
+xlabel={$k$},
+ylabel={$U(k)$},
+xtick={0, 50, 100, 150, 200, 250, 300},
+ytick={0, 0.5, 1, 1.5, 2, 2.5,3},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+	\addplot[blue,semithick] file {wykresy/zad4_u_lambda100.txt};
+	\addplot[brown,semithick] file {wykresy/zad4_u_lambda50.txt};
+	\addplot[purple,semithick] file {wykresy/zad4_u_lambda20.txt};
+	\addplot[green,semithick] file {wykresy/zad4_u_lambda5.txt};
+	\addplot[red,semithick] file {wykresy/zad4_u_lambda2.txt};
+	\addplot[red,semithick] file {wykresy/zad4_u_lambda1.txt};
+
+	\legend{$\lambda=\num{10}$,$\lambda=\num{5}$,$\lambda=\num{2}$,$\lambda=\num{0,5}$,$\lambda=\num{0,2}$,$\lambda=\num{0,1}$}
+\end{groupplot}
+\end{tikzpicture}
+\caption{Działanie regulatora DMC dla różnych horyzontów dynamiki}
+\label{fig:z4_nu}
+\end{figure}
