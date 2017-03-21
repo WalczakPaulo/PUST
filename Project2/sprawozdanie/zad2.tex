@@ -116,3 +116,24 @@ Wartość wzmocnienia statycznego można wyznaczyć normalizując odpowiedź sko
 	\caption{Charakterystyka statyczna $Y(Z)$}
 \label{fig:z2_y_stat_z}
 \end{figure}
+
+\section{Charakterystyka statyczna $Y(U,Z)$}
+Charakterystyka statyczna $Y(U,Z)$ ma kształt płaszczyzny, co dowodzi jej liniowości. Wyznaczona została na podstawie symulacji obiektu dla różnych skoków sygnałów sterowania i zakłóceń. Założono, że dla każdego ze skoków w chwili $k=200$ obiekt jest w stanie ustalonym i pobierano wartości wyjścia właśnie w chwili $k=200$. Przebieg charakterystyki przedstawiony jest na wykresie \ref{fig:yuz}.
+\begin{figure}[tb]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	width=0.9\textwidth,
+	xlabel={$U$},
+	ylabel={$Z$},
+	zlabel={$Y$},
+	xtick={-1,-0.5,0,0.5,1},
+	ytick={-1,-0.5,0,0.5,1},
+	ztick={-5,0,5},
+	]
+	\addplot3[mesh, mesh/cols=21] file {wykresy/zad2_y_uz.txt};
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Charakterystyka statyczna $Y(U,Z)$}
+	\label{fig:yuz}
+\end{figure}
