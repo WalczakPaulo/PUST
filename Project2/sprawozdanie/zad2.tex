@@ -31,7 +31,7 @@ W tym punkcie badane są odpowiedzi skokowe obiektu na różne wartości skoku s
 \label{fig:z2_yu}
 \end{figure}
 
-\section{Charakterystyka statyczna toru sterowania}
+\subsection{Charakterystyka statyczna toru sterowania}
 Charakterystyka statyczna toru sterowania wyznaczona została poprzez sprawdzenie, na jakich wartościach stabilizuje się wyjście obiektu dla różnych wartości sygnału $U$. Liniowości charakterystki statycznej dowodzi wykres \ref{fig:z2_y_stat_u}, który (w przybliżeniu) jest liniowy.
 
 Wartość wzmocnienia statycznego można wyznaczyć normalizując odpowiedź skokową. Wynosi ona $s_u=1,1022$.
@@ -58,6 +58,32 @@ Wartość wzmocnienia statycznego można wyznaczyć normalizując odpowiedź sko
 \label{fig:z2_y_stat_u}
 \end{figure}
 
+\newpage
+\subsection{Charakterystyka dynamiczna sygnału sterowania}
+Charakterystyka dynamiczna sygnału sterowania określa, w którym kroku symulacji od momentu skoku wartości sygnału wyjście obiektu osiągnęło co najmniej $90\%$ wartości zadanej. Symulacja została przeprowadzona dla różnych skoków sygnału $U$. Jej wynik przedstawia wykres \ref{fig:z2_dyn_u}.
+\begin{figure}[!htb]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	width=0.9\textwidth,
+	height=0.9\textwidth,
+	xmin=0.01,xmax=0.5,ymin=30,ymax=50,
+	xlabel={$dU$},
+	ylabel={$k$},
+	xtick={0,0.1,0.2,0.3,0.4,0.5},
+	ytick={30,40,50},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+	]
+	\addplot[blue,semithick] file {wykresy/zad2_u_dyn.txt};
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Charakterystyka dynamiczna $k(dU)$}
+\label{fig:z2_dyn_u}
+\end{figure}
+
+\newpage
 \section{Tor zakłócenia}
 W tym punkcie badane są odpowiedzi skokowe obiektu na różne wartości skoku sygnału zakłócenia. Założono, że w chwili początkowej obiekt znajduje się w punkcie pracy. W chwili $k=9$ wykonywany jest sterowania do zadanej wartości. Sygnał sterowania ma wartość $U=0$. Wyniki badań przedstawia wykres \ref{fig:z2_yz}.
 \begin{figure}[!htb]
@@ -90,11 +116,10 @@ W tym punkcie badane są odpowiedzi skokowe obiektu na różne wartości skoku s
 \label{fig:z2_yz}
 \end{figure}
 
-\section{Charakterystyka statyczna toru zakłócenia}
+\subsection{Charakterystyka statyczna toru zakłócenia}
 Charakterystyka statyczna toru zakłócenia wyznaczona została poprzez sprawdzenie, na jakich wartościach stabilizuje się wyjście obiektu dla różnych wartości sygnału $Z$. Liniowości charakterystki statycznej dowodzi wykres \ref{fig:z2_y_stat_z}, który (w przybliżeniu) jest liniowy.
 
 Wartość wzmocnienia statycznego można wyznaczyć normalizując odpowiedź skokową. Wynosi ona $s_z=0,501$.
-
 \begin{figure}[!htb]
 	\centering
 	\begin{tikzpicture}
@@ -115,6 +140,31 @@ Wartość wzmocnienia statycznego można wyznaczyć normalizując odpowiedź sko
 	\end{tikzpicture}
 	\caption{Charakterystyka statyczna $Y(Z)$}
 \label{fig:z2_y_stat_z}
+\end{figure}
+
+\newpage
+\subsection{Charakterystyka dynamiczna sygnału zakłócenia}
+Charakterystyka dynamiczna sygnału zakłócenia określa, w którym kroku symulacji od momentu skoku wartości sygnału wyjście obiektu osiągnęło co najmniej $90\%$ wartości zadanej. Symulacja została przeprowadzona dla różnych skoków sygnału $Z$. Jej wynik przedstawia wykres \ref{fig:z2_dyn_z}.
+\begin{figure}[!htb]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	width=0.9\textwidth,
+	height=0.9\textwidth,
+	xmin=0.01,xmax=0.5,ymin=0,ymax=20,
+	xlabel={$dZ$},
+	ylabel={$k$},
+	xtick={0,0.1,0.2,0.3,0.4,0.5},
+	ytick={0,10,20},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+	]
+	\addplot[blue,semithick] file {wykresy/zad2_z_dyn.txt};
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Charakterystyka dynamiczna $k(dZ)$}
+\label{fig:z2_dyn_z}
 \end{figure}
 
 \section{Charakterystyka statyczna $Y(U,Z)$}
