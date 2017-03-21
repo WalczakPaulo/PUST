@@ -96,7 +96,7 @@ Długość horyzontu dynamiki została wyznaczona na podstawie obserwacji odpowi
 Jako początkowe nastawy regulatora przyjęto parametry $D=N=N_u=100$ oraz $\lambda=1$.
 
 \subsection{Horyzont predykcji}
- Pierwszym optymalizacji nastaw jest badanie zachowania regulatora przy zmniejszaniu horyzontu predykcji $N$. Jak się okazało, wysoka wartość $N$ nie jest konieczna dla prawidłowego działania algorytmu. Dla $N=20$ spadek jakości regulacji jest niewielki i to właśnie ta wartość będzie używana w kolejnych etapach doboru nastaw. Przebiegi sterowania i odpowiedzi obiektu podczas regulacji do wartości zadanej $Y_{zad}=1$ dla różnych horyzontów predykcji przedstawia wykres \ref{fig:z4_y}.
+ Pierwszym optymalizacji nastaw jest badanie zachowania regulatora przy zmniejszaniu horyzontu predykcji $N$. Jak się okazało, wysoka wartość $N$ nie jest konieczna dla prawidłowego działania algorytmu. Dla $N=20$ spadek jakości regulacji jest niewielki i to właśnie ta wartość będzie używana w kolejnych etapach doboru nastaw. Przebiegi sterowania i odpowiedzi obiektu podczas regulacji do wartości zadanej $Y_{zad}=1$ dla różnych horyzontów predykcji przedstawia wykres \ref{fig:z4_n}.
 
 \begin{figure}[!htb]
 \centering
@@ -118,6 +118,7 @@ xlabel={$k$},
 	\addplot[purple,semithick] file {wykresy/zad4_y_20.txt};
 	\addplot[green,semithick] file {wykresy/zad4_y_10.txt};
 	\addplot[red,semithick] file {wykresy/zad4_y_8.txt};
+	\addplot[magenta,dashed] file {wykresy/zad4_yzad.txt};
 
 \nextgroupplot
 [
@@ -135,11 +136,11 @@ use comma,
 	\addplot[purple,semithick] file {wykresy/zad4_u_20.txt};
 	\addplot[green,semithick] file {wykresy/zad4_u_10.txt};
 	\addplot[red,semithick] file {wykresy/zad4_u_8.txt};
-	\legend{$N=\num{100}$,$N=\num{50}$,$N=\num{20}$,$N=\num{10}$,$N=\num{8}$}
+	\legend{$N=\num{100}$,$N=\num{50}$,$N=\num{20}$,$N=\num{10}$,$N=\num{8}$, $Y_zad$}
 \end{groupplot}
 \end{tikzpicture}
 \caption{Działanie regulatora DMC dla różnych horyzontów dynamiki}
-\label{fig:z4_y}
+\label{fig:z4_n}
 \end{figure}
 
 Wskaźniki jakości regulacji dla różnych horyzontów predykcji:
@@ -151,6 +152,7 @@ Wskaźniki jakości regulacji dla różnych horyzontów predykcji:
 	\item $N=8$, $E=19,8924$
 \end{itemize}
 \FloatBarrier
+
 \subsection{Horyzont sterowania}
 Kolejnym krokiem po doborze parametru $N$ jest wybór horyzontu sterowania $N_u$.
 Wskaźniki jakości regulacji dla różnych horyzontów sterowania:
@@ -161,7 +163,11 @@ Wskaźniki jakości regulacji dla różnych horyzontów sterowania:
 	\item $N_u=2$, $E=12,1356$
 	\item $N_u=1$, $E=9,8556$
 \end{itemize}
-Dobrym kompromisem między jakością regulacji a przebiegiem sygnału sterowania wydaje się wartość $N_u=5$. Taki horyzont sterowania będzie wykorzystywany w kolejnych etapach projektu. 
+
+
+Dla $N_u=5$ zmiana w jakości regulacji i sterowania jest nieznaczna. Dla niższych wartości horyzontu sterowania pogorszenie jakości jest już zauważalne, dlatego w kolejnych etapach projektu będzie wykorzystywany parametr $N_u=5$.
+
+Przebiegi sterowania i odpowiedzi obiektu podczas regulacji do wartości zadanej $Y_{zad}=1$ dla różnych horyzontów sterowania przedstawia wykres \ref{fig:z4_nu}.
 
 \begin{figure}[!htb]
 \centering
@@ -183,6 +189,7 @@ xlabel={$k$},
 	\addplot[purple,semithick] file {wykresy/zad4_y_nu5.txt};
 	\addplot[green,semithick] file {wykresy/zad4_y_nu2.txt};
 	\addplot[red,semithick] file {wykresy/zad4_y_nu1.txt};
+	\addplot[magenta,dashed] file {wykresy/zad4_yzad.txt};
 
 \nextgroupplot
 [
@@ -200,15 +207,17 @@ use comma,
 	\addplot[purple,semithick] file {wykresy/zad4_u_nu5.txt};
 	\addplot[green,semithick] file {wykresy/zad4_u_nu2.txt};
 	\addplot[red,semithick] file {wykresy/zad4_u_nu1.txt};
-	\legend{$N_u=\num{20}$,$N_u=\num{10}$,$N_u=\num{5}$,$N_u=\num{2}$,$N_u=\num{1}$}
+	\legend{$N_u=\num{20}$,$N_u=\num{10}$,$N_u=\num{5}$,$N_u=\num{2}$,$N_u=\num{1}$,$Y_zad$}
 \end{groupplot}
 \end{tikzpicture}
-\caption{Działanie regulatora DMC dla różnych horyzontów dynamiki}
+\caption{Działanie regulatora DMC dla różnych horyzontów sterowania}
 \label{fig:z4_nu}
 \end{figure}
 \FloatBarrier
+
+
 \subsection{Parametr lambda}
-Ostatnim krokiem optymalizacji nastaw regulatora DMC jest dobranie parametru $\lambda$.
+Ostatnim krokiem optymalizacji nastaw regulatora DMC jest dobranie parametru $\lambda$. Od parametru tego zależy wartość kary za przyrost sterowania, a zatem im większa $\lambda$, tym łagodniejsze sterowanie, ale i wolniejsza regulacja.
 
 Wskaźniki jakości regulacji dla różnych wartości $\lambda$:
 \begin{itemize}
@@ -218,6 +227,11 @@ Wskaźniki jakości regulacji dla różnych wartości $\lambda$:
 	\item $\lambda=0,5$, $E=9,4717$
 	\item $\lambda=0,2$, $E=8,7045$
 	\item $\lambda=0,1$, $E=8,2595$
+
+
+Dobrym kompromisem między jakością regulacji jest $\lambda=0,5$. Dla wartości tej sterowanie jest nieznacznie gorsze niż dla początkowej wartości $\lambda=1$, a poprawa wskaźnika jakości i szybkości regulacji jest znaczna.
+
+Przebiegi sterowania i odpowiedzi obiektu podczas regulacji do wartości zadanej $Y_{zad}=1$ dla różnych horyzontów predykcji przedstawia wykres \ref{fig:z4_lambda}.
 
 \end{itemize}
 \begin{figure}[!htb]
@@ -241,6 +255,7 @@ xlabel={$k$},
 	\addplot[green,semithick] file {wykresy/zad4_y_lambda5.txt};
 	\addplot[red,semithick] file {wykresy/zad4_y_lambda2.txt};
 	\addplot[red,semithick] file {wykresy/zad4_y_lambda1.txt};
+	\addplot[magenta,dashed] file {wykresy/zad4_yzad.txt};
 
 \nextgroupplot
 [
@@ -258,11 +273,11 @@ use comma,
 	\addplot[purple,semithick] file {wykresy/zad4_u_lambda20.txt};
 	\addplot[green,semithick] file {wykresy/zad4_u_lambda5.txt};
 	\addplot[red,semithick] file {wykresy/zad4_u_lambda2.txt};
-	\addplot[red,semithick] file {wykresy/zad4_u_lambda1.txt};
+	\addplot[magenta,semithick] file {wykresy/zad4_u_lambda1.txt};
 
-	\legend{$\lambda=\num{10}$,$\lambda=\num{5}$,$\lambda=\num{2}$,$\lambda=\num{0,5}$,$\lambda=\num{0,2}$,$\lambda=\num{0,1}$}
+	\legend{$\lambda=\num{10}$,$\lambda=\num{5}$,$\lambda=\num{2}$,$\lambda=\num{0,5}$,$\lambda=\num{0,2}$,$\lambda=\num{0,1}$,$Y_zad$}
 \end{groupplot}
 \end{tikzpicture}
-\caption{Działanie regulatora DMC dla różnych horyzontów dynamiki}
-\label{fig:z4_nu}
+\caption{Działanie regulatora DMC dla różnych wartości parametru $\lambda$}
+\label{fig:z4_lambda}
 \end{figure}
