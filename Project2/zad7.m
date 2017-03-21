@@ -1,6 +1,7 @@
 %zakres_szumu - podaj wartosci wieksza od 0. Np dla zakres_szumu = 2,
 %zostanie wygenerowany szum o wartosciach 0 <= szum <= 2
 function error = zad7(DZ,D,N,Nu,lambda,Upp,Ypp,zakres_szumu)
+
     error = 0;
     load('s_u.mat');
     load('s_z.mat');
@@ -47,7 +48,7 @@ function error = zad7(DZ,D,N,Nu,lambda,Upp,Ypp,zakres_szumu)
     kz = K(1,:)*MZP;
     ke = sum(K(1,:));
 
-    dY = 0.5;
+    dY = 1;
     u(1:czas_sym) = Upp;
     y(1:czas_sym) = Ypp;
     z(1:czas_sym) = 0;
@@ -59,13 +60,15 @@ function error = zad7(DZ,D,N,Nu,lambda,Upp,Ypp,zakres_szumu)
     deltaup = zeros(1,D-1);
     deltazp = zeros(1,DZ-1);
     t = 0:0.05:5*pi;
-    szum = rand(czas_sym - start_zak + 1,1)*zakres_szumu;
+    szum = rand(czas_sym - start_sym + 1,1)*zakres_szumu;
     szum = szum - zakres_szumu/2;
     for k = start_sym:czas_sym
        %symulacja obiektu
 
        if k >= start_zak
-           z(k) = 1 + szum(k-start_zak + 1);
+           z(k) = 1 + szum(k-start_sym + 1);
+       elseif k>= start_sym
+           z(k) = szum(k-start_sym + 1);
        end
        y(k) = symulacja_obiektu11y(u(k-7),u(k-8),z(k-3),z(k-4),y(k-1),y(k-2));
        error = error + (yzad(k) - y(k))^2;
@@ -109,4 +112,14 @@ function error = zad7(DZ,D,N,Nu,lambda,Upp,Ypp,zakres_szumu)
     title('Skok zaklocenia');
     ylabel('Z(K) - wartosc zaklocenia');
     xlabel('Iteracje k');
+    
+    filename_y = strcat('zad7_y_',int2str(zakres_szumu*10));
+    filename_u = strcat('zad7_u_',int2str(zakres_szumu*10));
+    filename_z = strcat('zad7_z_',int2str(zakres_szumu*10));
+
+    write_to_file(filename_y, 1:length(y),y);
+    write_to_file(filename_u, 1:length(u),u);
+    write_to_file(filename_z, 1:length(z),z);
+    write_to_file('zad7_yzad', 1:length(yzad),yzad);
+
 end

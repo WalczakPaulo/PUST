@@ -1,0 +1,74 @@
+\chapter{Odporność algorytmu na błędy pomiaru zakłócenia}
+W poprzednich zadaniach zakładano, że pomiar zakłócenia jest precyzyjny. W rzeczywistych zastosowaniach często występuje jednak szum pomiarowy. W celu symulacji błędu pomiaru do sygnału zakłócenia dodawany jest losowy szum (generowany przy pomocy funkcji rand()). Przebiegi wyjścia obiektu i sterowania dla różnych zakresów szumu przedstawia wykres \ref{fig:z7}. Zakresy szumu oznaczone są symbolem $z_s$.
+
+Wskaźniki jakości dla różnych zakresów szumu:
+\begin{itemize}
+	\item $z_s=0$, $E=10,1652$
+	\item $z_s=0,1$, $E=10,1696$
+	\item $z_s=0,3$, $E=10,2004$
+	\item $z_s=0,7$, $E=10,5454$
+	\item $z_s=1$, $E=10,6552$
+\end{itemize}
+Dla niskich zakresów szumu pogorszenie jakości regulacji jest pomijalne. Dla wyższych wartości $z_s$ występują jednak coraz większe błędy regulacji, czego należało się spodziewać, gdyż dla skoku zakłócenia $Z=1$ szumy osiągają nawet $50\%$ wartości sygnału zakłócenia.
+
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 3}, width=0.9\textwidth, height=0.5\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=300,ymin=0,ymax=1.6,
+xlabel={$k$},
+	ylabel={$Y(k)$},
+	xtick={0,50,100,150,200,250,300},
+	ytick={0,0.2,0.4,0.6,0.8,1,1.2,1.4,1.6},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+]
+	\addplot[blue,semithick] file {wykresy/zad7_y_1.txt};
+	\addplot[green,semithick] file {wykresy/zad7_y_3.txt};
+	\addplot[brown,semithick] file {wykresy/zad7_y_7.txt};
+	\addplot[red,semithick] file {wykresy/zad7_y_10.txt};
+	\addplot[magenta,dashed] file {wykresy/zad7_yzad.txt};
+\legend{$z_s=\num{0,1}$,$z_s=\num{0,3}$,$z_s=\num{0,7}$,$z_s=1$}
+
+\nextgroupplot
+[
+xmin=0,xmax=300,ymin=-0.5,ymax=2.5,
+xlabel={$k$},
+ylabel={$U(k)$},
+xtick={0, 50, 100, 150, 200, 250, 300},
+ytick={-0.5, 0, 0.5, 1, 1.5, 2, 2.5},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+	\addplot[blue,semithick] file {wykresy/zad7_u_1.txt};
+	\addplot[green,semithick] file {wykresy/zad7_u_3.txt};
+	\addplot[brown,semithick] file {wykresy/zad7_u_7.txt};
+	\addplot[red,semithick] file {wykresy/zad7_u_10.txt};
+\legend{$z_s=\num{0,1}$,$z_s=\num{0,3}$,$z_s=\num{0,7}$,$z_s=1$}
+
+\nextgroupplot
+[
+xmin=0,xmax=200,ymin=-1,ymax=1.5,
+xlabel={$k$},
+ylabel={$Z(k)$},
+xtick={0, 50, 100, 150, 200},
+ytick={-1,-0.5,0, 0.5, 1, 1.5},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/zad7_z_1.txt};
+\addplot[green,semithick] file {wykresy/zad7_z_3.txt};
+\addplot[brown,semithick] file {wykresy/zad7_z_7.txt};
+\addplot[red,semithick] file {wykresy/zad7_z_10.txt};
+\legend{$z_s=\num{0,1}$,$z_s=\num{0,3}$,$z_s=\num{0,7}$,$z_s=1$}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Działanie regulatora DMC przy różnych błędach pomiaru zakłóceń}
+\label{fig:z7}
+\end{figure}
