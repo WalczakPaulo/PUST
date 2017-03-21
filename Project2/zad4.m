@@ -14,7 +14,7 @@ Ypp = 0;
 Upp = 0;
 
 iter = 1;
-for lambda = [10 5 2 0.5 0.2 0.1]
+for Nu = [10 ]
 error = 0;
 Yzad = zeros(N,1);
 Y0 = zeros(N,1);

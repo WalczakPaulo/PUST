@@ -2,7 +2,7 @@ function error = zad6(DZ,D,N,Nu,lambda,Upp,Ypp)
     error = 0;
     load('s_u.mat');
     load('s_z.mat');
-    czas_sym = 300;
+    czas_sym = 500;
     start_sym = 9;
                                 %DMC
     %----------------------------------------------------------------
@@ -45,7 +45,7 @@ function error = zad6(DZ,D,N,Nu,lambda,Upp,Ypp)
     kz = K(1,:)*MZP;
     ke = sum(K(1,:));
 
-    dY = 0.5;
+    dY = 1;
     u(1:czas_sym) = Upp;
     y(1:czas_sym) = Ypp;
     z(1:czas_sym) = 0;
@@ -56,7 +56,7 @@ function error = zad6(DZ,D,N,Nu,lambda,Upp,Ypp)
 
     deltaup = zeros(1,D-1);
     deltazp = zeros(1,DZ-1);
-    t = 0:0.05:5*pi;
+    t = 0:0.05:10*pi;
     sine_signal = sin(t);
     for k = start_sym:czas_sym
        %symulacja obiektu
@@ -106,4 +106,10 @@ function error = zad6(DZ,D,N,Nu,lambda,Upp,Ypp)
     title('Skok zaklocenia');
     ylabel('Z(K) - wartosc zaklocenia');
     xlabel('Iteracje k');
+    
+    write_to_file('zad6_z_y',1:length(y),y)
+    write_to_file('zad6_z_u',1:length(u),u)
+    write_to_file('zad6_yzad',1:length(yzad),yzad)
+    write_to_file('zad6_sine',1:czas_sym,sine_signal(1:czas_sym))
+
 end

@@ -1,0 +1,96 @@
+\externaldocument{zad3}
+\externaldocument{zad4}
+\chapter{Uwzględnianie zakłóceń}
+Aby uwzględnić sygnał zakłócenia w algorytmie DMC, konieczne jest obliczenie macierzy $M^{zP}$.
+
+\begin{equation}
+\boldsymbol{M^{zP}}=\left[
+\begin{array}
+{ccccc}
+sz_{1} & sz_{2}-sz_{1} & sz_{3}-sz_{2} & \ldots & sz_{D_z}-sz_{D_z-1}\\
+sz_{2} & sz_{3}-sz_{1} & sz_{4}-sz_{2} & \ldots & sz_{D_z+1}-sz_{D_z-1}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+sz_{N} & sz_{N+1}-sz_{1} & sz_{N+2}-sz_{2} & \ldots &  sz_{N+D_z-1}-sz_{D_z-1}
+\end{array}
+\right]_{\mathrm{NxDz}}
+\label{Mzp}
+\end{equation}
+
+Posłuży ona do wyznaczenia wektora $k_z$ danego wzorem:
+\begin{equation}
+k_z=kM^{zP}
+\label{kz}
+\end{equation}
+
+Długość horyzontu dynamiki zakłócenia została wyznaczona na podstawie obserwacji odpowiedzi skokowej na sygnał zakłócenia wyznaczonej w zadaniu 3. Na wykresie \ref{fig:s} można zaobserwować, że jej wartość ustala się w okolicach chwili $k=40$. Dlatego też przyjęto, że wykorzystywaną dalej wartością horyzontu dynamiki jest $D^z=40$.
+
+Nastawy regulatora używanego w tej części projektu mają wartości:
+\begin{itemize}
+	\item $D=100$
+	\item $D^z=40$
+	\item $N=20$
+	\item $N_u=5$
+	\item $\lambda=0,5$
+\end{itemize}
+
+
+Niebieskie linie na wykresie \ref{fig:z5_zakl} przedstawiają działanie regulatora DMC z uwzględnianiem zakłóceń, czerwone natomiast bez uwzględniania zakłóceń. Wartość zadana wynosi $Y_{zad}=1$. Skok sygnału wartości zakłócenia z $Z=0$ do $Z=1$ nastąpił w chwili $k=100$.
+
+Jak widać, w obu przypadkach zakłócenie spowodowało chwilową zmianę wartości wyjścia obiektu. W przypadku wersji z uwzględnianiem zakłóceń zmiana ta była znacznie mniejsza i została szybciej zniwelowana. Kosztem poprawy szybkości regulacji jest jednak ostrzejsze sterowanie.
+
+Wskaźnik jakości regulacji w przypadku wersji regulatora z uwzględnianiem zakłóceń ma wartość $E=10,1652$, a więc nieznacznie wyższą niż w przypadku regulacji bez zakłóceń. Dla regulatora bez uwzględniania zakłóceń wskaźnik ten ma wartość $E=11.2922$. Jak widać, poprawa jakości regulacji jest znaczna dla regulatora z uwzględnianiem zakłóceń.
+
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 3}, width=0.9\textwidth, height=0.5\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=300,ymin=0,ymax=1.6,
+xlabel={$k$},
+	ylabel={$Y(k)$},
+	xtick={0,50,100,150,200,250,300},
+	ytick={0,0.2,0.4,0.6,0.8,1,1.2,1.4,1.6},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+]
+	\addplot[blue,semithick] file {wykresy/zad5_z_y.txt};
+	\addplot[red,semithick] file {wykresy/zad5_bez_y.txt};
+
+	\addplot[magenta,dashed] file {wykresy/zad5_z_yzad.txt};
+\legend{$Y^z(k)$,$Y(k)$,$Y_{zad}(k)$}
+
+\nextgroupplot
+[
+xmin=0,xmax=300,ymin=-0.5,ymax=2.5,
+xlabel={$k$},
+ylabel={$U(k)$},
+xtick={0, 50, 100, 150, 200, 250, 300},
+ytick={-0.5, 0, 0.5, 1, 1.5, 2, 2.5},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+	\addplot[blue,semithick] file {wykresy/zad5_z_u.txt};
+	\addplot[red,semithick] file {wykresy/zad5_bez_u.txt};
+\legend{$U^z(k)$,$U(k)$}
+
+\nextgroupplot
+[
+xmin=0,xmax=200,ymin=0,ymax=1.5,
+xlabel={$k$},
+ylabel={$Z(k)$},
+xtick={0, 50, 100, 150, 200},
+ytick={0, 0.5, 1, 1.5},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[red,semithick] file {wykresy/zad5_z_z.txt};
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Działanie regulatora DMC z uwzględnianiem zakłóceń}
+\label{fig:z5_zakl}
+\end{figure}

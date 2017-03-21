@@ -1,0 +1,86 @@
+\chapter{Zakłócenie sinusoidalne}
+Regulator DMC o parametrach:
+\begin{itemize}
+	\item $D=100$
+	\item $D^z=40$
+	\item $N=20$
+	\item $N_u=5$
+	\item $\lambda=0,5$
+\end{itemize}
+zostanie użyty do regulacji obiektu ze skokiem wartości zadanej $Y_{zad}=1$ oraz zakłóceniem sinusoidalnym, którego przebieg przedstawia wykres \ref{fig:z6_sine}. Regulator nie jest w stanie całkowicie zniwelować zakłócenia sinusoidalnego, co widać na wykresie \ref{fig:z6_y}. Wersja z uwzględnianiem zakłóceń tłumi jednak zakłócenie znacznie lepiej, o czym świadczą mniejsze uchyby niż w wersji regulatora bez uwzględniania zakłóceń.
+
+Obie wersje regulatora mają podobne przebiegi sygnału sterowania (wykres \ref{fig:z6_u}). Reakcja na sygnał zakłócenia następuje jednak szybciej dla regulatora z uwzględnianiem zakłóceń niż bez.
+
+Wskaźnik jakości regulacji dla regulatora DMC z uwzględnianiem zakłóceń ma wartość $E=13,4614$, a dla regulatora bez uwzględniania zakłóceń $E=24,5018$. Jak widać, zastosowanie uwzględniania zakłóceń pozwala znacznie ograniczyć błędy regulacji. Trzeba jednak mieć na uwadze, że nie jest możliwa całkowita niwelacja zakłócenia sinusoidalnego.
+
+\begin{figure}[!htb]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	width=0.9\textwidth,
+	height=0.9\textwidth,
+	xmin=0,xmax=500,ymin=0,ymax=1.6,
+	xlabel={$k$},
+	ylabel={$Y(k)$},
+	xtick={0,50,100,150,200,250,300,350,400,450,500},
+	ytick={0,0.2,0.4,0.6,0.8,1,1.2,1.4,1.6},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+	]
+	\addplot[blue,semithick] file {wykresy/zad6_z_y.txt};
+	\addplot[red,semithick] file {wykresy/zad6_bez_y.txt};
+	\addplot[magenta,dashed] file {wykresy/zad6_yzad.txt};
+	\legend{$Y^z(k)$,$Y(k)$}
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Wyjście obiektu przy zakłóceniu sinusoidalnym}
+\label{fig:z6_y}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	width=0.9\textwidth,
+	height=0.9\textwidth,
+	xmin=0,xmax=500,ymin=0,ymax=2.5,
+	xlabel={$k$},
+	ylabel={$U(k)$},
+	xtick={0,50,100,150,200,250,300,350,400,450,500},
+	ytick={0,0.5,1,1.5,2,2.5},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+	]
+	\addplot[blue,semithick] file {wykresy/zad6_z_u.txt};
+	\addplot[red,semithick] file {wykresy/zad6_bez_u.txt};
+	\legend{$U^z(k)$,$U(k)$}
+
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Sterowanie obiektu przy zakłóceniu sinusoidalnym}
+\label{fig:z6_u}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	width=0.9\textwidth,
+	height=0.9\textwidth,
+	xmin=0,xmax=500,ymin=-1.5,ymax=1.5,
+	xlabel={$k$},
+	ylabel={$Z(k)$},
+	xtick={0,50,100,150,200,250,300,350,400,450,500},
+	ytick={-1.5,-1,-0.5,0,0.5,1,1.5},
+	/pgf/number format/.cd,
+	use comma,
+	1000 sep={}
+	]
+	\addplot[blue,semithick] file {wykresy/zad6_sine.txt};
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Przebieg sinusoidalnego sygnału zakłóceń}
+\label{fig:z6_sine}
+\end{figure}

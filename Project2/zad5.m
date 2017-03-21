@@ -45,7 +45,7 @@ function error = zad5(DZ,D,N,Nu,lambda,Upp,Ypp)
     kz = K(1,:)*MZP;
     ke = sum(K(1,:));
 
-    dY = 0.5;
+    dY = 1;
     u(1:czas_sym) = Upp;
     y(1:czas_sym) = Ypp;
     z(1:czas_sym) = 0;
@@ -98,4 +98,11 @@ function error = zad5(DZ,D,N,Nu,lambda,Upp,Ypp)
     ylabel('Wyjscie - y(k)')
     legend('Y(k)','Y_z_a_d(k)','location','best');
     hold on;
+    
+    write_to_file('zad5_z_y', 1:length(y), y)
+    write_to_file('zad5_z_u', 1:length(u), u)
+    write_to_file('zad5_z_yzad', 1:length(yzad), yzad)
+    write_to_file('zad5_z_z', 1:length(z), z)
+
+
 end
