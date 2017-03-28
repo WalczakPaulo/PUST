@@ -1,0 +1,67 @@
+\chapter{Odpowiedź skokowa do DMC}
+Celem zadania trzeciego było przygotowanie odpowiedzi skokowych wykorzystywanych
+w algorytmie DMC. W naszym przypadku konieczne było zebranie odpowiedzi na skok
+sygnału sterującego oraz zakłócającego. Skok wykonujemy z obranego wcześniej punktu
+pracy ($Y_{pp} = 32,20$, $U_{pp} = 27$, $Z = 0$). Z powodu nieuniknionych zakłóceń
+w pomieszczeniu, szczególnie trudne było ustabilizowanie obiektu w punkcie pracy,
+po wykonaniu wcześniejszych eksperymentów. Z tego powodu otrzymane przez nas odpowiedzi
+były prawdopodbnie niedokładne. W naszych głowach zrodziła się z początku myśl,
+aby skorzystać z odpowiedzi skokowej ( na skok sterowania ) z poprzedniego laboratoium
+(pracowaliśmy również na tym stanowisku ), jednakże jak się później okazało
+( problemy z algorytmem DMC) zdecydowaliśmy się na ponowne pozyskanie owej odpowiedzi skokowej.
+Wykonując skok sterowania, wartość zakłócenia ustawiliśmy na 0 i odpowiednio
+wykonując skok zakłócenia, wartość sterowania pozostawiliśmy na taką jak w punkcie
+pracy ( $U_{pp} = 27$). Z powodu zakłóceń i problemów ze stabilizacją obiektu uzyskane
+przez nas odpowiedzi skokowe nie były dla nas satysfakcjonujące, lecz z powodu braku
+czasu nie zdecydowaliśmy się na powtarzanie eksperymentu. Normalizacji dokonaliśmy
+poprzez przesunięcie wszystkich wartości wyjścia obiektu o wartość wyjścia w punkcie
+pracy oraz podzielenie przez wartość odpowiednio skoku sterowania lub zakłócenia.
+Aproksymacja ma postać członu inercyjnego drugiego rzędu z opóźnieniem.
+Aproksymacji dokonaliśmy przy użyciu opracowanego przez nas wcześniej skryptu.
+Użyliśmy do tego między innymi wbudowanej funkcji GA ( Genetic Algorithm ) w celu
+pozyskania aproksymacji minimalizującej funkcję błędu kwadratowego.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=0,xmax=400,ymin=0,ymax=0.35,
+xlabel={Czas (s)},
+ylabel={Wartość wyjścia},
+xtick={0, 100, 200, 300, 400},
+ytick={0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {Skrypty/s_approx.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Przybliżona odpowiedź obiektu na skok sterowania.}
+\label{fig:skok_zak}
+\end{figure}
+
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=0,xmax=400,ymin=0,ymax=0.08,
+xlabel={Czas (s)},
+ylabel={Wartość wyjścia},
+xtick={0, 100, 200, 300, 400},
+ytick={0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {Skrypty/odp_zakl.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Przybliżona odpowiedź obiektu na skok zakłócenia.}
+\label{fig:skok_zak}
+\end{figure}

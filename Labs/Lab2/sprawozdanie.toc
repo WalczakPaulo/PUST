@@ -1,0 +1,5 @@
+\contentsline {chapter}{\numberline {1\relax .\kern .5em }Wst\IeC {\k e}p}{2}
+\contentsline {chapter}{\numberline {2\relax .\kern .5em }Test stanowiska}{3}
+\contentsline {chapter}{\numberline {3\relax .\kern .5em }Odpowied\IeC {\'z} na skok zak\IeC {\l }\IeC {\'o}cenia}{4}
+\contentsline {chapter}{\numberline {4\relax .\kern .5em }Odpowied\IeC {\'z} skokowa do DMC}{5}
+\contentsline {chapter}{\numberline {5\relax .\kern .5em }DMC}{7}
