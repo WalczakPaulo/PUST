@@ -5,3 +5,27 @@ otwarte okno oraz poruszające się w pobliżu stanowiska osoby, które prawdopo
 pogorszyły poprawność naszej odpowiedzi skokowej. Główną wadą były oscylacje w pobliżu wartośći zadanej.Prawdopodobnie wybranie większej wartości lambdy spowodowałoby mniejsze oscylacje w pobliżu wartości zadanej,
 jednakże równocześnie pogarszając szybkość regulacji. Niestety z powodu braku czasu nie zdołaliśmy przetestować innych wartości nastaw. Zakładamy jednak, że zmienianie nastaw nie wpłynęłoby
 znacząco na poprawę jakości regulacji, gdyż głównym czynnikiem zaburzającym jakość regulacji była silna wrażliwość obiektu na zakłócenia z otoczenia.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=0,xmax=1000,ymin=32,ymax=42,
+xlabel={Czas (s)},
+ylabel={Wartość wyjścia},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={32, 34, 36,38,40, 42},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {Skrypty/y_bez_zakl.txt};
+\addplot[red,semithick] file {Skrypty/y_zad_bez_zakl.txt};
+\legend{Wyjście obiektu, Wartość zadana}
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście obiektu z regulatorem DMC dla dwóch skoków wartości zadanej.}
+\label{fig:bez_zakl}
+\end{figure}
