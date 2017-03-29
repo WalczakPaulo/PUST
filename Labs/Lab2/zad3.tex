@@ -1,25 +1,23 @@
 \chapter{Odpowiedź skokowa do DMC}
-Celem zadania trzeciego było przygotowanie odpowiedzi skokowych wykorzystywanych
-w algorytmie DMC. W naszym przypadku konieczne było zebranie odpowiedzi na skok
-sygnału sterującego oraz zakłócającego. Skok wykonujemy z obranego wcześniej punktu
-pracy ($Y_{pp} = 32,20$, $U_{pp} = 27$, $Z = 0$). Z powodu nieuniknionych zakłóceń
-w pomieszczeniu, szczególnie trudne było ustabilizowanie obiektu w punkcie pracy,
-po wykonaniu wcześniejszych eksperymentów. Z tego powodu otrzymane przez nas odpowiedzi
-były prawdopodbnie niedokładne. W naszych głowach zrodziła się z początku myśl,
-aby skorzystać z odpowiedzi skokowej ( na skok sterowania ) z poprzedniego laboratoium
-(pracowaliśmy również na tym stanowisku ), jednakże jak się później okazało
-( problemy z algorytmem DMC) zdecydowaliśmy się na ponowne pozyskanie owej odpowiedzi skokowej.
-Wykonując skok sterowania, wartość zakłócenia ustawiliśmy na 0 i odpowiednio
-wykonując skok zakłócenia, wartość sterowania pozostawiliśmy na taką jak w punkcie
-pracy ( $U_{pp} = 27$). Z powodu zakłóceń i problemów ze stabilizacją obiektu uzyskane
-przez nas odpowiedzi skokowe nie były dla nas satysfakcjonujące, lecz z powodu braku
-czasu nie zdecydowaliśmy się na powtarzanie eksperymentu. Normalizacji dokonaliśmy
-poprzez przesunięcie wszystkich wartości wyjścia obiektu o wartość wyjścia w punkcie
-pracy oraz podzielenie przez wartość odpowiednio skoku sterowania lub zakłócenia.
-Aproksymacja ma postać członu inercyjnego drugiego rzędu z opóźnieniem.
-Aproksymacji dokonaliśmy przy użyciu opracowanego przez nas wcześniej skryptu.
-Użyliśmy do tego między innymi wbudowanej funkcji GA ( Genetic Algorithm ) w celu
-pozyskania aproksymacji minimalizującej funkcję błędu kwadratowego.
+Celem zadania trzeciego było przygotowanie odpowiedzi skokowych wykorzystywanych w algorytmie DMC. Eksperyment polega na zebraniu próbek wartości
+wyjścia obiektu ( temperatura na czujniku ) po dokonaniu skoku sterowania/zakłócenia. Wykonuje się tzw. skok jednostkowy, czyli "reakcję" obiektu
+na skok wartości sterowania/zakłócenia o 1. Zakładamy, że dla chwili $k=0$ następuje skok wartości o $1$, wcześniej sygnał jest zerowy. W wypaku gdy działamy
+na obiekcie rzeczywistym jakim jest obiekt w laboratorium, skok wykonamy nie o wartość 1, lecz dowolną wystarczająco większą w celu niwelacji wpływu tzw. szumów,
+które dla małego skoku mogłyby spowodować, że odpowiedź skokowa byłaby bezużyteczna. Proces normalizacji odpowiedzi skokowej opisaliśmy dalej w sprawozdaniu. W naszym
+przypadku konieczne było zebranie odpowiedzi na skok sygnału sterującego oraz zakłócającego. Skok wykonujemy
+z obranego wcześniej punktu pracy ($Y_{pp} = 32,20$, $U_{pp} = 27$, $Z = 0$). Z powodu nieuniknionych zakłóceń
+w pomieszczeniu takich jak otwarte okno oraz poruszające się w sali osoby, szczególnie trudne było ustabilizowanie obiektu w punkcie pracy, po wykonaniu wcześniejszych
+eksperymentów. Z tego powodu otrzymane przez nas odpowiedzi były prawdopodbnie niedokładne. W naszych głowach
+zrodziła się z początku myśl, aby skorzystać z odpowiedzi skokowej ( na skok sterowania ) z poprzedniego laboratoium
+(pracowaliśmy również na tym stanowisku ), jednakże jak się później okazało ( problemy z algorytmem DMC) zdecydowaliśmy się
+na ponowne pozyskanie owej odpowiedzi skokowej. Wykonując skok sterowania, wartość zakłócenia ustawiliśmy na 0 i odpowiednio
+wykonując skok zakłócenia, wartość sterowania pozostawiliśmy na taką jak w punkcie pracy ( $U_{pp} = 27$).
+Z powodu zakłóceń i problemów ze stabilizacją obiektu uzyskane przez nas odpowiedzi skokowe nie były dla nas satysfakcjonujące,
+lecz z powodu braku czasu zdecydowaliśmy się na nie powtarzanie eksperymentu. Normalizacji dokonaliśmy
+poprzez przesunięcie wszystkich wartości wyjścia obiektu o wartość wyjścia w punkcie pracy oraz podzielenie przez wartość odpowiednio
+skoku sterowania lub zakłócenia. Aproksymacja ma postać członu inercyjnego drugiego rzędu z opóźnieniem. Aproksymacji dokonaliśmy przy użyciu
+opracowanego przez nas wcześniej skryptu. Użyliśmy do tego między innymi wbudowanej funkcji GA ( Genetic
+Algorithm ) w celu pozyskania aproksymacji minimalizującej funkcję błędu kwadratowego.
 
 \begin{figure}[tb]
 \centering
@@ -40,7 +38,7 @@ use comma,
 \end{axis}
 \end{tikzpicture}
 \caption{Przybliżona odpowiedź obiektu na skok sterowania.}
-\label{fig:skok_zak}
+\label{fig:skok_ster}
 \end{figure}
 
 

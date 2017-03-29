@@ -1,0 +1,38 @@
+\chapter{DMC z uwzględnieniem zakłóceń}
+Celem zadania piątego było porównanie działania regulatora DMC z uwzględnieniem
+zakłóceń oraz bez zakłóceń. W celu przeprowadzenia testów należało zasymulować
+zakłócenie mierzalne. Po osiągnięciu przez regulator wartości zadanej
+przeprowadzaliśmy skok wartości zakłócenia. Zgodnie z tym co opisaliśmy w
+poprzednich podpunktach mieliśmy bardzo duże problemy z doprowadzeniem regulatora
+do stanu gdzie zostanie osiągnięta i ustabilizuje się wartość zadana. Było to
+spowodowane wrażliwością obiektu na zakłócenia zewnętrzne, takie jak otwarte okno,
+poruszające się po sali osoby. Powodowało to cyrkulację powietrza, która
+uniemożliwiała dokładne sterowanie obiektem. Z tego powodu, ciężko również ocenić
+jakość regulacji regulatora DMC z uwzględnieniem zakłóceń oraz tego który zakłóceń
+nie uwzględnia. Zgodnie z teorią, jaką przedstawiliśmy w sprawozdaniu z
+projektu nr 2, lepszy powinien się okazać regulator z uwzględnieniem zakłóceń.
+Jakość regulacji oceniamy obserwując wykresy oraz wyliczając tzw. błąd kwadratowy
+(między wyjściem obiektu a wartością zadaną). Wykres \ref{fig:zakl} przedstawia
+wyjście obiektu ze skokiem zakłóceń z w chwili 400.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=0,xmax=600,ymin=31.5,ymax=36,
+xlabel={Czas (s)},
+ylabel={Wartość wyjścia},
+xtick={0, 100, 200, 300, 400, 500, 600},
+ytick={31.5, 32, 32.5, 33, 33.5, 34, 34.5, 35, 35.5, 36},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {Skrypty/y_zakl.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Skok zakłócenia w chwili 400.}
+\label{fig:zakl}
+\end{figure}

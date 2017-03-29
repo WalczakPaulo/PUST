@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.1.17)  28 MAR 2017 15:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.1.17)  29 MAR 2017 21:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1490,9 +1490,6 @@ LaTeX Warning: Unused global option(s):
 
 LaTeX Warning: Label `fig:skok_zak' multiply defined.
 
-
-LaTeX Warning: Label `fig:skok_zak' multiply defined.
-
 )
 \openout1 = `sprawozdanie.aux'.
 
@@ -1711,7 +1708,12 @@ PGFPlots: reading {Skrypty/odp_zakl.txt}
 
 ] [6]
 Rozdzia\PlPrIeC {\l } 5.
-) [7
+) (./zad5.tex [7
+
+]
+Rozdzia\PlPrIeC {\l } 6.
+PGFPlots: reading {Skrypty/y_zakl.txt}
+) [8
 
 ] (./sprawozdanie.aux)
 
@@ -1719,16 +1721,16 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 36352 strings out of 494918
- 867506 string characters out of 6180101
- 1111429 words of memory out of 5000000
- 39060 multiletter control sequences out of 15000+600000
+ 36364 strings out of 494918
+ 867667 string characters out of 6180101
+ 1112449 words of memory out of 5000000
+ 39068 multiletter control sequences out of 15000+600000
  22108 words of font info for 66 fonts, out of 8000000 for 9000
  34 hyphenation exceptions out of 8191
  57i,19n,100p,10403b,2126s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/plit.enc}{/usr/share/texliv
-e/texmf-dist/fonts/enc/dvips/pl/plrm.enc}{/usr/share/texlive/texmf-dist/fonts/e
-nc/dvips/pl/plms.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/plmi.enc
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/plrm.enc}{/usr/share/texliv
+e/texmf-dist/fonts/enc/dvips/pl/plms.enc}{/usr/share/texlive/texmf-dist/fonts/e
+nc/dvips/pl/plit.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/plmi.enc
 }</usr/share/texlive/texmf-dist/fonts/type1/public/pl/plbx10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/pl/plbx12.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/pl/plmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
@@ -1738,10 +1740,10 @@ xlive/texmf-dist/fonts/type1/public/pl/plr8.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/pl/plsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
 ic/pl/plsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pl/plti10.pfb
 >
-Output written on sprawozdanie.pdf (8 pages, 85073 bytes).
+Output written on sprawozdanie.pdf (9 pages, 93319 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
- 57 compressed objects within 1 object stream
+ 81 PDF objects out of 1000 (max. 8388607)
+ 59 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
