@@ -1,0 +1,17 @@
+addpath('F:\SerialCommunication'); % add a path to the functions
+initSerialControl COM4 % initialise com port
+Upp = 27;
+skok = 0;
+iter = 1;
+s = zeros(500,1);
+while(iter < 500)
+        %% obtaining measurements
+        measurements = readMeasurements(1:7); % read measurements from 1 to 7
+        s(iter) = measurements(1);
+        disp(measurements); % process measurements
+        sendControlsToG1AndDisturbance(sterowanie,skok);
+        iter = iter + 1;
+        plot(Y);
+        drawnow;
+      
+end
