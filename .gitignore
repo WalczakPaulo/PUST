@@ -1,0 +1,12 @@
+*.aux
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.synctex.gz
+*.idea
+*.m~
+*.bbl
+*.blg
+*.surf.gnuplot
