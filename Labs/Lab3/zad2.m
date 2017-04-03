@@ -29,10 +29,6 @@ figure
  subplot(212)
  plot(Y(2,:))
  drawnow
- toPlotForLatex(sprintf('z2Y1%1.4f%1.4f',dU(1),dU(2)),1:kk,Y(1,:));
- toPlotForLatex(sprintf('z2Y2%1.4f%1.4f',dU(1),dU(2)),1:kk,Y(2,:));
- toPlotForLatex(sprintf('z2U1%1.4f%1.4f',dU(1),dU(2)),1:kk,U(1,:));
- toPlotForLatex(sprintf('z2U2%1.4f%1.4f',dU(1),dU(2)),1:kk,U(2,:));
  waitForNewIteration (); % wait for new iteration
  end
 end
