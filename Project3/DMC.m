@@ -1,19 +1,21 @@
-s11 = csvread('z3_y1_u1.csv');
-s12 = csvread('z3_y1_u2.csv');
-s21 = csvread('z3_y2_u1.csv');
-s22 = csvread('z3_y2_u2.csv');
+clear
+
+s11 = csvread('z3_s11.csv');
+s12 = csvread('z3_s12.csv');
+s21 = csvread('z3_s21.csv');
+s22 = csvread('z3_s22.csv');
 
 D = 150;
 N = D;
 Nu = D;
 lambda = 1;
 
-kk = 1000;
+kk = 500;
 ny = 2;
 nu = 2;
 y = zeros(ny, kk);
 yzad = zeros(ny, kk);
-yzad(1, 10:kk) = 2;
+yzad(1, 10:kk) = 5;
 yzad(2, 10:kk) = 2;
 u = zeros(nu, kk);
 du = zeros(nu, kk);
@@ -60,3 +62,7 @@ for k = 10:kk
    dUP(1) = {du(:,k)};
    u(:,k) = u(:,k-1) + du(:,k);
 end
+
+plot(y(1,:))
+figure
+plot(y(2,:))
