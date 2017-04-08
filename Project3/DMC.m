@@ -3,8 +3,13 @@ s12 = csvread('z3_y1_u2.csv');
 s21 = csvread('z3_y2_u1.csv');
 s22 = csvread('z3_y2_u2.csv');
 
+s11 = s11(9:end);
+s12 = s12(9:end);
+s21 = s21(9:end);
+s22 = s22(9:end);
+
 D = 150;
-N = 10;
+N = 150;
 Nu = 150;
 lambda = 1;
 
