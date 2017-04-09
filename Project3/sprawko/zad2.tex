@@ -1,0 +1,102 @@
+\chapter{Charakterystyka obiektu}
+Następnym punktem naszych badań było zbadanie zachowania wyjść obiektu przy różnych
+wartościach wejściowych. Eksperyment był przeprowadzany poprzez skok wartości
+sterującej przy drugiej wartości sterowania utrzymywanej w punkcie pracy.
+W ten sposób otrzymujemy cztery tory opisujące obiekt. Zachowanie dwóch wyjść
+na każdy z dwóch sygnałów wejściowych. Eksperymenty były przeprowadzane zaczynając
+z punktu pracy. Zbadane zostały skoki sygnałów steruących do wartości $1$, $3$,
+oraz $5$. Wyniki przedstawiają wykresy \ref{fig:skoki_u1}, oraz \ref{fig:skoki_u2}.
+Wszystkie te wykresy zostały wyskalowane na takie same wartości, tak aby
+dobrze pokazywały zależności między wzmocnieniami sygnałów. Wzmocnienie statyczne
+jest w przybliżeniu liniowe. Zostało one opisane dalej zmienną $k^{ij}$, gdzie $i$ oznacza
+numer wyjścia, natomiast $j$ numer sygnału sterującego. Przy takim oznaczeniu:
+$k^{11} \approx 2,00$, $k^{12} \approx 0,75$ $k^{21} \approx 0,90$, $k^{22} \approx 0,99$.
+
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.6\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=200,ymin=0,ymax=12,
+xlabel={$k$},
+ylabel={$y_1$},
+xtick={0, 50, 100, 150, 200},
+ytick={0, 2, 4, 6, 8, 10, 12},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z2_y1_u1_1.txt};
+\addplot[red,semithick] file {wykresy/z2_y1_u1_3.txt};
+\addplot[green,semithick] file {wykresy/z2_y1_u1_5.txt};
+\legend{$u_1 = 1$, $u_1 = 3$, $u_1 = 5$}
+
+\nextgroupplot
+[
+xmin=0,xmax=200,ymin=0,ymax=12,
+xlabel={$k$},
+ylabel={$y_2$},
+xtick={0, 50, 100, 150, 200},
+ytick={0, 2, 4, 6, 8, 10, 12},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z2_y2_u1_1.txt};
+\addplot[red,semithick] file {wykresy/z2_y2_u1_3.txt};
+\addplot[green,semithick] file {wykresy/z2_y2_u1_5.txt};
+\legend{$u_1 = 1$, $u_1 = 3$, $u_1 = 5$}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Odpowiedzi na skoki sygnału $u_1$}
+\label{fig:skoki_u1}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.6\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=200,ymin=0,ymax=12,
+xlabel={$k$},
+ylabel={$y_1$},
+xtick={0, 50, 100, 150, 200},
+ytick={0, 2, 4, 6, 8, 10, 12},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z2_y1_u2_1.txt};
+\addplot[red,semithick] file {wykresy/z2_y1_u2_3.txt};
+\addplot[green,semithick] file {wykresy/z2_y1_u2_5.txt};
+\legend{$u_2 = 1$, $u_2 = 3$, $u_2 = 5$}
+
+\nextgroupplot
+[
+xmin=0,xmax=200,ymin=0,ymax=12,
+xlabel={$k$},
+ylabel={$y_2$},
+xtick={0, 50, 100, 150, 200},
+ytick={0, 2, 4, 6, 8, 10, 12},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z2_y2_u2_1.txt};
+\addplot[red,semithick] file {wykresy/z2_y2_u2_3.txt};
+\addplot[green,semithick] file {wykresy/z2_y2_u2_5.txt};
+\legend{$u_2 = 1$, $u_2 = 3$, $u_2 = 5$}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Odpowiedzi na skoki sygnału $u_2$}
+\label{fig:skoki_u2}
+\end{figure}

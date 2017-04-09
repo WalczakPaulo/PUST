@@ -1,17 +1,16 @@
-s11 = csvread('z3_y1_u1.csv');
-s12 = csvread('z3_y1_u2.csv');
-s21 = csvread('z3_y2_u1.csv');
-s22 = csvread('z3_y2_u2.csv');
-
-s11 = s11(9:end);
-s12 = s12(9:end);
-s21 = s21(9:end);
-s22 = s22(9:end);
+s11 = csvread('sprawko/wykresy/z3_y1_u1.csv');
+s12 = csvread('sprawko/wykresy/z3_y1_u2.csv');
+s21 = csvread('sprawko/wykresy/z3_y2_u1.csv');
+s22 = csvread('sprawko/wykresy/z3_y2_u2.csv');
+s11 = s11(2:end);
+s12 = s12(2:end);
+s21 = s21(2:end);
+s22 = s22(2:end);
 
 D = 150;
 N = 150;
 Nu = 150;
-lambda = 1;
+lambda = 10;
 
 Y0 = zeros(2*N, 1);
 Yk = zeros(2*N, 1);
@@ -21,8 +20,19 @@ Y1 = zeros(1000, 1);
 Y2 = zeros(1000, 1);
 U1 = zeros(1000, 1);
 U2 = zeros(1000, 1);
-yzad1 = 5*ones(1000, 1);
-yzad2 = 2*ones(1000, 1);
+yzad1 = zeros(1000, 1);
+yzad1(1:200) = 5;
+yzad1(201:500) = 2;
+yzad1(501:end) = 9;
+yzad2 = zeros(1000, 1);
+yzad2(1:200) = 2;
+yzad2(201:300) = 5;
+yzad2(301:700) = 9;
+yzad2(700:end) = 3;
+
+Zy1 = 0*ones(1000, 1);
+Zy1(1:400) = 0;
+Zy2 = 0*ones(1000, 1);
 
 dU = zeros(2*Nu, 1);
 dUp = zeros(2*(D-1),1);
@@ -53,8 +63,8 @@ K = ((M'*phi*M + Lambda)^(-1))*M'*phi;
 
 
 for k = 9:1000
-   Yk(1:2:end) = Y1(k-1);
-   Yk(2:2:end) = Y2(k-1);
+   Yk(1:2:end) = Y1(k-1) + Zy1(k - 1);
+   Yk(2:2:end) = Y2(k-1) + Zy2(k - 1);
    
    Yzad(1:2:end) = yzad1(k);
    Yzad(2:2:end) = yzad2(k);
@@ -70,4 +80,14 @@ for k = 9:1000
    Y1(k) = symulacja_obiektu5y1(U1(k - 7), U1(k - 8), U2(k - 2), U2(k - 3), Y1(k - 1), Y1(k - 2));
    Y2(k) = symulacja_obiektu5y2(U1(k - 3), U1(k - 4), U2(k - 4), U2(k - 5), Y2(k - 1), Y2(k - 2));
 end
-   
+
+clf;
+subplot(2,1,1)
+plot(Y1);
+hold on
+plot(yzad1)
+subplot(2,1,2)
+plot(Y2)
+hold on
+plot(yzad2)
+hold off

@@ -1,0 +1,102 @@
+\chapter{Odpowiedź skokowa DMC}
+W kolejnym kroku poczyniliśmy przygotowania do zaprojektowania regulatora
+DMC dla obiektu. W tym celu zebraliśmy odpowiedzi skokowe podobnie jak w poprzednim
+punkcie. Wykonany został skok jednostkowy każdego sygnału sterującego z osobna.
+Wyniki przedstawiają wykresy poniżej.
+
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.5\textwidth,
+xmin=0,xmax=200,ymin=0,ymax=2,
+xlabel={$k$},
+ylabel={$s^{11}_k$},
+xtick={0, 50, 100, 150, 200},
+ytick={0, 0.5, 1, 1.5, 2},
+% legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z3_y1_u1.txt};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście $y_1$, sygnał sterujący $u_1$.}
+\label{fig:s11}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.5\textwidth,
+xmin=0,xmax=200,ymin=0,ymax=2,
+xlabel={$k$},
+ylabel={$s^{12}_k$},
+xtick={0, 50, 100, 150, 200},
+ytick={0, 0.5, 1, 1.5, 2},
+% legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z3_y1_u2.txt};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście $y_1$, sygnał sterujący $u_2$.}
+\label{fig:s12}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.5\textwidth,
+xmin=0,xmax=200,ymin=0,ymax=2,
+xlabel={$k$},
+ylabel={$s^{21}_k$},
+xtick={0, 50, 100, 150, 200},
+ytick={0, 0.5, 1, 1.5, 2},
+% legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z3_y2_u1.txt};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście $y_2$, sygnał sterujący $u_1$.}
+\label{fig:s21}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.5\textwidth,
+xmin=0,xmax=200,ymin=0,ymax=2,
+xlabel={$k$},
+ylabel={$s^{22}_k$},
+xtick={0, 50, 100, 150, 200},
+ytick={0, 0.5, 1, 1.5, 2},
+% legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z3_y2_u2.txt};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście $y_2$, sygnał sterujący $u_2$.}
+\label{fig:s22}
+\end{figure}

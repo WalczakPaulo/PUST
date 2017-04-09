@@ -1,18 +1,30 @@
+clear all
 N = 1000;
-Yz1 = 3*ones(N, 1);
-Yz2 = 2*ones(N, 1);
-y1 = zeros(N, 1);
-y2 = zeros(N, 1);
+
+yzad1 = zeros(1000, 1);
+yzad1(1:200) = 5;
+yzad1(201:500) = 2;
+yzad1(501:end) = 9;
+yzad2 = zeros(1000, 1);
+yzad2(1:200) = 2;
+yzad2(201:300) = 5;
+yzad2(301:700) = 9;
+yzad2(700:end) = 3;
+
+Y1 = zeros(N, 1);
+Y2 = zeros(N, 1);
+Zy1 = 0*ones(N, 1);
+Zy2 = 0*ones(N, 1);
 U1 = zeros(N, 1);
 U2 = zeros(N, 1);
 
-K1 = 1;
-Ti1 = Inf;
-Td1 = 0;
+K1 = 1.5;
+Ti1 = 20;
+Td1 = 0.1;
 
-K2 = 1;
-Ti2 = Inf;
-Td2 = 0;
+K2 = 1.5;
+Ti2 = 20;
+Td2 = 0.1;
 
 T = 0.5;
 
@@ -23,8 +35,8 @@ prevUi1 = 0;
 prevUi2 = 0;
 
 for k = 9:N
-   e1 = Yz1(k - 1) - y1(k - 1);
-   e2 = Yz2(k - 1) - y2(k - 1);
+   e1 = yzad1(k - 1) - (Y1(k - 1) + Zy1(k - 1));
+   e2 = yzad2(k - 1) - (Y2(k - 1) + Zy2(k - 1));
    
    uP1 = K1 * e1;
    uI1 = prevUi1 + (K1 / Ti1) * T * (prevE1 + e1) / 2;
@@ -36,6 +48,21 @@ for k = 9:N
    uD2 = K2 * (Td2 / T) * (e2 - prevE2);
    U2(k) = uP2 + uI2 + uD2;
    
-   y1(k) = symulacja_obiektu5y1(U1(k - 7), U1(k - 8), U2(k - 2), U2(k - 3), y1(k - 1), y1(k - 2));
-   y2(k) = symulacja_obiektu5y2(U1(k - 3), U1(k - 4), U2(k - 4), U2(k - 5), y2(k - 1), y2(k - 2));
+   Y1(k) = symulacja_obiektu5y1(U1(k - 7), U1(k - 8), U2(k - 2), U2(k - 3), Y1(k - 1), Y1(k - 2));
+   Y2(k) = symulacja_obiektu5y2(U1(k - 3), U1(k - 4), U2(k - 4), U2(k - 5), Y2(k - 1), Y2(k - 2));
+   prevE1 = e1;
+   prevE2 = e2;
+   prevUi1 = uI1;
+   prevUi2 = uI2;
 end
+
+clf;
+subplot(2,1,1)
+plot(Y1);
+hold on
+plot(yzad1)
+subplot(2,1,2)
+plot(Y2)
+hold on
+plot(yzad2)
+hold off

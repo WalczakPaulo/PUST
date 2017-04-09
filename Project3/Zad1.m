@@ -1,7 +1,7 @@
 u1 = zeros(500, 1);
 u2 = zeros(500, 1);
-y1 = zeros(500, 1);
-y2 = zeros(500, 1);
+y1 = ones(500, 1);
+y2 = ones(500, 1);
 
 for k = 9:500
    y1(k) = symulacja_obiektu5y1(u1(k-7), u1(k-8), u2(k-2), u2(k-3), y1(k-1), y1(k-2));

@@ -1,0 +1,113 @@
+\chapter{Regulacja}
+Wykorzystując wcześniej zdobyte informacje stworzyliśmy dwa regulatory dla naszego
+obiektu --- regulator PID, oraz regulator DMC. Porównaliśmy je dla zadanej ścieżki
+wartości zadanych. Została ona dobrana tak, aby uwzględniać zarówno jednoczesne
+skoki w przeciwnych kierunkach, oraz zmianę wartości zadanej dla jednego wyjścia
+przy stałej wartości zadanej drugiego wyjścia, aby zaobserwować ewentualny wpływ
+wartości zadanej wyjścia na sterowanie drugim wyjściem. Przebiegi, wraz z wartościami
+zadanymi ilustrują wykresy \ref{fig:reg_pid}, oraz \ref{fig:reg_dmc}. Wskaźniki
+jakości regulacji dla tych dwóch przypadków wynoszą $E_{DMC} \approx 2875,4$,
+oraz $E_{PID} \approx 3060,3$. Nastawy obydwu regulatorów zostały dobrane
+eksperymentalnie. Dla regulatora PID wynoszą one:
+\begin{equation}
+  K^1 = 1,5 \qquad T^1_i = 20 \qquad T^1_d = 0.1
+\end{equation}
+\begin{equation}
+  K^2 = 1,5 \qquad T^2_i = 20 \qquad T^2_d = 0.1
+\end{equation}
+Tory sterowania regulatora PID zostały ustalone $y_1$ -- $u_1$, $y_2$ -- $u_2$.
+Przy innym zestawieniu regulator w ogóle nie zdawał egzaminu.
+Dla regulatora DMC ustawiony został horyzont predykcji i horyzont sterowania
+równy horyzontowi dynamiki. Uznaliśmy, iż chcemy osiągnąć jak najlepsze rezultaty,
+podczas gdy mocy obliczeniowej mamy aż nadto. Parametr $\lambda$ ustanowiliśmy
+taki sam dla obydwu sygnałów sterujących i równy $10$. Celem takiego działania
+było ograniczenie zmian jednego wyjścia, przy skoku wartości zadanej
+drugiego wyjścia. Zgodnie z powyższym nastawy regulatora DMC prezentują się
+następująco:
+\begin{equation}
+  D = 150 \qquad N = 150 \qquad N_u = 150 \qquad \lambda = 10
+\end{equation}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.4\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=1000,ymin=0,ymax=15,
+xlabel={$k$},
+ylabel={$y_1$},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0, 5, 10, 15},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z5_pid_y1.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad1.txt};
+\legend{$y_1$, $y^{zad}_1$}
+
+\nextgroupplot
+[
+xmin=0,xmax=1000,ymin=0,ymax=15,
+xlabel={$k$},
+ylabel={$y_2$},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0, 5, 10, 15},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z5_pid_y2.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad2.txt};
+\legend{$y_2$, $y^{zad}_2$}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Regulacja PID.}
+\label{fig:reg_pid}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.4\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=1000,ymin=0,ymax=15,
+xlabel={$k$},
+ylabel={$y_1$},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0, 5, 10, 15},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z5_dmc_y1.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad1.txt};
+\legend{$y_1$, $y^{zad}_1$}
+
+\nextgroupplot
+[
+xmin=0,xmax=1000,ymin=0,ymax=15,
+xlabel={$k$},
+ylabel={$y_2$},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0, 5, 10, 15},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z5_dmc_y2.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad2.txt};
+\legend{$y_2$, $y^{zad}_2$}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Regulacja DMC.}
+\label{fig:reg_dmc}
+\end{figure}

@@ -10,12 +10,13 @@ if __name__ == '__main__':
         print("Enter filename.")
         exit()
 
-    with open(sys.argv[1], 'r') as program:
-        data = program.read()
+    for f in sys.argv[1:]:
+        with open(f, 'r') as program:
+            data = program.read()
 
-    data = re.split('\n|,', data)
-    data = filter(None, data)
+            data = re.split('\n|,', data)
+            data = filter(None, data)
 
-    with open(sys.argv[1], 'w') as program:
-        for number, text in enumerate(data):
-            program.write('{:f} {}\n'.format(number + 1, text))
+            with open(f[0:-3] + 'txt', 'w') as program:
+                for number, text in enumerate(data):
+                    program.write('{:f} {}\n'.format(number, text))
