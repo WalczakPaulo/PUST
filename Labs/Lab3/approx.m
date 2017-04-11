@@ -1,7 +1,7 @@
-function [ error] = approx(T1, T2, K, Td, skok )
+function [ error] = approx(T1, T2, K, Td, skok, s )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
-load('s.mat');
+
 k = length(s);
 error = 0;
 errorVec = zeros(k,1);

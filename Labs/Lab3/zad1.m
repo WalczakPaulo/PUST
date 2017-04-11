@@ -1,8 +1,8 @@
-function[] = zad1 ()
+
 %Badanie punktu pracy
 
  addpath ('F:\SerialCommunication'); % add a path
- initSerialControl COM4 % initialise com port
+ initSerialControl COM17 % initialise com port
 
 Upp1=27;
 Upp2=32;
@@ -28,4 +28,3 @@ for k=1:n
  drawnow
  waitForNewIteration (); % wait for new iteration
  end
-end
