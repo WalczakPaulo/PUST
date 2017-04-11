@@ -1,0 +1,104 @@
+\chapter{Skok zakłócenia}
+Na koniec zbadaliśmy odporność regulatorów na niemierzalny skok zakłócenia
+wyjścia obiektu. Eksperyment polegał na modyfikacji stanu obiektu w chwili
+750, gdy obiekt jest ustabilizowany i wartość zadana stała na obydwu torach,
+tak aby nie nakładać na siebie efektów naszego zakłócenia i bliskiej zmiany
+wartości zadanej na którymkolwiek z torów. Skok zakłócenia był jednostkowy
+na wyjściu $y_1$. Wyniki przedstawiają wykresy \ref{fig:skok_zakl_dmc} i \ref{fig:skok_zakl_pid}.
+Widać na nich, iż obydwa regulatory natychmiast zareagowały. W obydwu przypadkach
+również widać przeregulowanie na torze na którym wystąpiło zakłócenie. Wielkość
+przerególowania w obydwu przypadkach jest porównywalna, jednak regulator DMC
+wolniej wraca do wartości zadanej. Początkowo wydawało nam się, iż powodem tego
+jest wysoka wartość parametru $\lambda$, jednak jego zmniejszenie nie daje dużej
+poprawy pod tym względem. Uznaliśmy, iż taka jest charakterystyka regulatora.
+Regulator PID szybciej znajduje się w okolicy wartości zadanej jednak gdy jest
+już blisko dochodzi do niej bardzo powoli. Naszym zdaniem zachowuje się typowo
+dla regulatora PID. Oczywiście szybki spadek sterowania, będący efektem zakłócenia,
+miał też wpływ na wyjście $y_2$ mimo, iż nie było na nim żadnego dodatkowego zakłócenia.
+Trajektoria tego wyjścia w takcie zakłócenia wygląda podobnie do toru z zakłóceniem.
+Odejście od wartości zadanej jest odrobine mniejsze i zaczyna się odrobinę później, gdyż
+nie jest bezpośrednim efektem zakłócenia, ale sterowania niwelującego zakłócenie.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.4\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=1000,ymin=0,ymax=15,
+xlabel={$k$},
+ylabel={$y_1$},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0, 5, 10, 15},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z7_dmc_y1_tor1_t750_d1.txt};
+\addplot[red,semithick] file {wykresy/z7_yzad1.txt};
+\legend{$y_1$, $y^{zad}_1$}
+
+\nextgroupplot
+[
+xmin=0,xmax=1000,ymin=0,ymax=15,
+xlabel={$k$},
+ylabel={$y_2$},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0, 5, 10, 15},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z7_dmc_y2_tor1_t750_d1.txt};
+\addplot[red,semithick] file {wykresy/z7_yzad2.txt};
+\legend{$y_2$, $y^{zad}_2$}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Regulacja DMC ze skokiem zakłócenia w chwili $750$.}
+\label{fig:skok_zakl_dmc}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.4\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=1000,ymin=0,ymax=15,
+xlabel={$k$},
+ylabel={$y_1$},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0, 5, 10, 15},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z7_pid_y1_tor1_t750_d1.txt};
+\addplot[red,semithick] file {wykresy/z7_yzad1.txt};
+\legend{$y_1$, $y^{zad}_1$}
+
+\nextgroupplot
+[
+xmin=0,xmax=1000,ymin=0,ymax=15,
+xlabel={$k$},
+ylabel={$y_2$},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0, 5, 10, 15},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z7_pid_y2_tor1_t750_d1.txt};
+\addplot[red,semithick] file {wykresy/z7_yzad2.txt};
+\legend{$y_2$, $y^{zad}_2$}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Regulacja PID ze skokiem zakłocenia w chwili $750$.}
+\label{fig:skok_zakl_pid}
+\end{figure}

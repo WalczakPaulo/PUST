@@ -1,4 +1,3 @@
-clear all
 N = 1000;
 
 yzad1 = zeros(1000, 1);
@@ -9,14 +8,25 @@ yzad2 = zeros(1000, 1);
 yzad2(1:200) = 2;
 yzad2(201:300) = 5;
 yzad2(301:700) = 9;
-yzad2(700:end) = 3;
+yzad2(700:end) = 9;
 
 Y1 = zeros(N, 1);
 Y2 = zeros(N, 1);
-Zy1 = 0*ones(N, 1);
-Zy2 = 0*ones(N, 1);
 U1 = zeros(N, 1);
 U2 = zeros(N, 1);
+
+try
+   Zy1;
+   Zy2;
+catch
+   Zy1 = 1*(2*rand(1000, 1) - 1);
+   Zy2 = 1*(2*rand(1000, 1) - 1);
+end
+
+tSkok1 = 750;
+dSkok1 = 1;
+tSkok2 = 10000;
+dSkok2 = 0;
 
 K1 = 1.5;
 Ti1 = 20;
@@ -54,6 +64,12 @@ for k = 9:N
    prevE2 = e2;
    prevUi1 = uI1;
    prevUi2 = uI2;
+   if k == tSkok1
+      Y1(k) = Y1(k) + dSkok1;
+   end
+   if k == tSkok2
+      Y2(k) = Y2(k) + dSkok2;
+   end
 end
 
 clf;

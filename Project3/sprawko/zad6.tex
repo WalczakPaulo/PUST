@@ -1,0 +1,99 @@
+\chapter{Zakłócenia}
+W kolejnym kroku została zbadana odporność obydwu algorytmów na zakłócenia pomiarowe.
+Zostały one zaimplementowane poprzez proste dodanie do wartości wyjścia podawanej
+do algorytmu losowej wartości z zakresu $<-n, n>$. Z każdym krokiem produkowana była
+nowa wartość losowa z zakresu. Trajektoria wartości zadanej była taka sama
+jak poprzednio, tak aby można było rozróżnić, czy dane zachowanie jest efektem
+zakłócenia, czy występowało również bez niego. Eksperymenty zostały przeprowadzone
+dla różnych wartości $n$. Za każdym razem jednak szum był dokładnie taki sam dla obydwu regulatorów.
+Wykresy \ref{fig:szum_dmc}, oraz \ref{fig:szum_pid} obrazują zachowanie w przypadku $n = 2$.
+Przy innych wartościach szum po prostu się skalował. Na wykresach widać, iż
+wpływ szumu na regulator DMC jest mniejszy, jednak wynik to jedynie z dobranej
+wartości parametru $\lambda$. Regulator DMC mniej radykalnie zmienia sterowanie,
+co w tym przypadku wyszło mu na dobre i dało stabilniejsze wyjście.
+Sądzę, iż przy regulatoreze PID można osiągnąć podobny efekt ograniczając
+zmianę sygnału sterującego.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.4\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=1000,ymin=0,ymax=15,
+xlabel={$k$},
+ylabel={$y_1$},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0, 5, 10, 15},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z6_dmc_y1_z_2.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad1.txt};
+\legend{$y_1$, $y^{zad}_1$}
+
+\nextgroupplot
+[
+xmin=0,xmax=1000,ymin=0,ymax=15,
+xlabel={$k$},
+ylabel={$y_2$},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0, 5, 10, 15},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z6_dmc_y2_z_2.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad2.txt};
+\legend{$y_2$, $y^{zad}_2$}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Regulacja DMC z szumem pomiarowym z zakresu $<-2, 2>$.}
+\label{fig:szum_dmc}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.4\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=1000,ymin=0,ymax=15,
+xlabel={$k$},
+ylabel={$y_1$},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0, 5, 10, 15},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z6_pid_y1_z_2.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad1.txt};
+\legend{$y_1$, $y^{zad}_1$}
+
+\nextgroupplot
+[
+xmin=0,xmax=1000,ymin=0,ymax=15,
+xlabel={$k$},
+ylabel={$y_2$},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={0, 5, 10, 15},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z6_pid_y2_z_2.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad2.txt};
+\legend{$y_2$, $y^{zad}_2$}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Regulacja PID z szumem pomiarowym z zakresu $<-2, 2>$.}
+\label{fig:szum_pid}
+\end{figure}
