@@ -1,14 +1,14 @@
-function[] = zad2 ()
+
 
 addpath ('F:\SerialCommunication'); % add a path
-initSerialControl COM3 % initialise com port
+initSerialControl COM16 % initialise com port
 
 Upp1= 27;
 Upp2 = 32;
 kk=350;
 Y = zeros(2,kk);
-dU1 = 20;
-dU2 = 0;
+dU1 = 0;
+dU2 = 20;
 
 
 figure
@@ -31,4 +31,3 @@ figure
  drawnow
  waitForNewIteration (); % wait for new iteration
  end
-end

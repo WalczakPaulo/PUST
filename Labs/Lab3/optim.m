@@ -1,13 +1,14 @@
-function [ T1,T2,K,Td,error ] = optim()
+function [ y, T1,T2,K,Td,error ] = optim(s)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
     %DMC optimization
-load('s.mat');
-k = length(s);
+
+% k = length(s);
+k = 500;
 nVars = 4; % optimizing 3 params, N, Nu and Lambda
 lb = [0 0 0 0]; %lower bound
 ub = [1000 1000 1000 k-100]; %upper bound
-[x,error]= ga(@(x)(approx(x(1),x(2),x(3),x(4),1)),nVars,[],[],[],[],lb,ub,[],4);
+[x,error]= ga(@(x)(approx(x(1),x(2),x(3),x(4),1, s)),nVars,[],[],[],[],lb,ub,[],4);
 %drawDMC
 y = zeros(k,1);
 u=ones(k,1)*1;

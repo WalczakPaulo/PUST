@@ -1,0 +1,46 @@
+Dla zaproponowanej trajektorii zmian sygnałów zadanych (trzy skoki o róznej amplitudzie)
+dobrac nastawy regulatora PID i parametry algorytmu DMC metoda eksperymentalna.
+Omówic wyniki i ewentualne sposoby poprawy jakosci regulacji. Jakosc
+regulacji oceniac jakosciowo (na podstawie rysunków przebiegów sygnałów) oraz ilosciowo,
+wyznaczajac wskaznik jakosci regulacji. Zamiescic wybrane wyniki pomiarów
+(przebiegi sygnałów wejsciowych i wyjsciowych procesu oraz wartosci wskaznika E).
+
+Wstęp:
+Celem trzeciego laboratorium była implementacja, weryfikacja poprawnosci działania i dobór parametrów
+algorytmów regulacji wielowymiarowego procesu laboratoryjnego. W trakcie zajęć zweryfikowaliśmi wiedzę z trzeciego projektu na rzeczywistym 
+obiekcie. Badania dotyczyły procesu o dwóch wejściach i dwóch wyjściach. W tym celu wykorzystane zostało stanowisko w laboratorium CS402. Proces 1 składał się z:
+grzałka G1 (sterowanie), czujnik temperatury T1 (sygnał wyjsciowy procesu), wentylator W1 (stałe niemierzalne zakłócenie); Proces 2: grzałka G2 (sterowanie),
+czujnik T3 (sygnał wyjsciowy procesu), wentylator W2 (stałe niemierzalne zakłócenie). Sygnały sterujace G1 i G2 moga zmieniac sie z w zakresie (0-100%), sygnały wyjsciowe
+to pomiary wykonywane przez czujniki tempratury T1 oraz T2 (temperatura w C), natomiast wentylatory W1 i W2 nalezy traktowac jako cecha otoczenia – ich uzycie pozwala
+przyspieszyc opadanie temperatury zmierzonej na czujnikach T1 i T2. Sterowanie W1 i W2 musi wynosic 50%. Czas próbkowania jest równy 1 s.
+
+Zadanie 1.
+W pierwszym zadaniu sprawdziliśmy możliwośc interakcji ze stanowiskiem. Sprawdziliśmy to wykorzystyjąc gotowe metody sendControls oraz readMeasurements. Stanowisko reagowało
+prawidłowo. Następnie sprawdziliśmy wyjścia obiektu w punkcie pracy. Punkt pracy zdefiniowany był wzorem w treści zadania laboratoryjnego i u nas wynosiło Upp1 = 27 oraz Upp2 = 32.
+Po odczekaniu odpowiedniej ilości czasu wnioskujemy, że dla zadanych wartości sterowania wyjścia obiektu stabilizują się na poziomach Ypp1 = ... oraz Ypp2 = ... .
+
+Zadanie 2. (jakie skoki)
+Celem zadania drugiego było wyznaczenie skrośnych odpowiedzi skokowych procesu dla trzech różnych zmian sygnału sterującego G! rozpoczynając z punktu pracy – pomiar na T3 (lub odwrotnie: sygnał
+sterujacy G2 – pomiar T1). Wykonanie zadania drugiego okazało się wyjątkowo czasochłonne ponieważ trzeba było pozyskać dużą ilość odpowiedzi skokowych. Wiązało się to z naprzemiennymi skokami
+wartości sterowania oraz sprowadzaniem obiektu do punktu pracy. Ze względu na wolny czas stabilizacji obiektu trwało to dużą ilość czasu, lecz wyciągając wnioski z poprzedniego laboratorium
+postanowiliśmy szczególną uwagę zwrócić własnie na pozyskanie odpowiedzi skokowych wysokiej jakości, mając na celu stworzenie dobrego regulatora DMC. Oceniając wykresy możemy z grubsza ustalić
+że obiekt ma właściwości statyczne ( proporcjonalny skok wartości wyjścia do skoku wartości sterowania ).
+
+Zadanie 3.
+Celem zadania było przekształcenie wybranych odpowiedzi skokowych w taki sposób, aby otrzymac odpowiedzi skokowe wykorzystane w algorytmie DMC. Wybraliśmy odpowiedzi skokowe, o największych skokach sterowania
+co pozwoli na zniwelowanie względnego wpływu zakłócen na wyjście obiektu. Do aproksymacji użyliśmy napisanych przez nas skryptów, wykorzystanych i przetestowanych na poprzednich projektach oraz 
+laboratoriach. Użyto w nich członu inercyjnego drugiego rzędu z opóźnieniem. Uważamy, że przedstawione poniżej aproksymacje, dobrze przybliżają kształt odpowiedzi skokowych. Spodziewamy się
+zatem mniejszych problemów z regulacją niż na poprzednim laboratorium.
+
+Zadanie 4.
+Celem zadania czwartego było napisanie w jezyku Matlab programów do regulacji cyfrowego algorytmu PID oraz algorytmu DMC w wersji analitycznej. Należało również uwzględnić wartości ograniczeń wartości
+sygnałów sterujących. Wykorzystaliśmy oczywiście skrypty napisane dla projektu trzeciego. Zmodyfikowaliśmy skrypty tak aby wspólpracowały ( komunikowały się ) ze stanowiskiem. Chcielibyśmy nadmienić,
+że w projekcie użyliśmy również przesuwania punktu pracy, co pozwoliło na jak się później okaże bardzo dobrą regulację. Dzięki wiedzy pozyskanej na laboratorium zrozumieliśmy ideę przesuwania punktu
+pracy. 
+
+Zadanie 5. (jakie skoki i wyjścia)
+Celem zadanie piątego było dobranie nastaw algorytmu PID i DMC metodą eksperymentalną, tak aby jak najlepiej reagowały na zmiany wartości zadanych. Jakość regulacji ocenialiśmy jakośiowo (
+na podstawie rysunków przebiegó sygnałów) oraz ilościowo, wyznaczajac wskaźnik jakości regulacji. Wykonaliśmy takie same skoki sterowania zarówno dla PID jak i DMC, tak aby w miarę możliwości
+móc porównać jakość regulacji obu regulatorów. Niestety porównanie działania regulatorów dla różnych nastaw było trudne i może okazać się błędne ze względu na problemy ze sprowadzeniem obiektu
+do punktu pracy. Skoki sterowania jakie przyjęliśmy to od punktu pracy w chwili 1 do Y1 = Y2 = 38 , następnie w chwili 201 do 500 ( iteracji ) do Y1 = Y2 = 41.  
+
