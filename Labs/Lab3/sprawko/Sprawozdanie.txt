@@ -1,0 +1,70 @@
+
+
+Wstęp:
+Celem trzeciego laboratorium była implementacja, weryfikacja poprawnosci działania i dobór parametrów
+algorytmów regulacji wielowymiarowego procesu laboratoryjnego. W trakcie zajęć zweryfikowaliśmi wiedzę z trzeciego projektu na rzeczywistym 
+obiekcie. Badania dotyczyły procesu o dwóch wejściach i dwóch wyjściach. W tym celu wykorzystane zostało stanowisko w laboratorium CS402. Proces 1 składał się z:
+grzałka G1 (sterowanie), czujnik temperatury T1 (sygnał wyjsciowy procesu), wentylator W1 (stałe niemierzalne zakłócenie); Proces 2: grzałka G2 (sterowanie),
+czujnik T3 (sygnał wyjsciowy procesu), wentylator W2 (stałe niemierzalne zakłócenie). Sygnały sterujace G1 i G2 moga zmieniac sie z w zakresie (0-100%), sygnały wyjsciowe
+to pomiary wykonywane przez czujniki tempratury T1 oraz T2 (temperatura w C), natomiast wentylatory W1 i W2 nalezy traktowac jako cecha otoczenia – ich uzycie pozwala
+przyspieszyc opadanie temperatury zmierzonej na czujnikach T1 i T2. Sterowanie W1 i W2 musi wynosic 50%. Czas próbkowania jest równy 1 s.
+
+Zadanie 1.
+W pierwszym zadaniu sprawdziliśmy możliwośc interakcji ze stanowiskiem. Sprawdziliśmy to wykorzystyjąc gotowe metody sendControls oraz readMeasurements. Stanowisko reagowało
+prawidłowo. Następnie sprawdziliśmy wyjścia obiektu w punkcie pracy. Punkt pracy zdefiniowany był wzorem w treści zadania laboratoryjnego i u nas wynosiło Upp1 = 27 oraz Upp2 = 32.
+Po odczekaniu odpowiedniej ilości czasu (kilka minut) wnioskujemy, że dla zadanych wartości sterowania wyjścia obiektu stabilizują się na poziomach Ypp1 = 35.5 oraz Ypp2 = 37.06.
+
+
+Zadanie 2. 
+Celem zadania drugiego było wyznaczenie skrośnych odpowiedzi skokowych procesu dla trzech różnych zmian sygnału sterującego G! rozpoczynając z punktu pracy – pomiar na T3 (lub odwrotnie: sygnał
+sterujacy G2 – pomiar T1). Wykonanie zadania drugiego okazało się wyjątkowo czasochłonne ponieważ trzeba było pozyskać dużą ilość odpowiedzi skokowych. Wiązało się to z naprzemiennymi skokami
+wartości sterowania oraz sprowadzaniem obiektu do punktu pracy. Ze względu na wolny czas stabilizacji obiektu trwało to dużą ilość czasu, lecz wyciągając wnioski z poprzedniego laboratorium
+postanowiliśmy szczególną uwagę zwrócić własnie na pozyskanie odpowiedzi skokowych wysokiej jakości, mając na celu stworzenie dobrego regulatora DMC. Wykonaliśmy skoki sterorowań z punktu pracy 
+o odpowiednio 10, 15 oraz 20 %. Polegało to na skoku sterowania na jednej grzałce, podczas gdy druga zachowała wartość z punktu pracu. Analogicznie przeprowadzono potem eksperyment odwrotnie:
+pierwsza grzałka zachowuje wartość punktu pracy, wówczas druga grzałka "otrzymuje" skok sterowania. Badaliśmy po skokach sterowania wartości wyjśc obiektu. Wzorując się jedynie na 
+otrzymanych wykresach nie moglibyśmy stwierdzić, że obiekt charakteryzuje wzmocnienie statyczne. Musimy jednakże wziąć po uwagę, że odpowiedzi skrośne charakteryzują się
+małym wzmocnieniem. Z tego względu duży wpływ na odpowiedź mają wówczas zakłócenia. Jak wiemy z doświadczenia obiekt jest bardzo wrażliwy na zakłócenia, co powoduje że wyniki 
+mogą nie być kompletnie zgodne z wynikami które uzyskalibyśmy w hermetycznym środowisku. Z doświadczeń z obiektem i przeprowadzonych wcześniej licznych eksperymentów na stanowisku,
+wynikało że obiekt jest liniowy i posiada właściwości statyczne. Przeanalizujmy juz same przebiegi. Najpierw na warsztat weźmiemy przebieg Y2(U1). Po skoku sterowania o 10%
+natepuje skok temperatury o około 1 stopien. Po skoku o 15 % nastepuje skok temperatury o około 1.38 stopnia. Po skoku o 20 % wyjscie rosnie około 1.88 stopnia. Jest to zależność prawie liniowa,
+o wzmocnieniu statycznym około 1,88/20 = 0.094. Zajmijmy się teraz drugim torem y2(u1). Po skoku sterowania o 10%
+natepuje skok temperatury o około 0.82 stopnia. Niestety zgubiliśmy dane na temat skoku sterowania o 15%. Po skoku o 20 % wyjscie rosnie około 1.63 stopnia. Jest to zależność praktycznie calkowicie
+liniowa,
+o wzmocnieniu statycznym około 1,63/20 = 0.0815.  Biorąc to pod uwagę, możemy z pewną małą dozą niepewności ustalić 
+że obiekt ma właściwości statyczne ( proporcjonalny skok wartości wyjścia do skoku wartości sterowania ). Wzmocnienie statyczne toru y2(u1) = 0.094, zaś toru y1(u2) = 0.0815.
+
+Zadanie 3.
+Celem zadania było przekształcenie wybranych odpowiedzi skokowych w taki sposób, aby otrzymac odpowiedzi skokowe wykorzystane w algorytmie DMC. Wybraliśmy odpowiedzi skokowe, o największych skokach sterowania
+co pozwoli na zniwelowanie względnego wpływu zakłócen na wyjście obiektu. Do aproksymacji użyliśmy napisanych przez nas skryptów, wykorzystanych i przetestowanych na poprzednich projektach oraz 
+laboratoriach. Opierał się on na wykorzystaniu wbudowanego w Matlabie algorytmu GA ( genetic algorithm ). Użyto w nich członu inercyjnego drugiego rzędu z opóźnieniem. 
+Ciekawostką jest, że algorytm dawał różne aproksymacje dla tej samej odpowiedzi skokowej. Wynika to z niedeterministycznego charakteru algorytmów ewolucyjnych. 
+Uważamy, że przedstawione poniżej aproksymacje, dobrze przybliżają kształt odpowiedzi skokowych. Spodziewamy się
+zatem mniejszych problemów z regulacją niż na poprzednim laboratorium.
+
+Zadanie 4.
+Celem zadania czwartego było napisanie w jezyku Matlab programów do regulacji cyfrowego algorytmu PID oraz algorytmu DMC w wersji analitycznej. Należało również uwzględnić wartości ograniczeń wartości
+sygnałów sterujących. Wykorzystaliśmy oczywiście skrypty napisane dla projektu trzeciego. Zmodyfikowaliśmy skrypty tak aby wspólpracowały ( komunikowały się ) ze stanowiskiem. Chcielibyśmy nadmienić,
+że w projekcie użyliśmy również przesuwania punktu pracy, co pozwoliło na jak się później okaże bardzo dobrą regulację. Dzięki wiedzy pozyskanej na laboratorium zrozumieliśmy ideę przesuwania punktu
+pracy. 
+
+Zadanie 5. 
+Celem zadanie piątego było dobranie nastaw algorytmu PID i DMC metodą eksperymentalną, tak aby jak najlepiej reagowały na zmiany wartości zadanych. Jakość regulacji ocenialiśmy jakośiowo (
+na podstawie rysunków przebiegó sygnałów) oraz ilościowo, wyznaczajac wskaźnik jakości regulacji. Wykonaliśmy takie same skoki sterowania zarówno dla PID jak i DMC, tak aby w miarę możliwości
+móc porównać jakość regulacji obu regulatorów. Podczas realizacji tego zadania dokonaliśmy pewnego wnioskowania. Jako że dla stanowiska w laboratorium, oba obiekty (procesy, mamy na myśli
+obie grzałki i odpowiednie czujniki temperatury ) są identyczne, identyczne mogą również być nastawy obu regulatorów. Przyjęliśmy zatem, że ustalimy takie same nastawy dla obu procesów.
+Niestety porównanie działania regulatorów dla różnych nastaw było trudne i może okazać się błędne ze względu na problemy ze sprowadzeniem obiektu
+do punktu pracy. Skoki sterowania jakie przyjęliśmy to od punktu pracy w chwili 1 do Y1 = Y2 = 38 , następnie w chwili 201 do 500 ( iteracji ) do Y1 = Y2 = 41.  
+Najpierw zajęliśmy się dostrajaniem regulatora PID. Rozpoczęliśmy od nastaw Kp = 6, Td = 60 oraz Ti = 1. Oceniając wizualne aspekty ( wykres regulacji) można stwierdzić, że regulacja jest słabej
+jakości. Występują silne oscylacje oraz przeregulowania. Błąd ilościowy liczony jako norma Euklidesowa E = E1 + E2 = 22.4896 + 19.5898 = 42.0794. Następnie dobraliśmy nastawy  Kp = 5, Td = 30 oraz Ti = 2.5.
+Tutaj widzimy już znaczną poprawę oceniając przebiegi. Nie występują silne oscylacje. Jednakże widzimy, że regulator nie zdążył w 200 iteracjach osiągnąć wartości zadanej 28. Błąd ilościowy liczony jako 
+norma Euklidesowa E = 30.5004 + 30.9701= 61.4704. Nie możemy jednakże jednoznacznie porównać obu nastaw regulatorów. Okazało się, że startują one z zupełnie różnych punktów startowych
+(różniących się o około 2 stopnie) co bardzo mocno przekłamuje ilościowe wyniki. 
+
+
+DMC
+Na początku dla regulatora DMC dobraliśmy nastawy Lambda=10, N=25 oraz Nu=250. Przebiegi wartości oceniamy bardzo dobrze. Sterowanie nie 'szarpie', jest dzięki dużej wartości Lambdy bardzo 
+płynne. Błąd liczony jako norma euklidesowa to E = E1 + E2 = 109.4128 + 109.8898 = 219.3026. 
+Stwierdziliśmy, że wypróbujemy również regulator o mniejszej wartości Lambdy, która powinna spowodować szybszą regulację kosztem agresywniejszego sterowania.  Sterowanie rzeczywiście stało
+się bardziej agresywne.
+Błąd liczony jako norma euklidesowa to E = E1 + E2 = 109.2459 + 108.9113 = 218.1572. Uzyskaliśmy minimalnie lepszą jakość regulacji. Nie możemy jednak dokładnie tego ocenić,
+ponieważ mimo prób sprowadzenia obiektu do punktu pracy, startowały one z nieco innych punktów.

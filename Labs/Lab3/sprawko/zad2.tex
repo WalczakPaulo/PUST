@@ -1,0 +1,105 @@
+\chapter{Zadanie 2}
+Celem zadania drugiego było wyznaczenie skrośnych odpowiedzi skokowych procesu dla trzech różnych zmian sygnału sterującego G1 rozpoczynając z punktu pracy – pomiar na T3 (lub odwrotnie: sygnał
+sterujacy G2 – pomiar T1). Wykonanie zadania drugiego okazało się wyjątkowo czasochłonne ponieważ trzeba było pozyskać dużą ilość odpowiedzi skokowych. Wiązało się to z naprzemiennymi skokami
+wartości sterowania oraz sprowadzaniem obiektu do punktu pracy. Ze względu na wolny czas stabilizacji obiektu trwało to dużą ilość czasu, lecz wyciągając wnioski z poprzedniego laboratorium
+postanowiliśmy szczególną uwagę zwrócić własnie na pozyskanie odpowiedzi skokowych wysokiej jakości, mając na celu stworzenie dobrego regulatora DMC. Wykonaliśmy skoki sterorowań z punktu pracy
+o odpowiednio 10\%, 15\% oraz 20\%. Polegało to na skoku sterowania na jednej grzałce, podczas gdy druga zachowywała wartość punktu pracy. Analogicznie przeprowadzono potem eksperyment odwrotny:
+pierwsza grzałka zachowywała wartość punktu pracy, podczas gdy druga grzałka "otrzymała" skok sterowania. Badaliśmy po skokach sterowania wartości wyjśc obiektu. Wzorując się jedynie na
+otrzymanych wykresach nie moglibyśmy stwierdzić, że obiekt charakteryzuje wzmocnienie statyczne. Musimy jednakże wziąć po uwagę, że odpowiedzi skrośne charakteryzują się
+małym wzmocnieniem. Z tego względu duży wpływ na odpowiedź mają wówczas zakłócenia. Jak wiemy z doświadczenia obiekt jest bardzo wrażliwy na zakłócenia, co powoduje że wyniki
+mogą nie być kompletnie zgodne z wynikami które uzyskalibyśmy w hermetycznym środowisku. Z doświadczeń z obiektem i przeprowadzonych wcześniej licznych eksperymentów na stanowisku,
+wynikało że obiekt jest liniowy i posiada właściwości statyczne. Przeanalizujmy już same przebiegi. Najpierw na warsztat weźmiemy przebieg $Y2(U1)$. Po skoku sterowania o 10\%
+natepuje skok temperatury o około $1^\circ$C. Po skoku o 15\% nastepuje skok temperatury o około $1.38^\circ$C. Po skoku o 20\% wyjście rośnie około $1.88^\circ$C. Jest to zależność prawie liniowa,
+o wzmocnieniu statycznym około $1,88/20 = 0.094$. Zajmijmy się teraz drugim torem $Y2(U1)$. Po skoku sterowania o 10\%
+natepuje skok temperatury o około $0.82^\circ$C. Niestety zgubiliśmy dane na temat skoku sterowania o 15\%. Po skoku o 20\% wyjscie rosnie około $1.63^\circ$C. Jest to zależność praktycznie
+liniowa,
+o wzmocnieniu statycznym około 1,63/20 = 0.0815.  Biorąc to pod uwagę, możemy z pewną małą dozą niepewności ustalić
+że obiekt ma właściwości statyczne (proporcjonalny skok wartości wyjścia do skoku wartości sterowania). Wzmocnienie statyczne toru $Y2(U1) = 0.094$, zaś toru $Y1(U2) = 0.0815$.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.4\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=350,ymin=36,ymax=46,
+xlabel={$k$},
+ylabel={$y_1$},
+xtick={0, 50, 100, 150, 200, 300, 350},
+ytick={36, 38, 40, 42, 44, 46},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z2_y1_u1_10.txt};
+\addplot[red,semithick] file {wykresy/z2_y1_u1_15.txt};
+\addplot[green,semithick] file {wykresy/z2_y1_u1_20.txt};
+\legend{$\delta u_1 = 10$, $\delta u_1 = 15$, $\delta u_1 = 20$}
+
+\nextgroupplot
+[
+xmin=0,xmax=350,ymin=36,ymax=46,
+xlabel={$k$},
+ylabel={$y_2$},
+xtick={0, 50, 100, 150, 200, 300, 350},
+ytick={36, 38, 40, 42, 44, 46},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z2_y2_u1_10.txt};
+\addplot[red,semithick] file {wykresy/z2_y2_u1_15.txt};
+\addplot[green,semithick] file {wykresy/z2_y2_u1_20.txt};
+\legend{$\delta u_1 = 10$, $\delta u_1 = 15$, $\delta u_1 = 20$}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Wpływ skoków sterowania $u_1$ na wyjścia.}
+\label{fig:skoki_u1}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.4\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=350,ymin=36,ymax=46,
+xlabel={$k$},
+ylabel={$y_1$},
+xtick={0, 50, 100, 150, 200, 300, 350},
+ytick={36, 38, 40, 42, 44, 46},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z2_y1_u2_10.txt};
+\addplot[red,semithick] file {wykresy/z2_y1_u2_15.txt};
+\addplot[green,semithick] file {wykresy/z2_y1_u2_20.txt};
+\legend{$\delta u_1 = 10$, $\delta u_1 = 15$, $\delta u_1 = 20$}
+
+\nextgroupplot
+[
+xmin=0,xmax=350,ymin=36,ymax=46,
+xlabel={$k$},
+ylabel={$y_2$},
+xtick={0, 50, 100, 150, 200, 300, 350},
+ytick={36, 38, 40, 42, 44, 46},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z2_y2_u2_10.txt};
+\addplot[red,semithick] file {wykresy/z2_y2_u2_15.txt};
+\addplot[green,semithick] file {wykresy/z2_y2_u2_20.txt};
+\legend{$\delta u_2 = 10$, $\delta u_2 = 15$, $\delta u_2 = 20$}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Wpływ skoków sterowania $u_2$ na wyjścia.}
+\label{fig:skoki_u1}
+\end{figure}

@@ -1,0 +1,118 @@
+\chapter{Zadanie 5}
+
+Celem zadanie piątego było dobranie nastaw algorytmów PID i DMC metodą eksperymentalną, tak aby jak najlepiej reagowały na zmiany wartości zadanych. Jakość regulacji ocenialiśmy jakościowo (na podstawie rysunków przebiegów sygnałów), oraz ilościowo, wyznaczajac wskaźniki jakości regulacji. Wykonaliśmy takie same skoki sterowania zarówno dla regulatora PID jak i DMC, tak aby w miarę możliwości
+móc porównać jakość regulacji obu regulatorów.
+\section{PID}
+
+Podczas realizacji tego zadania dokonaliśmy pewnego wnioskowania. Jako że dla stanowiska w laboratorium, oba tory (mamy na myśli
+obie grzałki i odpowiednie czujniki temperatury) są identyczne, identyczne mogą również być nastawy obu regulatorów. Przyjęliśmy zatem, że ustalimy takie same nastawy dla obu procesów.
+Niestety porównanie działania regulatorów dla różnych nastaw było trudne i może okazać się błędne ze względu na problemy ze sprowadzeniem obiektu
+do punktu pracy. Skoki sterowania jakie przyjęliśmy to od punktu pracy w chwili $k = 1$ do $Y1 = Y2 = 38$, następnie w chwili $k = 201 do k = 500$ do $Y1 = Y2 = 41$.
+Najpierw zajęliśmy się dostrajaniem regulatora PID. Rozpoczęliśmy od nastaw:
+\begin{equation}
+  K_p = 6, \qquad T_d = 60, \qquad T_i = 1.
+\end{equation}
+Oceniając wizualne aspekty (wykres regulacji) można stwierdzić, że regulacja jest słabej
+jakości. Występują silne oscylacje oraz przeregulowania. Błąd ilościowy liczony jako norma Euklidesowa $E = E1 + E2 = 22.4896 + 19.5898 = 42.0794$. Następnie dobraliśmy nastawy
+\begin{equation}
+  K_p = 5, \qquad T_d = 30, \qquad T_i = 2.5.
+\end{equation}
+Tutaj widzimy już znaczną poprawę oceniając przebiegi. Nie występują silne oscylacje. Jednakże widzimy, że regulator nie zdążył w 200 iteracjach osiągnąć wartości zadanej 28. Błąd ilościowy liczony jako
+norma Euklidesowa $E = 30.5004 + 30.9701= 61.4704$. Nie możemy jednakże jednoznacznie porównać obu nastaw regulatorów. Okazało się, że startują one z zupełnie różnych punktów startowych
+(różniących się o około 2 stopnie) co bardzo mocno przekłamuje ilościowe wyniki.
+
+\section{DMC}
+Na początku dla regulatora DMC dobraliśmy nastawy
+\begin{equation}
+  \lambda=10, \qquad N=25, \qquad N_u=250
+\end{equation}
+Przebiegi wartości oceniamy bardzo dobrze. Sterowanie nie ,,szarpie", jest dzięki dużej wartości $\lambda$ bardzo
+płynne. Błąd liczony jako norma euklidesowa to $E = E1 + E2 = 109.4128 + 109.8898 = 219.3026$.
+Stwierdziliśmy, że wypróbujemy również regulator o mniejszej wartości współczynnika $\lambda$, która powinna spowodować szybszą regulację kosztem agresywniejszego sterowania. Sterowanie rzeczywiście stało
+się bardziej agresywne.
+Błąd liczony jako norma euklidesowa to $E = E1 + E2 = 109.2459 + 108.9113 = 218.1572$. Uzyskaliśmy minimalnie lepszą jakość regulacji. Nie możemy jednak dokładnie tego porównać,
+ponieważ mimo prób sprowadzenia obiektu do punktu pracy, startowały one z nieco innych punktów.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.4\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=500,ymin=36,ymax=46,
+xlabel={$k$},
+ylabel={$y_1$},
+xtick={0, 100, 200, 300, 400, 500},
+ytick={36, 38, 40, 42, 44, 46},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z5_dmc_y1.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad.txt};
+\legend{Wartość wyjścia, wartość zadana}
+
+\nextgroupplot
+[
+xmin=0,xmax=500,ymin=36,ymax=46,
+xlabel={$k$},
+ylabel={$y_2$},
+xtick={0, 100, 200, 300, 400, 500},
+ytick={36, 38, 40, 42, 44, 46},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z5_dmc_y2.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad.txt};
+\legend{Wartość wyjścia, wartość zadana}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{DMC.}
+\label{fig:dmc}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.4\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=500,ymin=34,ymax=46,
+xlabel={$k$},
+ylabel={$y_1$},
+xtick={0, 100, 200, 300, 400, 500},
+ytick={34, 36, 38, 40, 42, 44, 46},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z5_pid_y1.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad.txt};
+\legend{Wartość wyjścia, wartość zadana}
+
+\nextgroupplot
+[
+xmin=0,xmax=500,ymin=34,ymax=46,
+xlabel={$k$},
+ylabel={$y_2$},
+xtick={0, 100, 200, 300, 400, 500},
+ytick={34, 36, 38, 40, 42, 44, 46},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/z5_pid_y2.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad.txt};
+\legend{Wartość wyjścia, wartość zadana}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{PID.}
+\label{fig:pid}
+\end{figure}

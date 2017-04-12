@@ -1,0 +1,93 @@
+\chapter{Zadanie 3}
+Celem zadania było przekształcenie wybranych odpowiedzi skokowych w taki sposób, aby otrzymać odpowiedzi skokowe wykorzystywane w algorytmie DMC. Wybraliśmy odpowiedzi skokowe, o największych skokach sterowania
+co pozwoliło na zniwelowanie względnego wpływu zakłóceń na wyjście obiektu. Do aproksymacji użyliśmy napisanych przez nas skryptów, wykorzystanych i przetestowanych na poprzednich projektach oraz
+laboratoriach. Opierał się on na wykorzystaniu wbudowanego w Matlabie algorytmu GA (\texttt{Genetic Algorithm}). Użyto w nich członu inercyjnego drugiego rzędu z opóźnieniem.
+Ciekawostką jest, że algorytm dawał różne aproksymacje dla tej samej odpowiedzi skokowej. Wynika to z niedeterministycznego charakteru algorytmów ewolucyjnych.
+Niestety zebrane odpowiedzi skokowe okazały się być zbyt krótkie, więc pozwoliliśmy sobie wydłużyć zaproksymowane
+funkcje
+Uważamy, że przedstawione poniżej aproksymacje, dobrze przybliżają kształt odpowiedzi skokowych. Spodziewamy się
+zatem mniejszych problemów z regulacją niż na poprzednim laboratorium.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.4\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=500,ymin=0,ymax=0.3,
+xlabel={$k$},
+ylabel={$s_k^{11}$},
+xtick={0, 100, 200, 300, 400, 500},
+ytick={0, 0.1, 0.2, 0.3},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/s11.txt};
+\addplot[red,semithick] file {wykresy/approx_s11.txt};
+\legend{Faktyczny skok, Aproksymacja}
+
+\nextgroupplot
+[
+xmin=0,xmax=500,ymin=0,ymax=0.1,
+xlabel={$k$},
+ylabel={$s_k^{12}$},
+xtick={0, 100, 200, 300, 400, 500},
+ytick={0, 0.02, 0.04, 0.06, 0.08, 0.1},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/s12.txt};
+\addplot[red,semithick] file {wykresy/approx_s12.txt};
+\legend{Faktyczny skok, Aproksymacja}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Znormalizowane odpowiedzi na skok sterowania $u_1$.}
+\label{fig:dmc1}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=1 by 2}, width=0.9\textwidth, height=0.4\textwidth]
+\nextgroupplot
+[
+xmin=0,xmax=500,ymin=0,ymax=0.1,
+xlabel={$k$},
+ylabel={$s_k^{21}$},
+xtick={0, 100, 200, 300, 400, 500},
+ytick={0, 0.02, 0.04, 0.06, 0.08, 0.1},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/s21.txt};
+\addplot[red,semithick] file {wykresy/approx_s21.txt};
+\legend{Faktyczny skok, Aproksymacja}
+
+\nextgroupplot
+[
+xmin=0,xmax=500,ymin=0,ymax=0.4,
+xlabel={$k$},
+ylabel={$s_k^{22}$},
+xtick={0, 100, 200, 300, 400, 500},
+ytick={0, 0.1, 0.2, 0.3, 0.4},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot[blue,semithick] file {wykresy/s22.txt};
+\addplot[red,semithick] file {wykresy/approx_s22.txt};
+\legend{Faktyczny skok, Aproksymacja}
+
+\end{groupplot}
+\end{tikzpicture}
+\caption{Znormalizowane odpowiedzi na skok sterowania $u_2$.}
+\label{fig:dmc2}
+\end{figure}

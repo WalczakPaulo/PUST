@@ -1,0 +1,18 @@
+\chapter{Wstęp}
+Celem trzeciego laboratorium była implementacja, weryfikacja poprawnosci działania i dobór parametrów
+algorytmów regulacji wielowymiarowego procesu laboratoryjnego. W trakcie zajęć zweryfikowaliśmi wiedzę z trzeciego projektu na rzeczywistym
+obiekcie. Badania dotyczyły procesu o dwóch wejściach i dwóch wyjściach. W tym celu wykorzystane zostało stanowisko w laboratorium CS402. Proces 1 składał się z:
+\begin{itemize}
+  \item grzałki G1 (sterowanie),
+  \item czujnika temperatury T1 (sygnał wyjsciowy procesu),
+  \item wentylatora W1 (stałe niemierzalne zakłócenie),
+\end{itemize}
+natomiast proces 2 składał się z:
+\begin{itemize}
+  \item grzałki G2 (sterowanie),
+  \item czujnika T3 (sygnał wyjsciowy procesu),
+  \item wentylatora W2 (stałe niemierzalne zakłócenie).
+\end{itemize}
+Sygnały sterujace G1 i G2 moga zmieniac sie z w zakresie (0-100\%), sygnały wyjsciowe
+to pomiary wykonywane przez czujniki tempratury T1 oraz T2 (temperatura w $^\circ$C), natomiast wentylatory W1 i W2 nalezy traktowac jako cecha otoczenia – ich uzycie pozwala
+przyspieszyc opadanie temperatury zmierzonej na czujnikach T1 i T2. Sterowanie W1 i W2 musi wynosic 50\%. Czas próbkowania jest równy 1s.
