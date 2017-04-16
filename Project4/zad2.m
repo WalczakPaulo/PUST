@@ -2,6 +2,7 @@ clear
 dU = (-1 : 0.2 : 1)';
 dU(ceil(length(dU)/2)) = [];
 yu = zeros(size(dU));
+Ypp = 0;
 
 for i = 1:length(dU)
     [y, u] = skok(dU(i));
@@ -9,7 +10,7 @@ for i = 1:length(dU)
     hold on
     yu(i) = y(end);
     for k = 7:100
-        if abs(y(k)) > 0.9 * abs(y(end))
+        if abs(y(k) - Ypp) > 0.9 * abs(y(end) - Ypp)
             kd(i) = k - 7;
             break;
         end
