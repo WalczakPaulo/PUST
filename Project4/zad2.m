@@ -2,6 +2,7 @@ clear
 dU = (-1 : 0.2 : 1)';
 dU(ceil(length(dU)/2)) = [];
 yu = zeros(size(dU));
+kd = zeros(size(dU));
 Ypp = 0;
 
 for i = 1:length(dU)
@@ -15,9 +16,9 @@ for i = 1:length(dU)
             break;
         end
     end
-    csvwrite(sprintf('sprawko/wykresy/zad2_y_%d.csv', i), y)
-    csvwrite(sprintf('sprawko/wykresy/zad2_u_%d.csv', i), u)
+%     csvwrite(sprintf('sprawko/wykresy/zad2_y_%d.csv', i), y)
+%     csvwrite(sprintf('sprawko/wykresy/zad2_u_%d.csv', i), u)
 end
-csvwrite('sprawko/wykresy/zad2_yu.csv', yu)
-csvwrite('sprawko/wykresy/zad2_du.csv', dU)
-csvwrite('sprawko/wykresy/zad2_kd.csv', kd)
+write_to_file('zad2_yu', dU, yu)
+write_to_file('zad2_kd', dU, kd)
+% csvwrite('sprawko/wykresy/zad2_kd.csv', kd)
