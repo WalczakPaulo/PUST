@@ -1,17 +1,12 @@
 function [error] = pid_zwykly(argK, argTi, argTd, draw)
-
-error = 0;
-
-kstart = 7;
-N = 500;
-
-% K = 2;
-% Ti = 10;
-% Td = 0;
-
+%OPTYMALNE WEDŁUG FMINCON: K = 0.3004, Ti = 6.9992, Td = 2.0577
 K = argK;
 Ti = argTi;
 Td = argTd;
+
+error = 0;
+kstart = 7;
+N = 500;
 
 Tp = 0.5;
 
@@ -57,4 +52,3 @@ if draw
     csvwrite('sprawko/wykresy/zad3_pid_y.csv', y)
     csvwrite('sprawko/wykresy/zad3_pid_u.csv', u)
 end
-ylabel(u)
