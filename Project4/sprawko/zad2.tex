@@ -1,0 +1,93 @@
+\chapter{Badanie zachowania obiektu}
+\label{sec:zad2}
+\section{Odpowiedzi skokowe}
+Aby lepiej poznać naturę obiektu przeprowadzone zostały ogólne badania
+zachowania obiektu i jego odpowiedzi na różne skoki wartości sterującej.
+Eksperyment zakładał, iż na początku obiekt będzie w punkcie pracy
+($Y = 0$, $U = 0$), a następnie, w chwili $k = 7$ wykonany zostanie skok do zaplanowanej wcześniej wartości sterowania. Biorąc pod uwagę ograniczenia na wartość sterowania $U^{min} = -1$ i $U^{max} = 1$ wartość sterowania
+po skoku mieściła się w owym zakresie. Wyniki eksperymentu zostały zobrazowane
+na wykresie \ref{fig:skoki}.
+
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=0,xmax=200,ymin=-0.5,ymax=4.5,
+xlabel={Chwila (k)},
+ylabel={Wyjście (y)},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={},
+cycle list name=color
+]
+\addplot file {wykresy/zad2_y_1.txt};
+\addplot file {wykresy/zad2_y_2.txt};
+\addplot file {wykresy/zad2_y_3.txt};
+\addplot file {wykresy/zad2_y_4.txt};
+\addplot file {wykresy/zad2_y_5.txt};
+\addplot file {wykresy/zad2_y_6.txt};
+\addplot file {wykresy/zad2_y_7.txt};
+\addplot file {wykresy/zad2_y_8.txt};
+\addplot file {wykresy/zad2_y_9.txt};
+\addplot file {wykresy/zad2_y_10.txt};
+\legend{$U = -1$,$U = -0.8$,$U = -0.6$,$U = -0.4$,$U = -0.2$,$U = 0.2$,
+		$U = 0.4$, $U = 0.6$, $U = 0.8$, $U = 1$}
+\end{axis}
+\end{tikzpicture}
+\caption{Odpowiedzi skokowe dla różnych wartości sterowania.
+(Wartość końcowa sterowania w legendzie)}
+\label{fig:skoki}
+\end{figure}
+
+\section{Charakterystyka statyczna}
+Następnie wyznaczona została charakterystyka statyczna obiektu. Znaleziona
+została poprzez sprawdzenie przy jakiej wartości wyjścia obiekt stabilizuje
+się dla danej wartości sterowania. Na podstawie tego sporządzony został wykres.
+Wyniki zostały zamieszczone na wykresie \ref{fig:char_stat}.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=-1,xmax=1,ymin=-0.5,ymax=5,
+xlabel={Sterowanie (u)},
+ylabel={Wyjście (y)},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/zad2_yu.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Charakterystyka statyczna obiektu.}
+\label{fig:char_stat}
+\end{figure}
+
+Otrzymana charakterystyka przedstawiona na wykresie \ref{fig:char_stat} jest nieliniowa. Nie można zatem określić wzmocnienia statycznego. Ponadto należy się spodziewać, że "tradycyjne" regulatory PID i DMC, przystosowane do obiektów liniowych, mogą mieć problemy z prawidłową regulacją.
+
+
+\section{Charakterystyka dynamiczna}
+Charakterystyka dynamiczna obiektu wyznaczana jest na podstawie czasu potrzebnego na osiągnięcie co najmniej $90\%$ wartości końcowej wyjścia. Oś odciętych stanowią wartości sterowania, zaś na osi rzędnych wykresu znajdują się chwile $k$, w których zostało osiągnięte $90\%$ wartości końcowej wyjścia. Wynik eksperymentu przedstawia wykres \ref{fig:char_dyn}.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+xmin=-1,xmax=1,ymin=14,ymax=26,
+xlabel={$U$},
+ylabel={chwila $k$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/zad2_kd.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Charakterystyka dynamiczna obiektu.}
+\label{fig:char_dyn}
+\end{figure}
+
+Jak widać na wykresie \ref{fig:char_dyn}, charakterystyka dynamiczna obiektu nie jest liniowa.
