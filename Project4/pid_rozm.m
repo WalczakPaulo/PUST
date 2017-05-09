@@ -1,4 +1,4 @@
-function [error]=pid_rozm(K, Ti, Td, reg_no, alfa, c)
+function [error]=pid_rozm(K, Ti, Td, reg_no, alfa, c, draw)
 close all
 %algorytm DMC z opcjonalnym uwzglêdnieniem parametrów
 Upp = 0;
@@ -11,8 +11,8 @@ error = 0;
 %inicjalizacja sta³ych
 N = 1200;
 
-u = Upp*ones(N, 1);
-y = Ypp*ones(N, 1);
+u = Upp*ones(1, N);
+y = Ypp*ones(1, N);
 e = zeros(1,N);
 
 yzad(1:250) = 1;
@@ -80,9 +80,19 @@ plot(y)
 title('y')
 hold on
 plot(yzad,'r-')
-% figure
-% plot(U)
-% title('u')
 
-%obliczenie b³êdu
+if draw
+    if reg_no==2
+       write_to_file('2_reg_pid_y', 1:N, y)
+       write_to_file('2_reg_pid_u', 1:N, u)
+   elseif reg_no==3
+       write_to_file('3_reg_pid_y', 1:N, y)
+       write_to_file('3_reg_pid_u', 1:N, u)
+   elseif reg_no==4
+       write_to_file('4_reg_pid_y', 1:N, y)
+       write_to_file('4_reg_pid_u', 1:N, u)
+   elseif reg_no==5
+       write_to_file('5_reg_pid_y', 1:N, y)
+       write_to_file('5_reg_pid_u', 1:N, u)
+   end
 end

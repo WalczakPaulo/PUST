@@ -9,4 +9,7 @@ close all
     figure
     plot(y, mi2)
 
+    write_to_file('2_reg_sigm_1',y,mi1)
+    write_to_file('2_reg_sigm_2',y,mi2)
+
 end
