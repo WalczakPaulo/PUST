@@ -1,0 +1,150 @@
+\chapter{Zadanie 5}
+Celem zadania piątego było dla zaproponowanej trajektorii zmian sygnałów zadanych (6 skoków o różnej amplituudzie)
+dobranie nastaw dla regulatora PID i patametrów dla algorytmu DMC metodą eksperymentalną.
+Jakość regulacji ocenialiśmy wizualnie (na podstawie przebiegów wartości wyjścia obiektu), oraz
+ilościowo za pomocą wkaźnika $E$, liczonego jako suma kwadratów uchybów regulacji.
+Dla obu regulatorów ustaliliśmy taką samą trajektorię wartości zadanej, aby umożliwić
+jak najrzetelniejsze porównanie regulatorów. Trajektoria polegała na ustawieniu
+stałej wartości zadanej, kolejno: 34, 37, 40, 43, 46, 41, na 200 sekund.
+Pomiary rozpoczynaliśmy z punktu pracy wyznaczonego w zadaniu pierwszym.
+\section{PID}
+Jako parametry regulatora PID dobraliśmy wstępnie parametry, które okazały się
+dobre na poprzednim laboratorium. Byliśmy świadomi tego, iż obiekt jest lekko
+zmodyfikowany, więc użyliśmy ich jako wstępnego zestawu parametrów, który potem
+poprawiliśmy. Regulator był tak zestawiany, aby działał jak najlepiej w pobliżu punktu pracy,
+czyli w dolnej części charakterystyki obiektu.
+Finalnie parametry regulatora PID wynosiły
+\begin{equation}
+  K = 5, \qquad T_i = 65, \qquad T_d = 1,25.
+\end{equation}
+Działanie tego regulatora przedstawia rysunek \ref{fig:z5_pid}, natomiast sterowanie
+generowane przez niego rysunek \ref{fig:z5_pid_u}. Widać na nich, iż regulator działa
+wyraźnie lepiej dla temperatur zdecydowanie poniżej punktu, w którym charakterystyka
+statyczna się ,,przełamuje", czyli przy pierwszych dwóch skokach. Przy pracy na wyższych
+temperaturach regulator radzi sobie dużo gorzej. Wpływ na to miał również fakt
+działania z dala od punktu pracy. Na podstawie tylko tych wykresów nie jesteśmy
+w stanie stwierdzić co miało większy wpływ na takie a nie inne zachowanie obiektu.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=1200,ymin=30,ymax=48,
+xlabel={$k$},
+ylabel={$y$},
+xtick={0, 200, 400, 600, 800, 1000, 1200},
+ytick={30, 32, 34, 36, 38, 40, 42, 44, 46, 48},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z5_pid_y.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad.txt};
+\legend{Wyjście obiektu, Wartość zadana}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Regulacja regulatorem PID.}
+\label{fig:z5_pid}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=1200,ymin=10,ymax=90,
+xlabel={$k$},
+ylabel={$u$},
+xtick={0, 200, 400, 600, 800, 1000, 1200},
+ytick={10, 20, 30, 40, 50, 60, 70, 80, 90},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z5_pid_u.txt};
+
+% \legend{Wyjście obiektu, Wartość zadana}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie regulatora PID.}
+\label{fig:z5_pid_u}
+\end{figure}
+
+\section{DMC}
+Kolejnym testowanym regulatorem był regulator DMC. Jego parametry zostały dobrane
+podobnie jak poprzednio. Finalnie wynosiły one
+\begin{equation}
+  D = 500, \qquad N = 500, \qquad N_u = 500, \qquad \Lambda = 1.
+\end{equation}
+Jednak w przeciwieństwie do regulatora PID, tutaj większy wpływ na dobre działanie
+mają dobre odpowiedzi skokowe obiektu. Została tutaj użyta odpowiedź przy skoku
+sterowania do $U = 40$, więc, podobnie jak w przypadku regulatora PID, w dolnej
+części charakterystyki obiektu. Działanie regulatora przedstawia rysunek \ref{fig:z5_dmc},
+natomiast generowane przez niego sterowanie rysunek \ref{fig:z5_dmc_u}. Na tym wykresie
+idealnie widać, iż regulator jest nie przystosowany do pracy przy wyższych temperaturach,
+gdzie charakterystyka statyczna obiektu jest inna. Widać dokładnie, iż regulator ma problemy
+z dojściem do wartości zadanej.
+
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=1200,ymin=30,ymax=48,
+xlabel={$k$},
+ylabel={$y$},
+xtick={0, 200, 400, 600, 800, 1000, 1200},
+ytick={30, 32, 34, 36, 38, 40, 42, 44, 46, 48},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z5_dmc_y.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad.txt};
+\legend{Wyjście obiektu, Wartość zadana}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Regulacja regulatorem DMC.}
+\label{fig:z5_dmc}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=1200,ymin=10,ymax=90,
+xlabel={$k$},
+ylabel={$u$},
+xtick={0, 200, 400, 600, 800, 1000, 1200},
+ytick={10, 20, 30, 40, 50, 60, 70, 80, 90},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z5_dmc_u.txt};
+
+% \legend{Wyjście obiektu, Wartość zadana}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie regulatora DMC.}
+\label{fig:z5_dmc_u}
+\end{figure}

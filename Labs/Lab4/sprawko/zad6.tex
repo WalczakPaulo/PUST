@@ -1,0 +1,229 @@
+\chapter{Zadanie 6}
+Celem zadania szóstego było dla zaproponowanej trajektorii zmian wartości zadanych, zaimplementowanie
+oraz dobranie parametrów rozmytego regulatora PID. Trajektoria wartości zadanej
+Jest taka sama jak w zadniu 5, aby jak najłatwiej porównywać regulatory. Zdecydowaliśmy się na przeprowadzenie eksperymentu
+jedynie dla 2 regulatorów lokalnych, ze względu na to, że charaketerystyka statyczna odzwierciedla, że
+uzasadnione jest zastosowanie tylko dwóch regulatorów (jeden punkt przegięcia, dwie proste linie o różnych nachyleniach).
+Teza ta jest poparta wiedzą ekspreta, w postaci prowadzącego laboratoria.
+Nastawy regulatorów PID dobieraliśmy metodą eksperymentalną, wraz ze zwróceniem uwagi na wyniki
+regulacji przeprowadznych dla zwykłego regulatora PID z zadania 5. Stwierdziliśmy, że
+dla górnego przedziału wartości wyjść potrzebny będzie regulator bardziej agresywny, tak
+aby rekompensował słabą reaktywność obiektu na zmiany sterowania w górnym przedziale wartości wyjść.
+Jako funkcję przynależności wybraliśmy funkcję sigmoidalną. Ze względu na użycie dwóch
+regulatorów lokalnych, jako parametry tej funkcji wybraliśmy c = 50 ( punkt przecięć funkcji dla obu regulatorów),
+oraz d = 10 (,,stromość" funkcji), jako podaną przez prowadzącego odpowiednią wartość.
+
+\section{Rozmyty PID}
+Pierwszym regulatorem rozmytym przetestowanym przez nas był regulator PID.
+Dla dolnej części sterowań, przed punktem przełamania charakterystyki obiektu,
+użyliśmy nastaw regulatora z poprzedniego zadania. Drugi regulator został dobrany
+na podstawie charakterystyki statycznej, mając pierwszy regulator jako punkt odniesienia.
+Wiedzieliśmy, iż drugi regulator powinien być bardziej agresywny.
+Na tej podstawie dostaliśmy następujące nastawy
+\begin{equation}
+  K_1 = 5, \qquad T_{i1} = 65, \qquad T_{d1} = 1,25,
+\end{equation}
+\begin{equation}
+  K_2 = 6,5, \qquad T_{i2} = 45, \qquad T_{d2} = 1,25.
+\end{equation}
+Działanie tak dobranych regulatorów zostało przedstawione na rysunku \ref{fig:z6_pid_1}.
+Sterowanie generowane przez taki zestaw regulatorów przedstawia rysunek \ref{fig:z6_pid_1_u}.
+Niestety, nie byliśmy zadowoleni działaniem tego regulatora, dlatego postanowiliśmy
+przetestować zestaw regulatorów o lekko poprawionych nastawach.
+Drugie nastawy miały lekko niższe wzmocnienie, tak aby zmniejszyć przesterowanie.
+Nastawy prezentowały się następująco
+\begin{equation}
+  K_1 = 4, \qquad T_{i1} = 65, \qquad T_{d1} = 1,25,
+\end{equation}
+\begin{equation}
+  K_2 = 6, \qquad T_{i2} = 45, \qquad T_{d2} = 1,25.
+\end{equation}
+Wyniki działania tych regulatorów przedstawiają wykresy \ref{fig:z6_pid_2}, oraz
+\ref{fig:z6_pid_1_u}. Przeregulowania są zdecydowanie niższe. Wydaje nam się
+że można uzyskać lepsze efekty. Jednak po pierwsze nie mieliśmy czasu na takie eksperymenty,
+a po drugie celem laboratorium nie było stworzenie idealnego regulatora, a
+poznanie i porównanie działania regulatorów rozmytych, co zdecydowanie nam się udało.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=1200,ymin=30,ymax=48,
+xlabel={$k$},
+ylabel={$y$},
+xtick={0, 200, 400, 600, 800, 1000, 1200},
+ytick={30, 32, 34, 36, 38, 40, 42, 44, 46, 48},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z6_pid_1.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad.txt};
+\legend{Wyjście obiektu, Wartość zadana}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Regulacja pierwszym rozmytym regulatorem PID.}
+\label{fig:z6_pid_1}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=1200,ymin=10,ymax=90,
+xlabel={$k$},
+ylabel={$u$},
+xtick={0, 200, 400, 600, 800, 1000, 1200},
+ytick={10, 20, 30, 40, 50, 60, 70, 80, 90},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z6_pid_1_u.txt};
+
+% \legend{Wyjście obiektu, Wartość zadana}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie pierwszego rozmytego regulatora PID.}
+\label{fig:z6_pid_1_u}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=1200,ymin=30,ymax=48,
+xlabel={$k$},
+ylabel={$y$},
+xtick={0, 200, 400, 600, 800, 1000, 1200},
+ytick={30, 32, 34, 36, 38, 40, 42, 44, 46, 48},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z6_pid_2.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad.txt};
+\legend{Wyjście obiektu, Wartość zadana}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Regulacja drugim rozmytym regulatorem PID.}
+\label{fig:z6_pid_2}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=1200,ymin=10,ymax=90,
+xlabel={$k$},
+ylabel={$u$},
+xtick={0, 200, 400, 600, 800, 1000, 1200},
+ytick={10, 20, 30, 40, 50, 60, 70, 80, 90},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z6_pid_2_u.txt};
+
+% \legend{Wyjście obiektu, Wartość zadana}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie drugiego rozmytego regulatora PID.}
+\label{fig:z6_pid_2_u}
+\end{figure}
+
+\section{Rozmyty DMC}
+Nastawy regulatora DMC wybrane przez nas eskperymentalnie wynoszą:
+\begin{equation}
+  D = 500, \qquad N = 500, \qquad N_u = 500, \qquad \Lambda_1 = 2, \qquad \Lambda_2 = 1.
+\end{equation}
+Oczywiście bazą dla działania tego regulatora jest odpowiednia odpowiedź skokowa.
+Zostały tutaj użyte aproksymacje znormalizowanych odpowiedzi skokowych przy skoku
+sterowania do $U = 40$, oraz $U = 80$. Pierwsza z tych aproksymacji była użyta już
+wcześniej i przedstawiona na wykresie \ref{fig:approx}. Wynik działania tego
+algorytmu przedstawia rysunek \ref{fig:z6_dmc}. Sterowanie generowane przezeń przedstawia
+wykres \ref{fig:z6_dmc_u}. Wynik działania tego regulatora nie jest najlepszy.
+Na początku widać ewidentny brak stabilizacji obiektu na wartości zadanej, co
+prawdopodobnie było wynikiem pośpiechu. Następne złe wyniki były prawdopodobnie
+spowodowane zakłóceniami i ludźmi chodzącymi dookoła, gdyż było to wykonywane
+na koniec zajęć. Niestety z tego samego powodu nie udało nam się przetestować
+innych nastaw, ani tego algorytmu w lepszych warunkach.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=1200,ymin=30,ymax=48,
+xlabel={$k$},
+ylabel={$y$},
+xtick={0, 200, 400, 600, 800, 1000, 1200},
+ytick={30, 32, 34, 36, 38, 40, 42, 44, 46, 48},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z6_dmc.txt};
+\addplot[red,semithick] file {wykresy/z5_yzad.txt};
+\legend{Wyjście obiektu, Wartość zadana}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Regulacja rozmytym regulatorem DMC.}
+\label{fig:z6_dmc}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=1200,ymin=10,ymax=90,
+xlabel={$k$},
+ylabel={$u$},
+xtick={0, 200, 400, 600, 800, 1000, 1200},
+ytick={10, 20, 30, 40, 50, 60, 70, 80, 90},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z6_dmc_u.txt};
+
+% \legend{Wyjście obiektu, Wartość zadana}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie rozmytego regulatora DMC.}
+\label{fig:z6_dmc_u}
+\end{figure}

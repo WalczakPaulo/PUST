@@ -1,0 +1,70 @@
+\chapter{Zadanie 2}
+Celem zadania drugiego było wyznaczenie odpowiedzi skokowych toru wejście-wyjście dla pięciu
+różnych zmian sygnału sterującego G1 rozpoczynając z punktu pracy oraz określenie czy
+obiekt ma właściwości liniowe. Skoki sterowania przeprowadziliśmy do
+kilku różnych wartości U: 30, 40, 50, 60, 70, oraz 80. Wykres dla wymienionych odpowiedzi skokowych
+znajduje się na rysunku \ref{fig:skoki}. Ustaliliśmy, iż po 400 sekundach wyjście obiektu jest
+stabilne. Na tej podstawie stworzyliśmy charakterystykę statyczną obiektu przedstawiającą
+wyjście w 400. chwili, w zależności od wartości sterowania. Wspomniany wykres jest
+przedstawiony na rysunku \ref{fig:char_stat}.
+Zauważamy, że charakterystykę statyczną może podzielić na dwa przebiegi (dwie linie proste
+o różnych nachyleniach). Stąd, wskazane będzie użycie tak zwanej regulacji rozmytej. Użyjemy
+do tego dwóch regulatorów. Pierwszy będzie odpowiadał za sterowanie dolnego przedziału, kolejny zaś
+będzie sterował drugim przedziałem. Drugi regulator musi charakteryzować się większa "agresywnością"
+ze względu na to, że w tym przedziale obiekt słabiej reaguje na zmiany sterowania.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin= 0,xmax=400,ymin=30,ymax=50,
+xlabel={$k$},
+ylabel={$y(k)$},
+xtick={0, 100, 200, 300, 400},
+ytick={30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/skok30.txt};
+\addplot[red,semithick] file {wykresy/skok40.txt};
+\addplot[green,semithick] file {wykresy/skok50.txt};
+\addplot[orange,semithick] file {wykresy/skok60.txt};
+\addplot[violet,semithick] file {wykresy/skok80.txt};
+\legend{$u = 30$, $u = 40$, $u = 50$, $u = 60$, $u = 80$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Odpowiedzi skokowe obiektu.}
+\label{fig:skoki}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=20,xmax=80,ymin=30,ymax=50,
+xlabel={$k$},
+ylabel={$y(400)$},
+xtick={20, 30, 40, 50, 60, 70, 80},
+ytick={30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/char_stat.txt};
+% \legend{$u = 30$, $u = 40$, $u = 50$, $u = 60$, $u = 80$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Charakterystyka statyczna obiektu.}
+\label{fig:char_stat}
+\end{figure}
