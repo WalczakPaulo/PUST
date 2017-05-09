@@ -1,0 +1,186 @@
+\section{5 regulatory lokalne}
+Dla 3 regulatorów lokalnych użyliśmy sigmoidalnych funkcji przynależności, danych wzorami \ref{eq:mi5_1}, \ref{eq:mi5_2}, \ref{eq:mi5_3}, \ref{eq:mi5_4} i \ref{eq:mi5_5}. Parametry mają wartośi: $\alpha = -3$, $c^1 = -0,05$, $c^2=0,25$, $c^3=0,5$, $c^4=1.3$.
+\begin{equation} \label{eq:mi5_1}
+\mu_1 = 1 - \frac{1}{1+e^{\alpha * (y(k)-c^1))}}
+\end{equation}
+\begin{equation} \label{eq:mi5_2}
+\mu_2 = \frac{1}{1+e^{\alpha * (y(k)-c^1))}} - \frac{1}{1+e^{\alpha * (y(k)-c^2))}}
+\end{equation}
+\begin{equation} \label{eq:mi5_3}
+\mu_3 = \frac{1}{1+e^{\alpha * (y(k)-c^2))}} - \frac{1}{1+e^{\alpha * (y(k)-c^3))}}
+\end{equation}
+\begin{equation} \label{eq:mi5_4}
+\mu_4 = \frac{1}{1+e^{\alpha * (y(k)-c^3))}} - \frac{1}{1+e^{\alpha * (y(k)-c^4))}}
+\end{equation}
+\begin{equation} \label{eq:mi5_5}
+\mu_5 = \frac{1}{1+e^{\alpha * (y(k)-c^4))}}
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=-0.15,xmax=4.28,
+xlabel={$y(k)$},
+ylabel={$\mu_1$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/5_reg_sigm_1.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Funkcja przynależności regulatora 1}
+\label{fig:mi5_1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=-0.15,xmax=4.28,
+xlabel={$y(k)$},
+ylabel={$\mu_2$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/5_reg_sigm_2.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Funkcja przynależności regulatora 2}
+\label{fig:mi5_2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=-0.15,xmax=4.28,
+xlabel={$y(k)$},
+ylabel={$\mu_1$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/5_reg_sigm_3.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Funkcja przynależności regulatora 3}
+\label{fig:mi5_3}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=-0.15,xmax=4.28,
+xlabel={$y(k)$},
+ylabel={$\mu_1$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/5_reg_sigm_4.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Funkcja przynależności regulatora 4}
+\label{fig:mi5_4}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=-0.15,xmax=4.28,
+xlabel={$y(k)$},
+ylabel={$\mu_1$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/5_reg_sigm_5.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Funkcja przynależności regulatora 5}
+\label{fig:mi5_5}
+\end{figure}
+
+\subsection{PID}
+Parametry algorytmu PID wyznaczone przez algorytm genetyczny są następujące:
+\begin{itemize}
+\item $K^1 = 0,163$
+\item $T^1_i = 4,327$
+\item $T^1_d = 1,91$
+\\
+\item $K^2 = 0,297$
+\item $T^2_i = 9,87$
+\item $T^2_d = 4,624$
+\\
+\item $K^3 = 0,385$
+\item $T^3_i = 5,32$
+\item $T^3_d = 0,383$
+\\
+\item $K^4 = 0,385$
+\item $T^4_i = 5,32$
+\item $T^4_d = 0,383$
+\\
+\item $K^5 = 0,385$
+\item $T^5_i = 5,32$
+\item $T^5_d = 0,383$
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$y(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/5_reg_pid_y.txt};
+\addplot file {wykresy/zad4_yzad.txt};
+\legend{$y$,$y_{zad}$}
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście obiektu dla 5 regulatorów lokalnych PID}
+\label{fig:5_reg_pid_y}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$u(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/5_reg_pid_u.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie obiektu dla 5 regulatorów lokalnych PID}
+\label{fig:5_reg_pid_u}
+\end{figure}
+
+Wskaźnik jakości regulacji dla regulatora, którego działanie przedstawiają wykresy \ref{fig:5_reg_pid_y} i \ref{fig:5_reg_pid_u}, ma wartość $E=101,5480$, a więc równy błędowi 4 regulatorów lokalnych. Potwierdza to tezę, że tworzenie kolejnych regulatorów lokalnych nie ma sensu.
+\subsection{DMC}

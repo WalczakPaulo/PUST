@@ -1,12 +1,12 @@
 \section{3 regulatory lokalne}
-Dla 3 regulatorów lokalnych użyliśmy sigmoidalnych funkcji przynależności, danych wzorami \ref{eq:mi1}, \ref{eq:mi2} i \ref{eq:mi3}. Parametry mają wartośi: $\alpha = -3$, $c^1 = -0,05$, $c^2=1,3$.
-\begin{equation} \label{eq:mi1}
+Dla 3 regulatorów lokalnych użyliśmy sigmoidalnych funkcji przynależności, danych wzorami \ref{eq:mi3_1}, \ref{eq:mi3_2} i \ref{eq:mi3_3}. Parametry mają wartośi: $\alpha = -3$, $c^1 = -0,05$, $c^2=1,3$.
+\begin{equation} \label{eq:mi3_1}
 \mu_1 = 1 - \frac{1}{1+e^{\alpha * (y(k)-c^1))}}
 \end{equation}
-\begin{equation} \label{eq:mi2}
+\begin{equation} \label{eq:mi3_2}
 \mu_2 = \frac{1}{1+e^{\alpha * (y(k)-c^1))}} - \frac{1}{1+e^{\alpha * (y(k)-c^2))}}
 \end{equation}
-\begin{equation} \label{eq:mi3}
+\begin{equation} \label{eq:mi3_3}
 \mu_3 = \frac{1}{1+e^{\alpha * (y(k)-c^2))}}
 \end{equation}
 
