@@ -1,12 +1,13 @@
 function [error] = pid_zwykly(argK, argTi, argTd, draw)
 %OPTYMALNE WEDŁUG FMINCON: K = 0.3004, Ti = 6.9992, Td = 2.0577
+close all
 K = argK;
 Ti = argTi;
 Td = argTd;
 
 error = 0;
-kstart = 7;
-N = 500;
+start = 7;
+N = 1200;
 
 Tp = 0.5;
 
@@ -23,9 +24,10 @@ prevE = 0;
 prevUi = 0;
 
 yzad(1:250) = 1;
-yzad(251:N) = 3;
-
-for k = kstart:N
+yzad(251:500) = 3;
+yzad(501:750) = 2;
+yzad(751:N) = -0.07;
+for k = start:N
     e = yzad(k-1) - y(k-1);
     
     uP = K*e;
@@ -49,6 +51,16 @@ for k = kstart:N
 end
 
 if draw
-    csvwrite('sprawko/wykresy/zad3_pid_y.csv', y)
-    csvwrite('sprawko/wykresy/zad3_pid_u.csv', u)
+    figure
+    plot(y)
+    hold on
+    plot(yzad)
+    figure
+    plot(u)
+    write_to_file(['y_pid_' num2str(argK) '_' num2str(argTi) '_' num2str(argTd)], 1:N, y')
+    write_to_file('zad4_yzad', 1:N, yzad)
+    write_to_file(['u_pid_' num2str(argK) '_' num2str(argTi) '_' num2str(argTd)], 1:N, u')
+
+%     csvwrite('sprawko/wykresy/zad3_pid_y.csv', y)
+%     csvwrite('sprawko/wykresy/zad3_pid_u.csv', u)
 end

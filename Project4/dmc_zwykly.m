@@ -1,12 +1,14 @@
 function [error] = dmc_zwykly(argN, argNu, argLambda, draw)
 %OPTYMALNE WEGŁUG GA: N = 26, Nu = 1, lambda = 41.4768
+close all
+
 N = argN;
 Nu = argNu;
 lambda = argLambda;
 
 error = 0;
-kstart = 7;
-kend = 500;
+start = 7;
+kend = 1200;
 
 load('s.mat')
 D = 50;
@@ -23,8 +25,8 @@ Yzad = zeros(N,1);
 Y0 = zeros(N,1);
 Yk = zeros(N,1);
 
-u(1:kstart) = Upp;
-y(1:kstart) = Ypp;
+u(1:start) = Upp;
+y(1:start) = Ypp;
 
 
 dU = zeros(Nu,1);
@@ -52,8 +54,10 @@ K = (M'*M + lambda * eye(Nu))\M';
 
 yzad(1:250) = 1;
 yzad(251:500) = 3;
+yzad(501:750) = 2;
+yzad(751:kend) = -0.07;
 
-for k = kstart:kend
+for k = start:kend
     Yk(1:end) = y(k-1);
     Yzad(1:end) = yzad(k);
     Y0 = Yk + Mp*dUp;
@@ -75,6 +79,13 @@ for k = kstart:kend
 end
 
 if draw
-    csvwrite('sprawko/wykresy/zad3_dmc_y.csv', y)
-    csvwrite('sprawko/wykresy/zad3_dmc_u.csv', u)
+    figure
+    plot(y)
+    hold on
+    plot(yzad)
+    figure
+    plot(u)
+    write_to_file(['y_dmc_' num2str(argN) '_' num2str(argNu) '_' num2str(argLambda)], 1:kend, y)
+    write_to_file('zad4_yzad', 1:kend, yzad)
+    write_to_file(['u_dmc_' num2str(argN) '_' num2str(argNu) '_' num2str(argLambda)], 1:kend, u)
 end
