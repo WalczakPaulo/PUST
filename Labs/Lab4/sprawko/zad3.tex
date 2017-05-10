@@ -1,0 +1,60 @@
+\chapter{Zadanie 3}
+Celem zadania trzeciego było przeksztalcenie jednej z otrzymanych odpowiedzi skokowych używając w tym celu
+członu inercyjnego drugiego rzędu z opóźnieniem. Wzór ogólny takiego obiektu przedstawia równanie \ref{eq:2in_op}.
+\begin{equation}
+  \label{eq:2in_op}
+  y(k) = b_1u(k-T_D-1) + b_2u(k-T_D-2)-a_1y(k-1)-a_2y(k-2),
+\end{equation}
+gdzie
+\begin{align}
+  a_1 &= -e^{-\frac{1}{T_1}}-e^{-\frac{1}{T_2}} \nonumber \\
+  a_2 &= e^{-\frac{1}{T_1}}e^{-\frac{1}{T_2}} \nonumber \\
+  b_1 &= \frac{K}{T_1 - T_2}[T_1(1 - e^{-\frac{1}{T_1}}) - T_2(1 - e^{-\frac{1}{T_2}})] \nonumber \\
+  b_2 &= \frac{K}{T_1 - T_2}[e^{-\frac{1}{T_1}}T_2(1 - e^{-\frac{1}{T_2}}) - e^{-\frac{1}{T_2}}T_1(1 - e^{-\frac{1}{T_1}})]
+\end{align}
+Przybliżenie polega na takim dobraniu parametrów $T_1$, $T_2$, $K$, oraz $T_D$ tak,
+aby różnica między faktycznym wyjściem obiektu i przybliżeniem była jak najmniejsza.
+Do doboru parametrów użyliśmy funkcji \texttt{GA}.  Do znormalizowania wykorzysaliśmy odpowiedź
+skokową, gdzie skok sterowania wynosił $\Delta U = 13$ (do wartości sterowania $U = 40$). Nasz wybór
+motywujemy, tym że otrzymana odpowiedź była najmniej zaszumiona. Procesu normalizacji odpowiedzi skokowej, przed poddaniem
+jej aproksymacji, nie będziemy tutaj opisywać, ze względu na dokładny opis owego procesu
+w poprzednich sprawozdaniach.
+% Ciężko jest szacować wspomniane wartości same w sobie. Mając jednak wiedzę, że wynikają
+% one z innych parametrów charakterystycznych dla członu dwuinercyjnego z opóźnieniem,
+% można już próbować je szacować. Owe zależności wyglądają następująco:
+% Jako wartości początkowe parametrów $T_1$, $T_2$, $K$, oraz $T_D$ wybraliśmy odpowiednio
+% 5, 10, 2, oraz 9. Wybralismy 2 dla K (zebrane odpowiedzi nie wskazywały dużego wzmocnienia),
+% TD = 9 (na tyle oceniamy opóźnienie obiektu), oraz T1 i T2  jako 5 i 10 (wartości z grubsza losowe).
+%PIERDOLENIE
+Do przybliżenia użyliśmy algorytm ewolucyjny, który nie używa punktu początkowego,
+a losowej populacji początkowej. Dlatego jedyne parametry algorytmu to ogarniczenia
+Kierując się logiką ograniczyliśmy od dołu parametry zerami, zaś od góry wartościami 1000, 1000, 10, 50,
+dla zmiennych odpowiednio $T_1$, $T_2$, $K$, oraz $T_D$.
+Aproksymacja odpowiedzi skokowej została pokazana na rysunku \ref{fig:approx}.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=400,ymin=0,ymax=0.45,
+xlabel={$k$},
+ylabel={$y$},
+xtick={0, 50, 100, 150, 200, 250, 300, 350, 400},
+ytick={0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45},
+legend pos=north west,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/skok40_norm.txt};
+\addplot[red,semithick] file {wykresy/skok40_approx.txt};
+\legend{Odpowiedź obiektu, Aproksymacja}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Aproksymacja odpowiedzi skokowej obiektu.}
+\label{fig:approx}
+\end{figure}

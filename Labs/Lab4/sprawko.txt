@@ -1,0 +1,94 @@
+Wstęp:
+
+Tematem laboratorium była imlplementacja, weryfikacja działania i dobór parametrów algorytmów
+regulacji jednowymiarowego procesu laboratoryjnego o istotnie nieliniowych właściwościach.
+Podczas pracy w laboratorium korzystaliśmy z pakiety MATLAB. 
+Badania podczas laboratorium dotyczyły procesu o jednym wejściu i jednym wyjściu, W tym cely wykorzystane
+zostało stanowisko z następującymi elementami: sterowanie - grzałka G!, pomiar - 
+czujnik temperatury T1, stałe sterowanie wentylator W1. Sygnał sterujący mógł zmieniać się w zakresie 
+( 0 - 100 %), sygnał wyjsciowy to pomiar wykonany przez czujnik temperatury T! ( temperatura w stopniach celsjusza),
+natomiast wentylator W1 należy traktować jako cechę otoczenia- jego użycie pozwala przyspieszyć opadanie 
+temperatury zmierzonej na czujniku T1. Sterowanie W1 musiało wynosić 50%. Czas próbkowania
+to 1s. Ze względu na występujące w pobliżu stanowiska zakłócenia, w postaci otwartych drzwi ( powodującej mocne cyrkulacje powietrza ),
+przechodzące w pomieszczeniu osoby itp., przeprowadzone przez nas pomiary mogły odbiegać
+od wartości właściwych.
+
+Zadanie 1.
+Pierwsze zadanie polegało na sprawdzeniu możliwości komunikacji ze stanowiskiem, oraz wyznaczenia
+temperatur w punkcie pracy ( punkt pracyL sterowanie G1 = 25 + nr-zadania, W1 = 50, T1 = do zmierzenia).
+Nie wystąpiły problemy z komunikacją ze stanowiskiem laboratoryjnym. Po wysterowaniu grzałki na wartości
+Upp = 27 i odczekaniu znacznej ilości czasy, wyjście obiektu ustabilizowało się na wartości około 31,5 stopnia celsjusza.
+Chcielibyśmy w tym miejsciu nadmienić, że podczas przeprowadzania późniejszych eksperymentó,
+nastąpiły rozbieżności w porównaniu do przeprowadzego eksperymentu, co będzie można zauważyć
+w kolejnych zadaniach.
+
+Zadanie 2.
+Celem zadania drugiego było wyznaczenie odpowiedzi skokowych toru wejście-wyjście dla pięciu
+różnych zmian sygnał sterującego G1 rozpoczynając z punktu pracy oraz określenie czy
+obiekt ma właściwości liniowe . Skoki sterowania przeprowadziliśmy do 
+kilku różnych wartości U: 30, 40, 50, 60, 70 oraz 80. Wykres dla wymienionych odpowiedzi skokowych
+znajduje się na rysunku x.x. Dokładną analizę dotyczące liniowości/nieliniowości obiektu utrudnia
+przesuwający się punkt pracy ( z powodu zakłóceń, mieliśmy pewne problemy z ustabilizowaniem
+obiektu w wyznaczonym w punkcie pierwszym punkcie pracy ). Oceniając jednakże wykresy,
+możemy jednoznacznie stwierdzić, że różnica w wartościach końcowych wyjścia obiektu dla skoków 
+o wartości wyższej jest większa niż dla skoków sterowania o mniejszej wartości, co dowodzi
+że obiekt charakteryzuje nieliniowść.
+Umieszając na wykresie dla wymienionych wczęsniej skoków sterowania odpowiadające im końcowe
+wartości wyjśc obiektu, oraz łącząc kolejne punkty linią otrzymujemy charakterystykę tatycznąociekty.
+Zauważamy, że charakterystykę statyczną może podzielić na dwa przebiegi (dwie linie proste
+o różnych nachyleniach ). Stąd, wskazane będzie użycie tak zwanej regulacji rozmytej. Użyjemy
+do tego dwóch regulatorów. Pierwszy będzie odpowiadał za sterowanie dolnego przedziału, kolejny zaś
+będzie sterował drugim przedziałem. Drugi regulator musi charakteryzować się większa "agresywnością"
+ze względu na to, że w tym przedziale obiekt słabiej reaguje na zmiany sterowania.
+
+Zadanie 3.
+Celem zadania trzeciego było przeksztalcenie jednej z otrzymanych odpowiedzi skokowych używając w tym cełu 
+członu inercyjnego drugiego rzędu z opóźnieniem. <tutaj wzorki moze >.
+
+Do doboru parametrów użyliśmy funkcji GA ( Genetic Algorithm ).  Do znormalizowania wykorzysaliśmy odpowiedź
+skokową, gdzie skok sterowania wynosił dU = 13 ( do wartości sterowania 40 ). Nasz wybór
+motywujemy, tym że otrzymana odpowiedź była najmniej "zaszumiona". Proces normalizacji odpowiedzi skokowej, przed poddaniem
+jej aproksymacji, nie będziemy tutaj opisywać, ze względu na dokładne opisanie owego procesu 
+w sprawozdaniach z poprzednich laboratoriów. Jako wartości początkowe parametrów wybraliśmy
+[5, 10, 2, 9]. Wybralismy 2 dla Kp (zebrane odpowiedzi nie wskazywały dużego wzmocnienia),
+TD = 9 ( na tyle oceniamy opóźnienie obiektu ), oraz T1 i T2  jako 5 i 10 (wartości z grubsza losowe ).
+Kierując się logiką ograniczyliśmy od dołu parmaetry zerami, zaś od góry wartościami [1000, 1000, 10, 50].
+
+Zadanie 4.
+Wzorki z pid i dmc.
+
+Zadanie 5.
+Celem zadania piątego było dla zaproponowanej trajektorii zmian sygnałów zadanych ( 6 skoków o różnej amplituudzie)
+dobranie nastaw dla regulatora PID i patametró dla algorytmu DMC metodą eksperymentalną.
+Jakośc regulacji  ocenialiśmy wizualnie ( na podstawie przebiegów wartości wyjścia obiektu) oraz 
+ilościowo za pomocą wkaźnika E ( liczonego jako suma kwadratów uchybów regulacji ). 
+Dla obu regulatoró ustaliliśmy takie same wartości skoków wartości zadanych wynoszących odpowiednio:
+Y=: 34, 37, 40, 43, 46, 41. Pomiary rozpoczynaliśmy z punktu pracy wyznaczonego w zadaniu 
+pierwszym. 
+Rozpocznijmy od regulacji PID.
+
+
+
+Porónanie DMC.
+
+
+
+
+Zadanie 6.
+Celem zadania szóstego było dla zaproponowanej trajektorii zmian wartości zadanych, zaimplementowanie 
+oraz dobranie parametrów rozmytego regulator PID. Zdecydowaliśmy się na przeprowadzenie eksperymentu 
+jedynie dla 2 regulatorów lokalnych, ze względu na to, że charaketerystyka statyczna odzwierciedla, że
+uzasadnione jest zastosowanie tylko dwóch regulatorów ( jeden punkt przegięcia, dwie proste linie o różnych nachyleniach).
+Nastawy regulatorów PID dobieraliśmy metodą eksperymentalną, wraz ze zwróceniem uwagi na wyniki
+regulacji przeprowadznych dla zwykłego regulatora PID z zadania 5. Stwierdziliśmy, że
+dla gónego przedziału wartości wyjść potrzebny będzie regulator bardziej agresywny, tak
+aby rekompensował słabą "reaktywność" obiektu na zmiany sterowania w górnym przedziale wartości wyjść.
+Jako funkcję przynależności wybraliśmy funkcję sigmoidalną. Ze względu na użycie dwóch
+regulatorów lokalnych, jako parametry tej funkcji wybraliśmy c = 50 ( punkt przecięć funkcji dla obu regulatorów),
+oraz d = 10 ( "stromość" funkcji), jako podaną przez prowadzącego odpowiednią wartość.
+
+Porównanie DLA DMC I PID.
+
+
+
+
