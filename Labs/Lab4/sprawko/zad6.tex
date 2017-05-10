@@ -10,8 +10,8 @@ regulacji przeprowadznych dla zwykłego regulatora PID z zadania 5. Stwierdzili�
 dla górnego przedziału wartości wyjść potrzebny będzie regulator bardziej agresywny, tak
 aby rekompensował słabą reaktywność obiektu na zmiany sterowania w górnym przedziale wartości wyjść.
 Jako funkcję przynależności wybraliśmy funkcję sigmoidalną. Ze względu na użycie dwóch
-regulatorów lokalnych, jako parametry tej funkcji wybraliśmy c = 50 ( punkt przecięć funkcji dla obu regulatorów),
-oraz d = 10 (,,stromość" funkcji), jako podaną przez prowadzącego odpowiednią wartość.
+regulatorów lokalnych, jako parametry tej funkcji wybraliśmy c = 50 (punkt przecięć funkcji dla obu regulatorów),
+oraz d = 10 ("stromość" funkcji), jako podaną przez prowadzącego odpowiednią wartość.
 
 \section{Rozmyty PID}
 Pierwszym regulatorem rozmytym przetestowanym przez nas był regulator PID.
@@ -27,7 +27,7 @@ Na tej podstawie dostaliśmy następujące nastawy
   K_2 = 6,5, \qquad T_{i2} = 45, \qquad T_{d2} = 1,25.
 \end{equation}
 Działanie tak dobranych regulatorów zostało przedstawione na rysunku \ref{fig:z6_pid_1}.
-Sterowanie generowane przez taki zestaw regulatorów przedstawia rysunek \ref{fig:z6_pid_1_u}.
+Sterowanie generowane przez taki zestaw regulatorów przedstawia rysunek \ref{fig:z6_pid_1_u}. Błąd regulacji wynosi $E=\num{2,101e+3}$.
 Niestety, nie byliśmy zadowoleni działaniem tego regulatora, dlatego postanowiliśmy
 przetestować zestaw regulatorów o lekko poprawionych nastawach.
 Drugie nastawy miały lekko niższe wzmocnienie, tak aby zmniejszyć przesterowanie.
@@ -39,7 +39,7 @@ Nastawy prezentowały się następująco
   K_2 = 6, \qquad T_{i2} = 45, \qquad T_{d2} = 1,25.
 \end{equation}
 Wyniki działania tych regulatorów przedstawiają wykresy \ref{fig:z6_pid_2}, oraz
-\ref{fig:z6_pid_1_u}. Przeregulowania są zdecydowanie niższe. Wydaje nam się
+\ref{fig:z6_pid_1_u}. Przeregulowania są zdecydowanie niższe. Błąd regulacji wynosi $E=\num{1,961e+3}$. Wydaje nam się
 że można uzyskać lepsze efekty. Jednak po pierwsze nie mieliśmy czasu na takie eksperymenty,
 a po drugie celem laboratorium nie było stworzenie idealnego regulatora, a
 poznanie i porównanie działania regulatorów rozmytych, co zdecydowanie nam się udało.
@@ -165,7 +165,7 @@ Zostały tutaj użyte aproksymacje znormalizowanych odpowiedzi skokowych przy sk
 sterowania do $U = 40$, oraz $U = 80$. Pierwsza z tych aproksymacji była użyta już
 wcześniej i przedstawiona na wykresie \ref{fig:approx}. Wynik działania tego
 algorytmu przedstawia rysunek \ref{fig:z6_dmc}. Sterowanie generowane przezeń przedstawia
-wykres \ref{fig:z6_dmc_u}. Wynik działania tego regulatora nie jest najlepszy.
+wykres \ref{fig:z6_dmc_u}. Wynik działania tego regulatora nie jest najlepszy. Błąd regulacji wynosi $E=\num{2.479e+3}$.
 Na początku widać ewidentny brak stabilizacji obiektu na wartości zadanej, co
 prawdopodobnie było wynikiem pośpiechu. Następne złe wyniki były prawdopodobnie
 spowodowane zakłóceniami i ludźmi chodzącymi dookoła, gdyż było to wykonywane
