@@ -1,10 +1,6 @@
-function [error] = dmc_zwykly(argN, argNu, argLambda, draw)
+function [error] = dmc_zwykly(N, Nu, lambda, draw)
 %OPTYMALNE WEGŁUG GA: N = 26, Nu = 1, lambda = 41.4768
 close all
-
-N = argN;
-Nu = argNu;
-lambda = argLambda;
 
 error = 0;
 start = 7;
@@ -63,7 +59,7 @@ for k = start:kend
     Y0 = Yk + Mp*dUp;
     dU = K*(Yzad - Y0);
 
-    
+
     dUp(2:end) = dUp(1:end-1);
     dUp(1) = dU(1);
     
@@ -85,7 +81,7 @@ if draw
     plot(yzad)
     figure
     plot(u)
-    write_to_file(['y_dmc_' num2str(argN) '_' num2str(argNu) '_' num2str(argLambda)], 1:kend, y)
-    write_to_file('zad4_yzad', 1:kend, yzad)
-    write_to_file(['u_dmc_' num2str(argN) '_' num2str(argNu) '_' num2str(argLambda)], 1:kend, u)
+%     write_to_file(['y_dmc_' num2str(argN) '_' num2str(argNu) '_' num2str(argLambda)], 1:kend, y)
+%     write_to_file('zad4_yzad', 1:kend, yzad)
+%     write_to_file(['u_dmc_' num2str(argN) '_' num2str(argNu) '_' num2str(argLambda)], 1:kend, u)
 end

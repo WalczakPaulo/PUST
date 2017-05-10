@@ -50,13 +50,13 @@ use comma,
 \subsection{PID}
 Parametry algorytmu PID wyznaczone przez algorytm genetyczny są następujące:
 \begin{itemize}
-\item $K^1 = 0,24$
-\item $T^1_i = 5,37$
-\item $T^1_d = 1,05$
+\item $K^1 = 0,445$
+\item $T^1_i = 3,9661$
+\item $T^1_d = 1,4168$
 \\
-\item $K^2 = 0,21$
-\item $T^2_i = 5,32$
-\item $T^2_d = 2,12$
+\item $K^2 = 0,1696$
+\item $T^2_i = 3,7122$
+\item $T^2_d = 1,9235$
 \end{itemize}
 
 \begin{figure}[H]
@@ -101,6 +101,93 @@ use comma,
 \label{fig:2_reg_pid_u}
 \end{figure}
 
-Wskaźnik jakości regulacji dla regulatora, którego działanie przedstawiają wykresy \ref{fig:2_reg_pid_y} i \ref{fig:2_reg_pid_u}, ma wartość $E=101,5549$. Błąd jest zatem nieznacznie niższy niż dla "klasycznego" regulatora DMC z wykresów \ref{fig:dmc4_y} i \ref{fig:dmc4_u}, choć można zauważyć, że występują większe przeregulowania i oscylacje.
+Wskaźnik jakości regulacji dla regulatora, którego działanie przedstawiają wykresy \ref{fig:2_reg_pid_y} i \ref{fig:2_reg_pid_u}, ma wartość $E=96,7779$. Błąd jest zatem niższy niż dla "klasycznego" regulatora DMC z wykresów \ref{fig:dmc4_y} i \ref{fig:dmc4_u}, choć można zauważyć, że występują większe przeregulowania i oscylacje.
 
 \subsection{DMC}
+Na początek użyliśmy nastaw $\lambda_1=10$ i $\lambda_2=10$. Błąd regulacji wynosił $E=101,5364$. Działanie regulatora przedstawiają wykresy \ref{fig:21_reg_dmc_u} i \ref{fig:21_reg_dmc_y}.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$y(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/21_reg_dmc_y.txt};
+\addplot file {wykresy/zad4_yzad.txt};
+\legend{$y$,$y_{zad}$}
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście obiektu dla 2 regulatorów lokalnych DMC}
+\label{fig:21_reg_dmc_y}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$u(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/21_reg_dmc_u.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie obiektu dla 2 regulatorów lokalnych DMC}
+\label{fig:21_reg_dmc_u}
+\end{figure}
+
+Metodą eksperymentalną dobraliśmy wartości nastaw $\lambda_1=0,1$ i $\lambda_2=5,07$. Wskaźnik jakości regulacji wynosił $E=97,001$. Działanie regulatora przedstawiają wykresy \ref{fig:22_reg_dmc_y} i \ref{fig:22_reg_dmc_u}. Porównując z działaniem regulatora pid (wykresy \ref{fig:2_reg_pid_y} i \ref{fig:2_reg_pid_u}) uznajemy, że regulator DMC działa lepiej ze względu na mniejsze oscylacje i przeregulowania.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$y(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/22_reg_dmc_y.txt};
+\addplot file {wykresy/zad4_yzad.txt};
+\legend{$y$,$y_{zad}$}
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście obiektu dla 2 regulatorów lokalnych DMC}
+\label{fig:22_reg_dmc_y}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$u(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/22_reg_dmc_u.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie obiektu dla 2 regulatorów lokalnych DMC}
+\label{fig:22_reg_dmc_u}
+\end{figure}

@@ -1,4 +1,4 @@
-\section{5 regulatory lokalne}
+\section{5 regulatorów lokalnych}
 Dla 3 regulatorów lokalnych użyliśmy sigmoidalnych funkcji przynależności, danych wzorami \ref{eq:mi5_1}, \ref{eq:mi5_2}, \ref{eq:mi5_3}, \ref{eq:mi5_4} i \ref{eq:mi5_5}. Parametry mają wartośi: $\alpha = -3$, $c^1 = -0,05$, $c^2=0,25$, $c^3=0,5$, $c^4=1.3$.
 \begin{equation} \label{eq:mi5_1}
 \mu_1 = 1 - \frac{1}{1+e^{\alpha * (y(k)-c^1))}}
@@ -117,29 +117,29 @@ use comma,
 \end{figure}
 
 \subsection{PID}
-Parametry algorytmu PID wyznaczone przez algorytm genetyczny są następujące:
+W przypadku 5 regulatorów lokalnych algorytm genetyczny nie poradził sobie z optymalizacją parametrów. Konieczne okazało się użycie metody eksperymentalnej, co doprowadziło do tego, że ta wersja regulatora działa gorzej niż w przypadku 4 regulatorów lokalnych. Parametry są następujące:
 \begin{itemize}
-\item $K^1 = 0,163$
-\item $T^1_i = 4,327$
-\item $T^1_d = 1,91$
+\item $K^1 = 0,68$
+\item $T^1_i = 3,1$
+\item $T^1_d = 2,8$
 \\
-\item $K^2 = 0,297$
-\item $T^2_i = 9,87$
-\item $T^2_d = 4,624$
+\item $K^2 = 0,07$
+\item $T^2_i = 2,1$
+\item $T^2_d = 1,8$
 \\
-\item $K^3 = 0,385$
-\item $T^3_i = 5,32$
-\item $T^3_d = 0,383$
+\item $K^3 = 0,3$
+\item $T^3_i = 1,05$
+\item $T^3_d = 3,4$
 \\
-\item $K^4 = 0,385$
-\item $T^4_i = 5,32$
-\item $T^4_d = 0,383$
+\item $K^4 = 0,21$
+\item $T^4_i = 5$
+\item $T^4_d = 2,44$
 \\
-\item $K^5 = 0,385$
-\item $T^5_i = 5,32$
-\item $T^5_d = 0,383$
+\item $K^5 = 0,17$
+\item $T^5_i = 3.41$
+\item $T^5_d = 1,6$
 \end{itemize}
-
+Błąd regulacji wynosi $E=94,3681$. Stąd wniosek, że algorytm rozmyty PID z 5 regulatorami lokalnymi jest niepraktyczny ze względu na to, że należy dobrać aż 15 parametrów (nie licząc parametrów opisujących funkcje przynależności. Wyniki eksperymentu przedstawiają wykresy \ref{fig:5_reg_pid_y} i \ref{fig:5_reg_pid_u}.
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
@@ -182,5 +182,91 @@ use comma,
 \label{fig:5_reg_pid_u}
 \end{figure}
 
-Wskaźnik jakości regulacji dla regulatora, którego działanie przedstawiają wykresy \ref{fig:5_reg_pid_y} i \ref{fig:5_reg_pid_u}, ma wartość $E=101,5480$, a więc równy błędowi 4 regulatorów lokalnych. Potwierdza to tezę, że tworzenie kolejnych regulatorów lokalnych nie ma sensu.
 \subsection{DMC}
+Na początek użyliśmy nastaw $\lambda_1=10$, $\lambda_2=10$, $\lambda_3=10$, $\lambda_4=10$ i $\lambda_5=10$. Błąd regulacji wynosił $E=96,6185$. Działanie regulatora przedstawiają wykresy \ref{fig:51_reg_dmc_u} i \ref{fig:51_reg_dmc_y}.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$y(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/51_reg_dmc_y.txt};
+\addplot file {wykresy/zad4_yzad.txt};
+\legend{$y$,$y_{zad}$}
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście obiektu dla 5 regulatorów lokalnych DMC}
+\label{fig:51_reg_dmc_y}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$u(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/51_reg_dmc_u.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie obiektu dla 5 regulatorów lokalnych DMC}
+\label{fig:51_reg_dmc_u}
+\end{figure}
+
+Metodą eksperymentalną dobraliśmy wartości nastaw $\lambda_1=149,99$, $\lambda_2=24,75$, $\lambda_3=0,11$,  $\lambda_4=0,1085$ i $\lambda_5=0,1078$. Wskaźnik jakości regulacji wynosił $E=93,9931$. Działanie regulatora przedstawiają wykresy \ref{fig:52_reg_dmc_y} i \ref{fig:52_reg_dmc_u}. Porównując z działaniem regulatora pid (wykresy \ref{fig:5_reg_pid_y} i \ref{fig:5_reg_pid_u}) uznajemy, że regulator DMC działa lepiej ze względu na mniejsze oscylacje i przeregulowania, mimo większego błędu regulaji. Poprawa w stosunku do DMC z 4 regulatorami lokalnymi jest znikoma.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$y(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/52_reg_dmc_y.txt};
+\addplot file {wykresy/zad4_yzad.txt};
+\legend{$y$,$y_{zad}$}
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście obiektu dla 5 regulatorów lokalnych DMC}
+\label{fig:52_reg_dmc_y}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$u(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/52_reg_dmc_u.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie obiektu dla 5 regulatorów lokalnych DMC}
+\label{fig:52_reg_dmc_u}
+\end{figure}

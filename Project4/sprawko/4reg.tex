@@ -96,21 +96,21 @@ use comma,
 \subsection{PID}
 Parametry algorytmu PID wyznaczone przez algorytm genetyczny są następujące:
 \begin{itemize}
-\item $K^1 = 0,1552$
-\item $T^1_i = 3,7131$
-\item $T^1_d = 0,34008$
+\item $K^1 = 0,5$
+\item $T^1_i = 6$
+\item $T^1_d = 1,2$
 \\
-\item $K^2 = 0,4115$
-\item $T^2_i = 8,52$
-\item $T^2_d = 0,3931$
+\item $K^2 = 0,34$
+\item $T^2_i = 5,5$
+\item $T^2_d = 1,7$
 \\
-\item $K^3 = 0,44$
-\item $T^3_i = 2,6651$
-\item $T^3_d = 11,7917$
+\item $K^3 = 0,33$
+\item $T^3_i = 4,5$
+\item $T^3_d = 1,4$
 \\
-\item $K^4 = 0,5802$
-\item $T^4_i = 13,6447$
-\item $T^4_d = 12,907$
+\item $K^4 = 0,12$
+\item $T^4_i = 2,6$
+\item $T^4_d = 2,5$
 \end{itemize}
 
 \begin{figure}[H]
@@ -155,5 +155,93 @@ use comma,
 \label{fig:4_reg_pid_u}
 \end{figure}
 
-Wskaźnik jakości regulacji dla regulatora, którego działanie przedstawiają wykresy \ref{fig:4_reg_pid_y} i \ref{fig:4_reg_pid_u}, ma wartość $E=101,5480$, a więc niemalże równy błędowi 3 regulatorów lokalnych. Różnica między wykresami \ref{fig:3_reg_pid_y} i \ref{fig:4_reg_pid_y} jest praktycznie niezauważalna. Wskazuje to na fakt, że zwiększanie ilości regulatorów lokalnych PID nie wpływa na poprawę jakości regulacji. Dla potwierdzenia tej tezy, przeprowadzimy eksperyment dla 5 regulatorów lokalnych.
+Wskaźnik jakości regulacji dla regulatora, którego działanie przedstawiają wykresy \ref{fig:4_reg_pid_y} i \ref{fig:4_reg_pid_u}, ma wartość $E=92.6984$, a więc niemalże równy błędowi 3 regulatorów lokalnych. Wskazuje to na fakt, że zwiększanie ilości regulatorów lokalnych PID nie wpływa na poprawę jakości regulacji. Dla potwierdzenia tej tezy, przeprowadzimy eksperyment dla 5 regulatorów lokalnych.
+
 \subsection{DMC}
+Na początek użyliśmy nastaw $\lambda_1=10$, $\lambda_2=10$, $\lambda_3=10$ i $\lambda_4=10$. Błąd regulacji wynosił $E=97,1604$. Działanie regulatora przedstawiają wykresy \ref{fig:41_reg_dmc_u} i \ref{fig:41_reg_dmc_y}.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$y(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/41_reg_dmc_y.txt};
+\addplot file {wykresy/zad4_yzad.txt};
+\legend{$y$,$y_{zad}$}
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście obiektu dla 4 regulatorów lokalnych DMC}
+\label{fig:41_reg_dmc_y}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$u(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/41_reg_dmc_u.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie obiektu dla 4 regulatorów lokalnych DMC}
+\label{fig:41_reg_dmc_u}
+\end{figure}
+
+Metodą eksperymentalną dobraliśmy wartości nastaw $\lambda_1=25,84$, $\lambda_2=4,25$, $\lambda_3=149,34$ i $\lambda_4=5,15$. Wskaźnik jakości regulacji wynosił $E=95,8709$. Działanie regulatora przedstawiają wykresy \ref{fig:42_reg_dmc_y} i \ref{fig:42_reg_dmc_u}. Porównując z działaniem regulatora pid (wykresy \ref{fig:4_reg_pid_y} i \ref{fig:4_reg_pid_u}) uznajemy, że regulator DMC działa lepiej ze względu na mniejsze oscylacje i przeregulowania, mimo większego błędu regulaji. Poprawa w stosunku do DMC z 3 regulatorami lokalnymi jest znikoma.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$y(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/42_reg_dmc_y.txt};
+\addplot file {wykresy/zad4_yzad.txt};
+\legend{$y$,$y_{zad}$}
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście obiektu dla 4 regulatorów lokalnych DMC}
+\label{fig:42_reg_dmc_y}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+height=0.5\textwidth,
+width=0.75\textwidth,
+xmin=0,xmax=1200,
+xlabel={$k$},
+ylabel={$u(k)$},
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+\addplot file {wykresy/42_reg_dmc_u.txt};
+\end{axis}
+\end{tikzpicture}
+\caption{Sterowanie obiektu dla 4 regulatorów lokalnych DMC}
+\label{fig:42_reg_dmc_u}
+\end{figure}

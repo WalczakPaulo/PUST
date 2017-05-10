@@ -1,5 +1,5 @@
 \chapter{Rozmyte regulatory PID i DMC}
-Do wyznaczania optymalnych nastaw lokalnych regulatorów PID i DMC użyliśmy dostępnego w Matlabie algorytmu genetycznego, minimalizującego błąd regulacji dany wzorem \ref{eq:e2}.
+Do wyznaczania optymalnych nastaw lokalnych regulatora PID użyliśmy dostępnego w Matlabie algorytmu genetycznego, minimalizującego błąd regulacji dany wzorem \ref{eq:e2}. Wyznaczając nastawy regulatorów lokalnych DMC użyliśmy natomiast metody eksperymentalnej. Zdecydowaliśmy na użycie horyzontów predykcji i sterowania o wartościach $N=25$ i $N_u=1$ dla wszystkich regulatorów, manipulowaliśmy natomiast parametrem $\lambda$.
 \begin{equation} \label{eq:e2}
 E = \sum_{k=1}^{k_{konc}} (y^{zad}(k)-y(k))^2
 \end{equation}
@@ -10,3 +10,4 @@ Wartościami zadanymi wykorzystywanymi we wszystkich eksperymentach są kolejno:
 \input{3reg}
 \input{4reg}
 \input{5reg}
+\input{wnioski}

@@ -9,10 +9,13 @@ Tp = 0.5;
 
 error = 0;
 %inicjalizacja sta³ych
+kstart = 7;
 N = 1200;
 
-u = Upp*ones(1, N);
-y = Ypp*ones(1, N);
+% u = Upp*ones(1, N);
+% y = Ypp*ones(1, N);
+u(1:kstart) = Upp;
+y(1:kstart) = Ypp;
 e = zeros(1,N);
 
 yzad(1:250) = 1;
@@ -25,13 +28,10 @@ prevUi(1:reg_no) = 0;
 
 mi=zeros(1, reg_no);
 
-for k=7:N
-   %symulacja obiektu
-   %uchyb regulacji
+for k = kstart:N
    e(k)=yzad(k-1) - y(k-1);
    
    for i=1:reg_no
-%         Un(i)=r2(i)*e(k-2)+r1(i)*e(k-1)+r0(i)*e(k)+u(k-1);
         uP = K(i)*e(k);
         uI = prevUi(i) + (K(i)/Ti(i)) * Tp * (prevE + e(k)) / 2;
         uD = K(i) * (Td(i)/Tp) * (e(k) - prevE);
@@ -40,26 +40,26 @@ for k=7:N
    end
    prevE = e(k);
    if reg_no==2
-       mi(1)=1-1/(1+exp(-alfa*(y(k)-c(1))));%0.5
-       mi(2)=1/(1+exp(-alfa*(y(k)-c(1))));
+       mi(1)=1-1/(1+exp(-alfa*(y(k-1)-c(1))));%0.5
+       mi(2)=1/(1+exp(-alfa*(y(k-1)-c(1))));
        %GA: pid_rozm([0.1217 0.5],[4.4546 6.0648],[2.4853 0.6473],2,3,0.3)
    elseif reg_no==3
-       mi(1)=1-1/(1+exp(-alfa*(y(k)-c(1))));%-0.05
-       mi(2)=1/(1+exp(-alfa*(y(k)-c(1))))-1/(1+exp(-alfa*(y(k)-c(2))));%1.4
-       mi(3)=1/(1+exp(-alfa*(y(k)-c(2))));
+       mi(1)=1-1/(1+exp(-alfa*(y(k-1)-c(1))));%-0.05
+       mi(2)=1/(1+exp(-alfa*(y(k-1)-c(1))))-1/(1+exp(-alfa*(y(k-1)-c(2))));%1.4
+       mi(3)=1/(1+exp(-alfa*(y(k-1)-c(2))));
        %p5PID([0.21 0.08 0.11],[1 2 3],[0.01 0.5 0.7],3,10,[-0.05 1.4],false)
    elseif reg_no==4
-       mi(1)=1-1/(1+exp(-alfa*(y(k)-c(1))));%-0.05
-       mi(2)=1/(1+exp(-alfa*(y(k)-c(1))))-1/(1+exp(-alfa*(y(k)-c(2))));%0.5
-       mi(2)=1/(1+exp(-alfa*(y(k)-c(2))))-1/(1+exp(-alfa*(y(k)-c(3))));%1.4
-       mi(4)=1/(1+exp(-alfa*(y(k)-c(3))));
+       mi(1)=1-1/(1+exp(-alfa*(y(k-1)-c(1))));%-0.05
+       mi(2)=1/(1+exp(-alfa*(y(k-1)-c(1))))-1/(1+exp(-alfa*(y(k-1)-c(2))));%0.5
+       mi(3)=1/(1+exp(-alfa*(y(k-1)-c(2))))-1/(1+exp(-alfa*(y(k-1)-c(3))));%1.4
+       mi(4)=1/(1+exp(-alfa*(y(k-1)-c(3))));
        %p5PID([0.12 0.14 0.13 0.1],[1 3 5 3],[0.24 2.1 0.9 0.9],4,10,[-0.05 0.5 1.4],false)
    elseif reg_no==5
-       mi(1)=1-1/(1+exp(-alfa*(y(k)-c(1))));%-0.05
-       mi(2)=1/(1+exp(-alfa*(y(k)-c(1))))-1/(1+exp(-alfa*(y(k)-c(2))));%0.25
-       mi(3)=1/(1+exp(-alfa*(y(k)-c(2))))-1/(1+exp(-alfa*(y(k)-c(3))));%0.5
-       mi(4)=1/(1+exp(-alfa*(y(k)-c(3))))-1/(1+exp(-alfa*(y(k)-c(4))));%1.4
-       mi(5)=1/(1+exp(-alfa*(y(k)-c(4))));
+       mi(1)=1-1/(1+exp(-alfa*(y(k-1)-c(1))));%-0.05
+       mi(2)=1/(1+exp(-alfa*(y(k-1)-c(1))))-1/(1+exp(-alfa*(y(k-1)-c(2))));%0.25
+       mi(3)=1/(1+exp(-alfa*(y(k-1)-c(2))))-1/(1+exp(-alfa*(y(k-1)-c(3))));%0.5
+       mi(4)=1/(1+exp(-alfa*(y(k-1)-c(3))))-1/(1+exp(-alfa*(y(k-1)-c(4))));%1.4
+       mi(5)=1/(1+exp(-alfa*(y(k-1)-c(4))));
        %p5PID([0.34 0.01 0.42 0.18 0.1],[1 1 5 2 3],[0.01 1.1 0.9 2.5 0.9],5,10,[-0.05 0.25 0.5 1.4],false)
    end
    
