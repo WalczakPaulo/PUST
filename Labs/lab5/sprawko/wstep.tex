@@ -1,0 +1,43 @@
+\chapter{Opis problemu}
+\section{Stanowisko grzejące}
+Pierwszym z celów piątego laboratorium było zbadanie obiektu, a następnie
+implementacja, weryfikacja poprawności działania i dobór parametrów algorytmów
+regulacji obiektu na sterowniku firmy Mitsubishi, przy pomocy oprogramowania
+GX Works.
+Badania dotyczyły obiektu wielowymiarowego, o dwóch wejściach
+i dwóch wyjściach. Obiekt składał się z:
+\begin{itemize}
+  \item sygnał wejściowy pierwszy -- grzałka G1
+  \item sygnał wejściowy drugi -- grzałka G2
+  \item sygnał wyjściowy pierwszy -- czujnik temperatury T1
+  \item sygnał wyjściowy drugi -- czujnik temperatury T2
+  \item zakłócenie pierwsze -- wentylator W1
+  \item zakłócenie drugie -- wentylator W2.
+\end{itemize}
+Sygnały wejściowe G1 i G2 mogą przyjmować wartości w zakresie 0 - 100.
+Sygnały wyjściowe, zwracają pomiary temperatury w $^\circ$C. Wentylatory
+W1 oraz W2 należy traktować jako cechę otoczenia. Mają one stałe wysterowanie
+na 50\% swojej mocy. Ich użycie pozwala na bardziej dynamiczne schładzanie
+obiektu. Czas próbkowania obiektu wynosi 4s.
+\section{Obiekt Inteco}
+Drugim celem laboratorium było stworzenie regulatora dla obiektu firmy Inteco.
+W naszym przypadku obiekt składał się z trzech zbiorników umieszczonych,
+jeden nad drugim, wypełnianych wodą. Każda kolejna para zbiorników była
+połączona ze sobą zaworami, przez które woda mogła przepływać z jednego
+zbiornika do drugiego. Zawór z najniższego zbiornika był połączony ze zbiornikiem,
+będącym buforem nadmiarowej wody. Z owego bufora woda mogła być pompowana do
+najwyższego zbiornika. Z punktu widzenia zadania, które mieliśmy wykonać
+obiekt prezentował się następująco:
+\begin{itemize}
+  \item pompa P1 -- stale wysterowane wejście wody do zbiornika pierwszego
+  \item zawór V1 -- ujście wody z pierwszego zbiornika i
+  jednocześnie wejście wody do zbiornika drugiego (pierwszy sygnał sterujący)
+  \item zawór V2 -- ujście wody z drugiego zbiornika i jednocześnie wejście
+  wody do zbornika trzeciego (drugi sygnał sterujący)
+  \item zawór V3 -- ujście wody z trzeciego zbiornika (trzeci sygnał sterujący)
+  \item pomiar M1 -- stan wody w pierwszym zbiorniku (pierwszy sygnał wyjściowy)
+  \item pomiar M2 -- stan wody w drugim zbiorniku (drugi sygnał wyjściowy)
+  \item pomiar M3 -- stan wody w trzecim zbiorniku (trzeci sygnał wyjściowy)
+\end{itemize}
+Wszelkie sygnały wejściowe sterowane były za pomocą PWM. Czas próbkowania obiektu
+wynosił 100ms.

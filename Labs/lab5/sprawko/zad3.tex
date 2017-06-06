@@ -1,0 +1,32 @@
+\chapter{Zadanie 3}
+
+
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=213.2,ymin=32,ymax=50,
+xlabel={$k$},
+ylabel={$y$},
+xtick={0, 50, 100, 150, 200},
+ytick={32, 34, 36, 38, 40, 42, 44, 46, 48, 50},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/pid1_Y1.txt};
+\addplot[red,semithick] file {wykresy/pid1_Yz1.txt};
+\addplot[violet,semithick] file {wykresy/pid1_Y2.txt};
+\addplot[orange,semithick] file {wykresy/pid1_Yz2.txt};
+\legend{Temperatura na czujniku T1, Wartość zadana temperatury T1, Temperatura na czujniku T2, Wartość zadana temperatury T2}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Regulacja regulatorem PID.}
+\label{fig:pid1_y}
+\end{figure}

@@ -1,0 +1,50 @@
+\chapter{Zadanie 1}
+\section{Sprawdzenie połączenia}
+Zadanie pierwsze polegało na sprawdzeniu możliwości komunikacji ze stanowiskiem.
+Sprawdziliśmy to, modyfikując wybrane wejścia obiektu, oraz obserwując zmiany
+na obiekcie. Przy modyfikacji wejścia wiatraków widać i słychać było, iż wiatraki kręcą
+się wolniej lub szybciej, w zależności od wejścia. Przy sprawdzeniu działania
+grzałki polegaliśmy na diodach elektroluminescencyjnych, które świeciły mocniej
+lub słabiej w zależności od mocy grzania odpowiedniej grzałki. Nasza pewność
+w tej sprawie jest oparta na zaufaniu do konstruktora obiektu. Możliwość
+pomiaru wyjśc obiektu zoastała sprawdzona w oparciu o trendy pomiaru,
+w zależności od wysterowania wcześniej wspomnianych wejść. Otóż, przy
+zwiększeniu mocy grzałki lub zmniejszeniu mocy wiatraka temperatura
+na czujniku bliższym danej grzałce i wiatrakowi rośnie szybko, a na dalszym
+rośnie wolniej. Przy zwiększaniu mocy wiatraka lub zmniejszaniu mocy grzałki pomiar
+temperatur spadał. Podobnie jak wcześniej działo się to z szybkością odwrotnie proporcjonalną
+do odległości czujnika od wiatraka i grzałki których sterowanie jest zmieniane.
+\section{Punkt pracy}
+Punkt pracy naszego stanowiska wynosił $G1 = 27$, $G2 = 32$, $W1 = 50$, $W2 = 50$.
+Przy tak ustawionych wejściach pozwoliliśmy obiektowi się ustabilizować. Z powodów
+różnych zakłóćeń pomiary temperatury nieustannie się wahały. Oszacowaliśmy
+arbitralnie iż, pomiary ustabilizowały się na wartościach $T1 = 35$, $T2 = 36.68$.
+Pomiary wyjść przy takich ustawieniach sygnałów wejściowych przedstawia wykres
+\ref{fig:pkt_pracy}.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=150,ymin=32.5,ymax=37,
+xlabel={czas [s]},
+ylabel={temperatura [$^\circ$C]},
+xtick={0, 50, 100, 150},
+ytick={32.5, 33, 33.5, 34, 34.5, 35, 35.5, 36, 36.5, 37},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/pkt_pracy_y1.txt};
+\addplot[red,semithick] file {wykresy/pkt_pracy_y2.txt};
+\legend{Temperatura T1, Temperatura T2}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Punkt pracy obiektu.}
+\label{fig:pkt_pracy}
+\end{figure}
