@@ -36,7 +36,9 @@ Yzad(2,800:n)=0;
 Yzad(3,800:n)=0;
 
 u=zeros(4,n);
-e=zeros(3,n);
+e1=zeros(1,n);
+e2=zeros(2,n);
+e3=zeros(3,n);
 
 disp('Calculating process...');
 
@@ -49,17 +51,19 @@ for k=5:n
         Y(2,k-1),Y(2,k-2),Y(2,k-3),Y(2,k-4),...
         Y(3,k-1),Y(3,k-2),Y(3,k-3),Y(3,k-4));
 
-    e(:,k)=Yzad(:,k)-Y(:,k);
+    e1(k)=Yzad(1,k)-Y(1,k);
+    e2(k)=Yzad(2,k)-Y(2,k);
+    e3(k)=Yzad(3,k)-Y(3,k);
 
-    u(whichUs(1),k)=r0(1)*e(1,k)+r1(1)*e(1,k-1)+r2(1)*e(1,k-2)++u(whichUs(1),k-1);
-    u(whichUs(2),k)=r0(2)*e(2,k)+r1(2)*e(2,k-1)+r2(2)*e(2,k-2)+u(whichUs(2),k-1);
-    u(whichUs(3),k)=r0(3)*e(3,k)+r1(3)*e(3,k-1)+r2(3)*e(3,k-2)+u(whichUs(3),k-1);
+    u(whichUs(1),k)=r0(1)*e1(k)+r1(1)*e1(k-1)+r2(1)*e1(k-2)++u(whichUs(1),k-1);
+    u(whichUs(2),k)=r0(2)*e2(k)+r1(2)*e2(k-1)+r2(2)*e2(k-2)+u(whichUs(2),k-1);
+    u(whichUs(3),k)=r0(3)*e3(k)+r1(3)*e3(k-1)+r2(3)*e3(k-2)+u(whichUs(3),k-1);
 end;
 
 disp('Success');
-E1=sum(e(1,:).^2);
-E2=sum(e(2,:).^2);
-E3=sum(e(3,:).^2);
+E1=sum(e1(:).^2);
+E2=sum(e2(:).^2);
+E3=sum(e3(:).^2);
 
 
 csvwrite('yzad.csv', Yzad);
