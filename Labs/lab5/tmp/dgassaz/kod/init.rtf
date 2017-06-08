@@ -1,0 +1,239 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0\fnil MS Gothic;}{\f1\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green128\blue0;\red255\green0\blue255;\red0\green0\blue0;\red0\green0\blue255;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\cf1\lang1033\f0\fs22 //Inicjalizacja MODBUS\par
+\cf2 Pomiar_MODBUS\cf3  := 0;\par
+\cf2 Zapis_MODBUS\cf3  := 0;\par
+\par
+MOV(\cf4 TRUE\cf3 , K16, \cf2 Slave_adres\cf3 );\par
+MOV(\cf4 TRUE\cf3 , K4, \cf2 Function_code\cf3 ); \cf1 //4-pomiar, 3-sterowanie\par
+\cf3 MOV(\cf4 TRUE\cf3 , K0, \cf2 Modbus_adres\cf3 ); \cf1 //zaczynamy liczyc od 0\par
+\cf3 MOV(\cf4 TRUE\cf3 , K7, \cf2 Device_count\cf3 ); \cf1 //7 pomiarow, 6 sterowan\par
+\cf3\par
+\cf1 //Ustawienie poczatkowe wyjsc procesu\par
+\cf3 ZRST(\cf4 TRUE\cf3 , D110, D120);\par
+\par
+SD414 := 4;      \cf1 // okres sygnalu na SM414 wynosi 4 sekundy\par
+\cf3 D110 := 500;\par
+D111 := 500;\par
+D112 := 0;\par
+D113 := 0;\par
+D114 := 270;\par
+D115 := 320;\par
+\par
+\cf1 //Okres probkowania 1s=1000ms - parametr w programie FIXED SCAN\par
+\cf3 EMOV(\cf4 TRUE\cf3 , 1.0, \cf2 okres_probkowania\cf3 );\par
+\cf1 // Ustawienie wartosci poczatkowych procesu 1\par
+\cf3 EMOV(\cf4 TRUE\cf3 , 5.0, \cf2 stala_czasowa1\cf3 );\par
+EMOV(\cf4 TRUE\cf3 , 10.0, \cf2 K_p_proces1\cf3 );\par
+\cf1 // Utawienie wartosci poczatkowych procesu 2\par
+\cf3 EMOV(\cf4 TRUE\cf3 , 9.0, \cf2 stala_czasowa2\cf3 );\par
+EMOV(\cf4 TRUE\cf3 , 3.0, \cf2 K_p_proces2\cf3 );\par
+\cf1 //Parametry regulatora wbudowanego PID\par
+\cf2 parametry1\cf3 [0] := K1000; \cf1 //okres regulacji w milisekundach\par
+\cf2 parametry1\cf3 [3] := K1; \cf1 //wzmocnienie regulatora P\par
+\cf2 parametry1\cf3 [4] := K0; \cf1 //TI = 0 oznacza nieskonczony czas calkowania - inaczej mowiac calkowanie wylaczone\par
+\cf2 parametry1\cf3 [5] := K0; \cf1 //KD = 0 oznacza zerowe wzmocnienie rozniczkowania\par
+\cf2 parametry1\cf3 [6] := K0; \cf1 //TD = 0 oznacza wylaczone rozniczkowanie\par
+\cf2 parametry1\cf3 [22] := 100; \cf1 //gorny limit wartosci wyjsciowej z regulatora - zapobiega rowniez efektowi wind-up\par
+\cf2 parametry1\cf3 [23] := 0; \cf1 //dolny limit wartosci wyjsciowej z regulatora - -||-\par
+\cf3 SET(\cf4 TRUE\cf3 , \cf2 parametry1\cf3 [1]\cf2 .5\cf3 ); \cf1 //aktywacja limitow na wyjsciu regulatora\par
+//Parametry regulatora z dyskretnego rownania roznicowego\par
+\cf3\par
+\cf2 ku1\cf3 [0] := 0.178002;\par
+\cf2 ku1\cf3 [1] := 0.050509;\par
+\cf2 ku1\cf3 [2] := 0.191470;\par
+\cf2 ku1\cf3 [3] := 0.056031;\par
+\cf2 ku1\cf3 [4] := 0.195390;\par
+\cf2 ku1\cf3 [5] := 0.060003;\par
+\cf2 ku1\cf3 [6] := 0.189638;\par
+\cf2 ku1\cf3 [7] := 0.062905;\par
+\cf2 ku1\cf3 [8] := 0.178044;\par
+\cf2 ku1\cf3 [9] := 0.065078;\par
+\cf2 ku1\cf3 [10] := 0.164147;\par
+\cf2 ku1\cf3 [11] := 0.062387;\par
+\cf2 ku1\cf3 [12] := 0.149659;\par
+\cf2 ku1\cf3 [13] := 0.057471;\par
+\cf2 ku1\cf3 [14] := 0.135460;\par
+\cf2 ku1\cf3 [15] := 0.052688;\par
+\cf2 ku1\cf3 [16] := 0.122009;\par
+\cf2 ku1\cf3 [17] := 0.048226;\par
+\cf2 ku1\cf3 [18] := 0.109526;\par
+\cf2 ku1\cf3 [19] := 0.044097;\par
+\cf2 ku1\cf3 [20] := 0.098082;\par
+\cf2 ku1\cf3 [21] := 0.040296;\par
+\cf2 ku1\cf3 [22] := 0.087696;\par
+\cf2 ku1\cf3 [23] := 0.036806;\par
+\cf2 ku1\cf3 [24] := 0.078314;\par
+\cf2 ku1\cf3 [25] := 0.033608;\par
+\cf2 ku1\cf3 [26] := 0.069886;\par
+\cf2 ku1\cf3 [27] := 0.030682;\par
+\cf2 ku1\cf3 [28] := 0.062324;\par
+\cf2 ku1\cf3 [29] := 0.028007;\par
+\cf2 ku1\cf3 [30] := 0.055557;\par
+\cf2 ku1\cf3 [31] := 0.025564;\par
+\cf2 ku1\cf3 [32] := 0.049520;\par
+\cf2 ku1\cf3 [33] := 0.023334;\par
+\cf2 ku1\cf3 [34] := 0.044130;\par
+\cf2 ku1\cf3 [35] := 0.021300;\par
+\cf2 ku1\cf3 [36] := 0.039326;\par
+\cf2 ku1\cf3 [37] := 0.019445;\par
+\cf2 ku1\cf3 [38] := 0.035040;\par
+\cf2 ku1\cf3 [39] := 0.017752;\par
+\cf2 ku1\cf3 [40] := 0.031226;\par
+\cf2 ku1\cf3 [41] := 0.016207;\par
+\cf2 ku1\cf3 [42] := 0.027825;\par
+\cf2 ku1\cf3 [43] := 0.014799;\par
+\cf2 ku1\cf3 [44] := 0.024799;\par
+\cf2 ku1\cf3 [45] := 0.013514;\par
+\cf2 ku1\cf3 [46] := 0.022103;\par
+\cf2 ku1\cf3 [47] := 0.012344;\par
+\cf2 ku1\cf3 [48] := 0.019704;\par
+\cf2 ku1\cf3 [49] := 0.011276;\par
+\cf2 ku1\cf3 [50] := 0.017567;\par
+\cf2 ku1\cf3 [51] := 0.010299;\par
+\cf2 ku1\cf3 [52] := 0.015660;\par
+\cf2 ku1\cf3 [53] := 0.009409;\par
+\cf2 ku1\cf3 [54] := 0.013958;\par
+\cf2 ku1\cf3 [55] := 0.008593;\par
+\cf2 ku1\cf3 [56] := 0.012446;\par
+\cf2 ku1\cf3 [57] := 0.007847;\par
+\cf2 ku1\cf3 [58] := 0.011096;\par
+\cf2 ku1\cf3 [59] := 0.007163;\par
+\cf2 ku1\cf3 [60] := 0.009881;\par
+\cf2 ku1\cf3 [61] := 0.006535;\par
+\cf2 ku1\cf3 [62] := 0.008799;\par
+\cf2 ku1\cf3 [63] := 0.005954;\par
+\cf2 ku1\cf3 [64] := 0.007833;\par
+\cf2 ku1\cf3 [65] := 0.005419;\par
+\cf2 ku1\cf3 [66] := 0.006951;\par
+\cf2 ku1\cf3 [67] := 0.004920;\par
+\cf2 ku1\cf3 [68] := 0.006162;\par
+\cf2 ku1\cf3 [69] := 0.004455;\par
+\cf2 ku1\cf3 [70] := 0.005443;\par
+\cf2 ku1\cf3 [71] := 0.004018;\par
+\cf2 ku1\cf3 [72] := 0.004794;\par
+\cf2 ku1\cf3 [73] := 0.003607;\par
+\cf2 ku1\cf3 [74] := 0.004192;\par
+\cf2 ku1\cf3 [75] := 0.003217;\par
+\cf2 ku1\cf3 [76] := 0.003644;\par
+\cf2 ku1\cf3 [77] := 0.002843;\par
+\cf2 ku1\cf3 [78] := 0.003127;\par
+\cf2 ku1\cf3 [79] := 0.002488;\par
+\cf2 ku1\cf3 [80] := 0.002651;\par
+\cf2 ku1\cf3 [81] := 0.002146;\par
+\cf2 ku1\cf3 [82] := 0.002213;\par
+\cf2 ku1\cf3 [83] := 0.001817;\par
+\cf2 ku1\cf3 [84] := 0.001805;\par
+\cf2 ku1\cf3 [85] := 0.001503;\par
+\cf2 ku1\cf3 [86] := 0.001424;\par
+\cf2 ku1\cf3 [87] := 0.001203;\par
+\cf2 ku1\cf3 [88] := 0.001073;\par
+\cf2 ku1\cf3 [89] := 0.000920;\par
+\cf2 ku1\cf3 [90] := 0.000759;\par
+\cf2 ku1\cf3 [91] := 0.000659;\par
+\cf2 ku1\cf3 [92] := 0.000476;\par
+\cf2 ku1\cf3 [93] := 0.000418;\par
+\cf2 ku1\cf3 [94] := 0.000217;\par
+\cf2 ku1\cf3 [95] := 0.000199;\par
+\par
+\cf2 ku2\cf3 [0] := 0.050241;\par
+\cf2 ku2\cf3 [1] := 0.114178;\par
+\cf2 ku2\cf3 [2] := 0.056356;\par
+\cf2 ku2\cf3 [3] := 0.116871;\par
+\cf2 ku2\cf3 [4] := 0.064253;\par
+\cf2 ku2\cf3 [5] := 0.113596;\par
+\cf2 ku2\cf3 [6] := 0.066185;\par
+\cf2 ku2\cf3 [7] := 0.106943;\par
+\cf2 ku2\cf3 [8] := 0.061675;\par
+\cf2 ku2\cf3 [9] := 0.098545;\par
+\cf2 ku2\cf3 [10] := 0.056224;\par
+\cf2 ku2\cf3 [11] := 0.090605;\par
+\cf2 ku2\cf3 [12] := 0.051140;\par
+\cf2 ku2\cf3 [13] := 0.083069;\par
+\cf2 ku2\cf3 [14] := 0.046625;\par
+\cf2 ku2\cf3 [15] := 0.075693;\par
+\cf2 ku2\cf3 [16] := 0.042624;\par
+\cf2 ku2\cf3 [17] := 0.068652;\par
+\cf2 ku2\cf3 [18] := 0.039048;\par
+\cf2 ku2\cf3 [19] := 0.062056;\par
+\cf2 ku2\cf3 [20] := 0.035827;\par
+\cf2 ku2\cf3 [21] := 0.055960;\par
+\cf2 ku2\cf3 [22] := 0.032894;\par
+\cf2 ku2\cf3 [23] := 0.050376;\par
+\cf2 ku2\cf3 [24] := 0.030216;\par
+\cf2 ku2\cf3 [25] := 0.045294;\par
+\cf2 ku2\cf3 [26] := 0.027770;\par
+\cf2 ku2\cf3 [27] := 0.040682;\par
+\cf2 ku2\cf3 [28] := 0.025507;\par
+\cf2 ku2\cf3 [29] := 0.036514;\par
+\cf2 ku2\cf3 [30] := 0.023435;\par
+\cf2 ku2\cf3 [31] := 0.032753;\par
+\cf2 ku2\cf3 [32] := 0.021528;\par
+\cf2 ku2\cf3 [33] := 0.029367;\par
+\cf2 ku2\cf3 [34] := 0.019766;\par
+\cf2 ku2\cf3 [35] := 0.026324;\par
+\cf2 ku2\cf3 [36] := 0.018137;\par
+\cf2 ku2\cf3 [37] := 0.023598;\par
+\cf2 ku2\cf3 [38] := 0.016638;\par
+\cf2 ku2\cf3 [39] := 0.021143;\par
+\cf2 ku2\cf3 [40] := 0.015262;\par
+\cf2 ku2\cf3 [41] := 0.018937;\par
+\cf2 ku2\cf3 [42] := 0.013989;\par
+\cf2 ku2\cf3 [43] := 0.016960;\par
+\cf2 ku2\cf3 [44] := 0.012825;\par
+\cf2 ku2\cf3 [45] := 0.015187;\par
+\cf2 ku2\cf3 [46] := 0.011746;\par
+\cf2 ku2\cf3 [47] := 0.013603;\par
+\cf2 ku2\cf3 [48] := 0.010752;\par
+\cf2 ku2\cf3 [49] := 0.012182;\par
+\cf2 ku2\cf3 [50] := 0.009843;\par
+\cf2 ku2\cf3 [51] := 0.010897;\par
+\cf2 ku2\cf3 [52] := 0.008997;\par
+\cf2 ku2\cf3 [53] := 0.009756;\par
+\cf2 ku2\cf3 [54] := 0.008221;\par
+\cf2 ku2\cf3 [55] := 0.008721;\par
+\cf2 ku2\cf3 [56] := 0.007504;\par
+\cf2 ku2\cf3 [57] := 0.007800;\par
+\cf2 ku2\cf3 [58] := 0.006851;\par
+\cf2 ku2\cf3 [59] := 0.006971;\par
+\cf2 ku2\cf3 [60] := 0.006236;\par
+\cf2 ku2\cf3 [61] := 0.006229;\par
+\cf2 ku2\cf3 [62] := 0.005673;\par
+\cf2 ku2\cf3 [63] := 0.005553;\par
+\cf2 ku2\cf3 [64] := 0.005143;\par
+\cf2 ku2\cf3 [65] := 0.004947;\par
+\cf2 ku2\cf3 [66] := 0.004657;\par
+\cf2 ku2\cf3 [67] := 0.004396;\par
+\cf2 ku2\cf3 [68] := 0.004197;\par
+\cf2 ku2\cf3 [69] := 0.003895;\par
+\cf2 ku2\cf3 [70] := 0.003772;\par
+\cf2 ku2\cf3 [71] := 0.003438;\par
+\cf2 ku2\cf3 [72] := 0.003366;\par
+\cf2 ku2\cf3 [73] := 0.003028;\par
+\cf2 ku2\cf3 [74] := 0.002996;\par
+\cf2 ku2\cf3 [75] := 0.002648;\par
+\cf2 ku2\cf3 [76] := 0.002635;\par
+\cf2 ku2\cf3 [77] := 0.002293;\par
+\cf2 ku2\cf3 [78] := 0.002292;\par
+\cf2 ku2\cf3 [79] := 0.001974;\par
+\cf2 ku2\cf3 [80] := 0.001967;\par
+\cf2 ku2\cf3 [81] := 0.001675;\par
+\cf2 ku2\cf3 [82] := 0.001664;\par
+\cf2 ku2\cf3 [83] := 0.001400;\par
+\cf2 ku2\cf3 [84] := 0.001371;\par
+\cf2 ku2\cf3 [85] := 0.001142;\par
+\cf2 ku2\cf3 [86] := 0.001102;\par
+\cf2 ku2\cf3 [87] := 0.000904;\par
+\cf2 ku2\cf3 [88] := 0.000842;\par
+\cf2 ku2\cf3 [89] := 0.000682;\par
+\cf2 ku2\cf3 [90] := 0.000604;\par
+\cf2 ku2\cf3 [91] := 0.000486;\par
+\cf2 ku2\cf3 [92] := 0.000382;\par
+\cf2 ku2\cf3 [93] := 0.000302;\par
+\cf2 ku2\cf3 [94] := 0.000182;\par
+\cf2 ku2\cf3 [95] := 0.000139;\par
+\par
+\cf2 ke1\cf3  := 1.0847;\par
+\cf2 ke2\cf3  := 0.6708;\cf0\f1\par
+}
+ 

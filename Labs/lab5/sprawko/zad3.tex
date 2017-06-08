@@ -1,6 +1,114 @@
 \chapter{Zadanie 3}
+Celem zadania trzeciego było zaprojektowanie regulatora PID. Kod zaprojektowanego
+przez nas regulatora znajduje się w listingu \ref{lst:pid}. Przy odczycie aktualnych
+wartości rejestry są normalizowane do zakresów wartości opisanych we wstępie.
+Przy wysyłaniu wartości są wymnażane razy 10, aby zakres wartości był zgodny
+z zakresem używanym przez obiekt.
+Biorąc pod uwagę fakt, iż obiekt jest symetryczny, postanowiliśmy użych dwóch regulatorów
+o takich samych nastawach. Wyszliśmy od nastaw używanych do tego obiektu w
+projekcie trzecim, gdzie zadanie było bardzo podobne, czyli:
+\begin{equation}
+  K = \num{5} \qquad T_i = \num{30} \qquad T_d = \num{2.5}
+\end{equation}
+Okazało się jednak, iż te nastawy nie zdają egzaminu. Uważamy, iż w dużej
+mierze wpływ na to ma okres próbkowania obiektu, który wydłużył się z 1 sekundy
+w projekcie trzecim do 4 sekund w aktualnym projekcie. Działanie regulatorów
+o takich nastawach przedstawia wykres \ref{fig:pid2_y}. Widząc słabe działanie
+regulatora postanowiliśmy nie prowadzić dalej tego eksperymentu. Następnie
+testowane były inne nastawy. Aby zdążyć z wykonaniem laboratorium w czasie
+kolejne nastawy były oceniane dosyć szybko i w oparciu o znajomość chwilowego
+stanu obiektu, dlatego aby nie zmylić czytelnika wykresy przejściowe nie zostały
+zamieszczone. Finalne nastawy są następujące:
+\begin{equation}
+  K = \num{4} \qquad T_i = \num{45} \qquad T_d = \num{0}
+\end{equation}
+Ich działanie przedstawia wykres \ref{fig:pid1_y}. Początkowo obiekt nie był
+w stanie równowagi, stąd zakłócenie na początku. Widać na wykresie jednak, iż
+udało mu się dosyć szybko ustabilizować na wartości zadanej oraz wykonać skok
+owej wartości.
 
+\begin{lstlisting}[style=customlatex,frame=single, caption=Kod regulatora PID, label=lst:pid]
+//Regulator PID na podstawie rownania roznicowego
+SV_PID3 := Zadana_PID3;
+PV_PID3 := D100 / 100;
 
+//Nastawy regulatorow
+K_PID3 := 4;
+Ti_PID3 := 45;
+Td_PID3 := 0;
+//Wyliczenie parametrow
+R0_PID3 := K_PID3*( 1+(4/(2*Ti_PID3))+Td_PID3/4 );
+R1_PID3 := K_PID3*( (4/(2*Ti_PID3))-(2*Td_PID3/4)-1 );
+R2_PID3 := K_PID3*Td_PID3/4;
+//Wyliczenie uchybu regulacji i przesuniecie historii
+E2_PID3 := E1_PID3;
+E1_PID3 := E0_PID3;
+E0_PID3 := SV_PID3 - PV_PID3;
+//Obliczenie sterowania
+U_PID3 := R2_PID3*E2_PID3 + R1_PID3*E1_PID3 + R0_PID3*E0_PID3 + U_PID3;
+
+//Ograniczenia
+IF (U_PID3 > 100.0) THEN
+	U_PID3 := 100.0;
+ELSIF (U_PID3 < 0.0) THEN
+	U_PID3 := 0.0;
+END_IF;
+
+D114 := REAL_TO_INT(U_PID3 * 10);
+
+// PID NUMMER ZWEI, SEHR STARK
+SV_PID2 := Zadana_PID2;
+PV_PID2 := D101 / 100;
+
+//Wyliczenie parametrow
+R0_PID3 := K_PID3*( 1+(4/(2*Ti_PID3))+Td_PID3/4 );
+R1_PID3 := K_PID3*( (4/(2*Ti_PID3))-(2*Td_PID3/4)-1 );
+R2_PID3 := K_PID3*Td_PID3/4;
+//Wyliczenie uchybu regulacji i przesuniecie historii
+E2_PID2 := E1_PID2;
+E1_PID2 := E0_PID2;
+E0_PID2 := SV_PID2 - PV_PID2;
+//Obliczenie sterowania
+U_PID2 := R2_PID3*E2_PID2 + R1_PID3*E1_PID2 + R0_PID3*E0_PID2 + U_PID2;
+
+//Ograniczenia
+IF (U_PID2 > 100.0) THEN
+	U_PID2 := 100.0;
+	ELSIF (U_PID2 < 0.0) THEN
+	U_PID2 := 0.0;
+END_IF;
+
+D115 := REAL_TO_INT(U_PID2 * 10);
+\end{lstlisting}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=170.8,ymin=32,ymax=44,
+xlabel={Czas [s]},
+ylabel={Temperatura [$^\circ$C]},
+xtick={0, 50, 100, 150},
+ytick={32, 34, 36, 38, 40, 42, 44},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/pid2_Y1.txt};
+\addplot[red,semithick] file {wykresy/pid2_Yz1.txt};
+\addplot[violet,semithick] file {wykresy/pid2_Y2.txt};
+\addplot[orange,semithick] file {wykresy/pid2_Yz2.txt};
+\legend{Temperatura na czujniku T1, Wartość zadana temperatury T1, Temperatura na czujniku T2, Wartość zadana temperatury T2}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Regulacja regulatorem PID, nastawy pierwsze.}
+\label{fig:pid2_y}
+\end{figure}
 
 \begin{figure}[tb]
 \centering
@@ -9,8 +117,8 @@
 width=0.75\textwidth,
 height = 0.6\textwidth,
 xmin=0,xmax=213.2,ymin=32,ymax=50,
-xlabel={$k$},
-ylabel={$y$},
+xlabel={Czas [s]},
+ylabel={Temperatura [$^\circ$C]},
 xtick={0, 50, 100, 150, 200},
 ytick={32, 34, 36, 38, 40, 42, 44, 46, 48, 50},
 legend pos=north east,
@@ -27,6 +135,6 @@ use comma,
 
 \end{axis}
 \end{tikzpicture}
-\caption{Regulacja regulatorem PID.}
+\caption{Regulacja regulatorem PID, nastawy drugie.}
 \label{fig:pid1_y}
 \end{figure}

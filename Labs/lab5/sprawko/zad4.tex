@@ -1,0 +1,211 @@
+\chapter{Zadanie 4}
+Kolejne zadanie polegało na przygotowaniu regulatora DMC dla stanowiska
+grzejącego. Aby to osiągnąć należało zebrać odpowiedzi skokowe czterech torów.
+Zmierzony został wpływ skoku każdej z dwóch grzałek, na każdy z dwóch pomiarów,
+a następnie wykresy zaproksymowano obiektem dwuinercyjnym z opóźnieniem.
+Wyniki zostały zaprezentowane na wykresach \ref{fig:s11}, \ref{fig:s12}, \ref{fig:s21},
+oraz \ref{fig:s22}. Zebrane odpowiedzi zdają się nie być najwyższej jakości,
+jednak pod presją czasu postanowiliśmy zostawić je takimi jakie są. Patrząc
+na odpowiedzi skokowe widać, iż horyzont dynamiki obiektu wynosi 49 próbek.
+Horyzont predykcji, oraz horyzont sterowania przyjęliśmy taki sam jak horyzont
+dynamiki. Natomiast jako wartość wyjściową parametru $\Lambda$ przyjęliśmy
+1. Na podstawie tych próbek wyznaczone zostały cztery parametry, używane
+w algorytmie - wektory $k^u_1$ i $k^u_2$, oraz wartości $k^e_1$ i $k^e_2$.
+Są one definiowane jako:
+\begin{equation}
+  k^e_1 = \sum_{j=1}^Nk_{1,j}, \qquad k^e_2 = \sum_{j=1}^Nk_{2,j}, \qquad k^u_1 = \overline{K}_1M^P, \qquad k^u_2 = \overline{K}_2M^P
+\end{equation}
+gdzie $k_{1,j}$ jest $j$-tym elementem pierwszego rzędu macierzy $\bm{K}$,
+$k_{2,j}$ $j$-tym elementem drugiego rzędu macierzy $\bm{K}$, $\overline{K}_1$
+jest pierwszym rzędem macierzy $\bm{K}$, a $\overline{K}_2$ drugim rzędem owej
+macierzy. Sam algorytm wykorzystujący owe parametry został zaprezentowany w
+listingu \ref{lst:dmc}.
+
+\begin{lstlisting}[style=customlatex,frame=single, caption=Kod regulatora DMC, label=lst:dmc]
+//Wejscia oraz wartosci zadane
+SV_DMC3 := Zadana_DMC3;
+PV_DMC3 := D100 / 100;
+SV_DMC2 := Zadana_DMC2;
+PV_DMC2 := D101 / 100;
+
+//Uchyby
+ek1 := SV_DMC3 - PV_DMC3;
+ek2 := SV_DMC2 - PV_DMC2;
+
+//Wyliczenie zmiany sterowania
+dU1 := ke1 * ek1;
+dU2 := ke2 * ek2;
+FOR cnt:= 0 TO 95 BY 1 DO
+	dU1 := dU1 - ku1[cnt] * dup[cnt];
+	dU2 := dU2 - ku2[cnt] * dup[cnt];
+END_FOR;
+
+//Przesuniecie wektora poprzednich zmian sterowania
+FOR cnt := 93 TO 0 BY -1 DO
+	dup[cnt + 2] := dup[cnt];
+END_FOR;
+dup[0] := dU1;
+dup[1] := dU2;
+
+//Wyliczenie nowej wartosci sterowania
+U_DMC2 := U_DMC2 + dU1;
+U_DMC3 := U_DMC3 + dU2;
+
+//Ograniczenia
+IF (U_DMC2 > 100.0) THEN
+	U_DMC2 := 100.0;
+ELSIF (U_DMC2 < 0.0) THEN
+	U_DMC2 := 0.0;
+END_IF;
+
+IF (U_DMC3 > 100.0) THEN
+	U_DMC3 := 100.0;
+	ELSIF (U_DMC3 < 0.0) THEN
+	U_DMC3 := 0.0;
+END_IF;
+
+//Wyslanie obliczonych wartosci do obiektu
+D114 := REAL_TO_INT(U_DMC2 * 10);
+D115 := REAL_TO_INT(U_DMC3 * 10);
+\end{lstlisting}
+
+% 1
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=50,ymin=0,ymax=0.35,
+xlabel={Numer próbki},
+ylabel={Wyjście znormalizowane},
+xtick={0, 10, 20, 30, 40, 50},
+ytick={0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/s11_real.txt};
+\addplot[red,semithick] file {wykresy/s11_approx.txt};
+\legend{Znormalizowane wyjście obiektu, Aproksymacja odpowiedzi skokowej}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Odpowiedź skokowa, pomiaru T1, na skok sygnału G1.}
+\label{fig:s11}
+\end{figure}
+
+% 2
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=50,ymin=0,ymax=0.35,
+xlabel={Numer próbki},
+ylabel={Wyjście znormalizowane},
+xtick={0, 10, 20, 30, 40, 50},
+ytick={0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/s12_real.txt};
+\addplot[red,semithick] file {wykresy/s12_approx.txt};
+\legend{Znormalizowane wyjście obiektu, Aproksymacja odpowiedzi skokowej}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Odpowiedź skokowa, pomiaru T1, na skok sygnału G2.}
+\label{fig:s12}
+\end{figure}
+
+% 3
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=50,ymin=0,ymax=0.35,
+xlabel={Numer próbki},
+ylabel={Wyjście znormalizowane},
+xtick={0, 10, 20, 30, 40, 50},
+ytick={0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/s21_real.txt};
+\addplot[red,semithick] file {wykresy/s21_approx.txt};
+\legend{Znormalizowane wyjście obiektu, Aproksymacja odpowiedzi skokowej}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Odpowiedź skokowa, pomiaru T2, na skok sygnału G1.}
+\label{fig:s21}
+\end{figure}
+
+% 4
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=50,ymin=0,ymax=0.35,
+xlabel={Numer próbki},
+ylabel={Wyjście znormalizowane},
+xtick={0, 10, 20, 30, 40, 50},
+ytick={0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/s22_real.txt};
+\addplot[red,semithick] file {wykresy/s22_approx.txt};
+\legend{Znormalizowane wyjście obiektu, Aproksymacja odpowiedzi skokowej}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Odpowiedź skokowa, pomiaru T2, na skok sygnału G2.}
+\label{fig:s22}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=528.5,ymin=34,ymax=48,
+xlabel={Czas [s]},
+ylabel={Temperatura [$^\circ$C]},
+xtick={0, 100, 200, 300, 400, 500},
+ytick={34, 36, 38, 40, 42, 44, 46, 48},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/dmc1_y1.txt};
+\addplot[red,semithick] file {wykresy/dmc1_yz1.txt};
+\addplot[violet,semithick] file {wykresy/dmc1_y2.txt};
+\addplot[orange,semithick] file {wykresy/dmc1_yz2.txt};
+\legend{Temperatura na czujniku T1, Wartość zadana temperatury T1, Temperatura na czujniku T2, Wartość zadana temperatury T2}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Regulacja regulatorem DMC.}
+\label{fig:dmc1_y}
+\end{figure}

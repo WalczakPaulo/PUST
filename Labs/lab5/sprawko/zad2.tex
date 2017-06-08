@@ -1,9 +1,42 @@
 \chapter{Zadanie 2}
 W tym zadaniu należało stworzyć mechanizm zabezpieczający stanowisko przed przegrzaniem.
-Miał on polegać na tym, iż miał on wyłączyć grzałkę przy czujniku, jeżeli
+Miał on polegać na tym, iż wyłączał on grzałkę przy czujniku, jeżeli
 pomiar na tym ostatnim przekroczył 150$^\circ$C. Osiągnęliśmy ten rezultat,
 poprzez sprawdzenie temperatury na każdym z czujników z osobna oraz,
 jeżeli któryś z nich spełniał wcześniej wymieniony warunek, wyzerowanie
-odpowiedniej wartości tymczasowej, w której zapisywaliśmy wyliczone sterowanie.
-Było to ostatnią czynnością w programie przed skopiowaniem wartości sterowania
-do rejestru z którego miała być ona wysyłana do obiektu.
+wartości odpowiedniego rejestru, z którego sterowanie jest wysyłane do
+obiektu. Przy okzji była podnoszona flaga, oznajmiająca, iż jesteśmy w stanie
+awaryjnym. Służyła ona do tego, aby po powrocie temperatury do stanu akceptowalnego
+wrócić do punktu pracy. W późniejszym czasie, gdy obiekt będzie regulowany
+owa sekwencja powrotu jest zbędna, gdyż sterowanie będzie wyznaczał regulator.
+Wspomniany kod znajduje się w listingu \ref{lst:overheat_lock}. Ów fragment
+kodu miał w zamyśle znaleźć się zaraz za kodem regulatora, tak aby rejestry
+były ustawione na odpowiednie wartości zanim zostaną wysłane do obiektu.
+Zamysł ten był oparty na założeniu, iż każdy z plików kodu w sterowniku
+wykonuje się sekwencyjnie w całości, bez wykonywania kodu wysyłania do sterownika w połowie.
+Gdyby okazało się, iż tak nie jest należałoby zapisywać wartość sterowania, nie bezpośrednio
+do rejestrów, ale do zmiennych tymczasowych, w których byłoby sterowanie wyliczone,
+i w razie wystąpienia sytuacji awaryjnej zerowane, a dopiero po tej sekwencji
+zapisywane w odpowiednim rejestrze.
+
+\begin{lstlisting}[style=customlatex,frame=single, caption=Kod mechanizmu zabezpieczającego przed przegrzaniem, label=lst:overheat_lock]
+IF (D100 > 15000) THEN
+	ERROR_FLAG1 := TRUE;
+	D114 := 0;
+END_IF;
+
+IF (D101 > 15000) THEN
+	ERROR_FLAG2 := TRUE;
+	D115 := 0;
+END_IF;
+
+IF (ERROR_FLAG1 AND (D100 < 15000)) THEN
+	D114 := 270;
+	ERROR_FLAG1 := FALSE;
+END_IF;
+
+IF (ERROR_FLAG2 AND (D101 < 15000)) THEN
+	D115 := 320;
+	ERROR_FLAG2 := FALSE;
+END_IF;
+\end{lstlisting}
