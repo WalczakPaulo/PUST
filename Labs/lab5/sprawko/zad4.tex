@@ -19,7 +19,10 @@ gdzie $k_{1,j}$ jest $j$-tym elementem pierwszego rzędu macierzy $\bm{K}$,
 $k_{2,j}$ $j$-tym elementem drugiego rzędu macierzy $\bm{K}$, $\overline{K}_1$
 jest pierwszym rzędem macierzy $\bm{K}$, a $\overline{K}_2$ drugim rzędem owej
 macierzy. Sam algorytm wykorzystujący owe parametry został zaprezentowany w
-listingu \ref{lst:dmc}.
+listingu \ref{lst:dmc}. Działanie tak dobranego algorytmu przedstawia wykres \ref{fig:dmc1_y}.
+Uważamy, iż działanie tego algorytmu zdecydowanie mógłby polepszyć mniejszy
+współczynnik kary $\Lambda$, gdyż przy tak niskim czasie próbkowania skoki
+sterowania powinny być wyższe, jednak nie udało nam się przeprowadzić testu.
 
 \begin{lstlisting}[style=customlatex,frame=single, caption=Kod regulatora DMC, label=lst:dmc]
 //Wejscia oraz wartosci zadane
@@ -192,7 +195,7 @@ xlabel={Czas [s]},
 ylabel={Temperatura [$^\circ$C]},
 xtick={0, 100, 200, 300, 400, 500},
 ytick={34, 36, 38, 40, 42, 44, 46, 48},
-legend pos=north east,
+legend pos=north west,
 /pgf/number format/.cd,
 use comma,
 1000 sep={}
