@@ -1,4 +1,4 @@
-function [ E ] = zad3DMC(D,N,Nu,lambda,psi,draw)
+function [ E ] = zad3DMC(D,N,Nu,lambda,psi,draw,to_file)
 D=round(D);
 N=round(N);
 Nu=round(Nu);
@@ -188,24 +188,18 @@ if(draw)
     
 end
 
-% if(latex)
-%     foldername=sprintf('dmc_%d_%d_%d/%3.4f_%3.4f_%3.4f_%3.4f_%3.4f_%3.4f_%3.4f',D,N,Nu,psi(1),psi(2),psi(3),lambda(1),lambda(2),lambda(3),lambda(4));
-%     mkdir(foldername);
-%     toPlotForLatex([foldername '/u1'],1:kk,u(1,:))
-%     toPlotForLatex([foldername '/u2'],1:kk,u(2,:))
-%     toPlotForLatex([foldername '/u3'],1:kk,u(3,:))
-%     toPlotForLatex([foldername '/u4'],1:kk,u(4,:))
-%     toPlotForLatex([foldername '/y1'],1:kk,y(1,:))
-%     toPlotForLatex([foldername '/y2'],1:kk,y(2,:))
-%     toPlotForLatex([foldername '/y3'],1:kk,y(3,:))
-%     toPlotForLatex([foldername '/yzad1'],1:kk,yzad(1,:))
-%     toPlotForLatex([foldername '/yzad2'],1:kk,yzad(2,:))
-%     toPlotForLatex([foldername '/yzad3'],1:kk,yzad(3,:))
-%     fileID=fopen([foldername '/E.txt'],'w');
-%     fprintf(fileID,'%1.4f\n',E1);
-%     fprintf(fileID,'%1.4f\n',E2);
-%     fprintf(fileID,'%1.4f\n',E3);
-%     fprintf(fileID,'%1.4f\n',E);
-%     fclose(fileID);
-% end
+if(to_file)
+    write_to_file('dmc_y1_N40_Nu2',1:kk,y(1,:))
+    write_to_file('dmc_y2_N40_Nu2',1:kk,y(2,:))
+    write_to_file('dmc_y3_N40_Nu2',1:kk,y(3,:))
+    
+    write_to_file('dmc_u1_N40_Nu2',1:kk,u(1,:))
+    write_to_file('dmc_u2_N40_Nu2',1:kk,u(2,:))
+    write_to_file('dmc_u3_N40_Nu2',1:kk,u(3,:))
+    write_to_file('dmc_u4_N40_Nu2',1:kk,u(4,:))
+
+    write_to_file('yzad1',1:kk,yzad(1,:))
+    write_to_file('yzad2',1:kk,yzad(2,:))
+    write_to_file('yzad3',1:kk,yzad(3,:))
+end
 end

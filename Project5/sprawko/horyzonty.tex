@@ -1,0 +1,413 @@
+\section{Dobór horyzontów predykcji i sterowania}
+Dobór horyzontów przeprowadzaliśmy korzystając z parametrów $\mu$ i $\lambda$ równymi 1. Rozpoczęliśmy od nastaw $N=N_u=D=80$. Dla tych parametrów błąd wynosił $E=\num{115,6910}$. Przebieg wyjść obiektu przedstawia wykres \ref{fig:dmc_y_N80_Nu80}, a sterowań wykres \ref{fig:dmc_u_N80_Nu80}.
+
+Postanowiliśmy skrócić horyzonty do wartości $N=N_u=50$. Otrzymany błąd wyniósł $E=\num{115,6908}$, a więc był praktycznie jednakowy jak dla dłuższych horyzontów. Przebiegi wyjść i sterowań przedstawiają wykresy \ref{fig:dmc_y_N50_Nu50} i \ref{fig:dmc_u_N50_Nu50}.
+
+W kolejnym kroku skróciliśmy horyzont predykcji do wartości $N=40$, a sterowania  $N_u=10$. Taka zmiana przyniosła niewielką poprawę wskaźnika błędu do wartości $E=\num{115,6152}$. Przebieg wyjść obiektu przedstawiają wykresy \ref{fig:dmc_y_N40_Nu10} i \ref{fig:dmc_u_N40_Nu10}.
+
+Jak się okazało, dalsze skracanie horyzontu sterowania przyniosło znacznie bardziej wymierne rezultaty - dla $N_u=5$  wskaźnik błędu zmalał do wartości $E=\num{111,7038}$. Przebieg wyjść obiektu przedstawiają wykresy \ref{fig:dmc_y_N40_Nu5} i \ref{fig:dmc_u_N40_Nu5}.
+
+Dalsze skracanie horyzontu predykcji nie przyniosło pozytywnych rezultatów. Dla $N_u=2$ wskaźnik błędu wyniósł $E=\num{124,1625}$. Można więc przypuszczać, że jeszcze mniejsze wartości horyzontu sterowania przyniosłyby pogorszenie jakości regulacji. Przebieg wyjść obiektu przedstawiają wykresy \ref{fig:dmc_y_N40_Nu2} i \ref{fig:dmc_u_N40_Nu2}.
+
+W kolejnych zadaniach używane będą horyzonty $N=40$ i $N_u=5$.
+
+\begin{figure}[tb]
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.3\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_N80_Nu80.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad1.txt};
+	\legend{$y_1$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y2_N80_Nu80.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad2.txt};
+	\legend{$y_2$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y3_N80_Nu80.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad3.txt};
+	\legend{$y_3$,$y_{zad}$}
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi wyjść obiektu dla horyzontów predykcji i sterowania $N=80$, $N_u=80$.}
+	\label{fig:dmc_y_N80_Nu80}
+\end{figure}
+
+\begin{figure}[tb]
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.25\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_N80_Nu80.txt};
+
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u2_N80_Nu80.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u3_N80_Nu80.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_4$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u4_N80_Nu80.txt};
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi sterowań obiektu dla horyzontów predykcji i sterowania $N=80$, $N_u=80$.}
+	\label{fig:dmc_u_N80_Nu80}
+\end{figure}
+
+\begin{figure}[tb]
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.3\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_N50_Nu50.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad1.txt};
+	\legend{$y_1$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y2_N50_Nu50.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad2.txt};
+	\legend{$y_2$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y3_N50_Nu50.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad3.txt};
+	\legend{$y_3$,$y_{zad}$}
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi wyjść obiektu dla horyzontów predykcji i sterowania $N=50$, $N_u=50$.}
+	\label{fig:dmc_y_N50_Nu50}
+\end{figure}
+
+\begin{figure}[tb]
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.25\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_N50_Nu50.txt};
+
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u2_N50_Nu50.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u3_N50_Nu50.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_4$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u4_N50_Nu50.txt};
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi sterowań obiektu dla horyzontów predykcji i sterowania $N=50$, $N_u=50$.}
+	\label{fig:dmc_u_N50_Nu50}
+\end{figure}
+
+\begin{figure}[tb]
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.3\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_N40_Nu10.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad1.txt};
+	\legend{$y_1$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y2_N40_Nu10.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad2.txt};
+	\legend{$y_2$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y3_N40_Nu10.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad3.txt};
+	\legend{$y_3$,$y_{zad}$}
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi wyjść obiektu dla horyzontów predykcji i sterowania $N=40$, $N_u=10$.}
+	\label{fig:dmc_y_N40_Nu10}
+\end{figure}
+
+\begin{figure}[tb]
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.25\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_N40_Nu10.txt};
+
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u2_N40_Nu10.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u3_N40_Nu10.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_4$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u4_N40_Nu10.txt};
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi sterowań obiektu dla horyzontów predykcji i sterowania $N=40$, $N_u=10$.}
+	\label{fig:dmc_u_N40_Nu10}
+\end{figure}
+
+
+\begin{figure}[tb]
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.3\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_N40_Nu5.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad1.txt};
+	\legend{$y_1$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y2_N40_Nu5.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad2.txt};
+	\legend{$y_2$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y3_N40_Nu5.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad3.txt};
+	\legend{$y_3$,$y_{zad}$}
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi wyjść obiektu dla horyzontów predykcji i sterowania $N=40$, $N_u=5$.}
+	\label{fig:dmc_y_N40_Nu5}
+\end{figure}
+
+\begin{figure}[tb]
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.25\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_N40_Nu5.txt};
+
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u2_N40_Nu5.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u3_N40_Nu5.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_4$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u4_N40_Nu5.txt};
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi sterowań obiektu dla horyzontów predykcji i sterowania $N=40$, $N_u=5$.}
+	\label{fig:dmc_u_N40_Nu5}
+\end{figure}
+
+\begin{figure}[tb]
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.3\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_N40_Nu2.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad1.txt};
+	\legend{$y_1$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y2_N40_Nu2.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad2.txt};
+	\legend{$y_2$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y3_N40_Nu2.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad3.txt};
+	\legend{$y_3$,$y_{zad}$}
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi wyjść obiektu dla horyzontów predykcji i sterowania $N=40$, $N_u=5$.}
+	\label{fig:dmc_y_N40_Nu2}
+\end{figure}
+
+\begin{figure}[tb]
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.25\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_N40_Nu2.txt};
+
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u2_N40_Nu2.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u3_N40_Nu2.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_4$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u4_N40_Nu2.txt};
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi sterowań obiektu dla horyzontów predykcji i sterowania $N=40$, $N_u=2$.}
+	\label{fig:dmc_u_N40_Nu2}
+\end{figure}
