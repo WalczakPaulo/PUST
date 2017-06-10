@@ -1,0 +1,103 @@
+\chapter{PID/DMC Optymalizacja}
+Zadanie piąte polegało na znalezieniu optymalnych wartości nastaw dla regulatora PID oraz DMC, wykorzystując do optymalizacji ilościowy wskaźnik błędu regulacji E.
+Stworzyliśmy do tego skrypt, który używa funkcji $fmincon$ w celu dobierania nastaw dla regulatorów. 
+
+
+Rozpoczniemy od optymalizacji nastaw regulatora PID. Jako cele optymalizacji przyjmujemy parametry $K$ oraz $T_i$. Zdecydowaliśmy się odgórnie narzucić zerowe wartości
+$T_d$ ze względu na wyniki badań jakie przeprowadziliśmy w poprzednim punkcie sprawozdania. 
+Jako ograniczenia przyjmujemy zgodnie z logiką, wartości nie mniejsze niż 0 oraz mniejsze od nieskonczoności.
+Jako punkt startowy wybieramy wartości wzmocnień równe $1$ a  czasy zdwojenia jako $1000$. 
+Optymalizacji poddajemy trzy regulatory PID w czterech konfiguracjach, tzn. 
+rozważamy cztery rózne konfiguracje torów sterowania wyznaczone w poprzednim punkcie sprawozdania. 
+
+Dla toru:
+\begin{itemize}
+  \item $y_1$ -- $u_4$
+ \item $y_2$ -- $u_3$
+ \item $y_3$ -- $u_2$
+\end{itemize}
+
+otrzymujemy nastawy:
+\begin{equation}
+  K_1 = \num{1.9724} \qquad T_{i1} = \num{210008}, \qquad T_{d1} = 0 \nonumber
+\end{equation}
+\begin{equation}
+  K_2 = \num{1.3646} \qquad T_{i2} = \num{7.9930}, \qquad T_{d2} = 0
+\end{equation}
+\begin{equation}
+  K_3 = \num{0.1696} \qquad T_{i3} = \num{300220}, \qquad T_{d3} = 0 \nonumber
+\end{equation}
+Takie nastawy dają błąd regulacji \num{486.6761}. Jest to o tyle dziwny wynik, że jest gorszy niż
+dla naszych regulatorów wyznaczonych metodą inżynierską dla tej konfiguracji torów. Możliwą przyczyną
+takie sytuacji jest trudne dla $fmincon$ uwarunkowanie funkcji celu. 
+
+
+Dla toru:
+\begin{itemize}
+  \item $y_1$ -- $u_1$
+ \item $y_2$ -- $u_3$
+ \item $y_3$ -- $u_4$
+\end{itemize}
+
+otrzymujemy nastawy:
+\begin{equation}
+  K_1 = \num{2.7249} \qquad T_{i1} = \num{3.9641}, \qquad T_{d1} = 0 \nonumber
+\end{equation}
+\begin{equation}
+  K_2 = \num{2.9122} \qquad T_{i2} = \num{3.1237}, \qquad T_{d2} = 0
+\end{equation}
+\begin{equation}
+  K_3 = \num{5.5929} \qquad T_{i3} = \num{9.8384}, \qquad T_{d3} = 0 \nonumber
+\end{equation}
+
+Błąd regulacji wynosi: \num{104.4858} . Jest to najlepszy ogólnie otrzymany wynik.
+
+Dla toru:
+\begin{itemize}
+  \item $y_1$ -- $u_1$
+ \item $y_2$ -- $u_2$
+ \item $y_3$ -- $u_4$
+\end{itemize}
+
+otrzymujemy nastawy:
+\begin{equation}
+  K_1 = \num{2.9883} \qquad T_{i1} = \num{4.4246}, \qquad T_{d1} = 0 \nonumber
+\end{equation}
+\begin{equation}
+  K_2 = \num{0.6972} \qquad T_{i2} = \num{8824.7}, \qquad T_{d2} = 0
+\end{equation}
+\begin{equation}
+  K_3 = \num{5.6629} \qquad T_{i3} = \num{11.6449}, \qquad T_{d3} = 0 \nonumber
+\end{equation}
+
+Błąd regulacji wynosi: \num{115.6349} .
+Jest to bardzo dobry wynik, jednakże nieco gorszy niż dla poprzedniego toru.
+Zauważmy, że wyznaczone nastawy dla pierwszego i trzeciego regulatora są bardzo podobne do tych dla poprzedniego toru.
+Wynika to z faktu, że zmienił się tu jedynie tor dla drugiego regulatora, gdzie teraz wpływa na wyjscie drugie regulator drugi.
+
+Dla toru:
+\begin{itemize}
+  \item $y_1$ -- $u_2$
+ \item $y_2$ -- $u_3$
+ \item $y_3$ -- $u_1$
+\end{itemize}
+
+otrzymujemy nastawy:
+\begin{equation}
+  K_1 = \num{1.1001} \qquad T_{i1} = \num{1.7044}, \qquad T_{d1} = 0 \nonumber
+\end{equation}
+\begin{equation}
+  K_2 = \num{2.2444} \qquad T_{i2} = \num{3.7464}, \qquad T_{d2} = 0
+\end{equation}
+\begin{equation}
+  K_3 = \num{4.0054} \qquad T_{i3} = \num{15.7112}, \qquad T_{d3} = 0 \nonumber
+\end{equation}
+
+Błąd regulacji wynosi: \num{207.1231} .
+Jest to wynik nieco gorszej jakości niż dla poprzednich dwóch torów.
+
+Analizując otrzymane wyniki, zauważamy że dla trzech z czterech przypadków funkcja optymalizacji
+znalazła lepsze wyniki niż dla regulatorów wyznaczonych metodą inżynierską. Jest to jak najbardziej normalne zjawisko.
+Również potwierdziła się metoda Multiple Gain Array. Najlepsze wyniki otrzymaliśmy dla regulatora o konfiguracji
+torów odpowiadającej najmniejszej wartości współczynnika uwarunkowania macierzy, zaś najgorsze wyniki
+dla torów odpowiadających największej wartości współczynnika uwarunkowania macierzy.

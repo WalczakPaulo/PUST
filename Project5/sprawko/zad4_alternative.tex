@@ -60,6 +60,9 @@ Teoretycznie najlepszy wynik będzie osiągnięty dla
 macierzy $KK_i$, dla której wskaźnik uwarunkowania $K_i$ był najmniejszy, czyli
 w naszym wypadku $K_2$, ale mimo to sprawdzimy wszystkie cztery opcje. Macierze
 wychodzą następujące:
+
+
+
 \begin{equation}
   \bm{KK}_1 =
   \begin{bmatrix}
@@ -98,13 +101,13 @@ Stąd wybieramy cztery opcje torów sterowania. Dla $\bm{KK}_1$:
  \item $y_2$ -- $u_3$
  \item $y_3$ -- $u_2$
 \end{itemize}
-Zgodnie z wyznaczonymi wskaźnikami uwarunkowania te tory powinny być najlepsze. Dla $\bm{KK}_2$:
+ Dla $\bm{KK}_2$:
 \begin{itemize}
   \item $y_1$ -- $u_1$
  \item $y_2$ -- $u_3$
  \item $y_3$ -- $u_4$
 \end{itemize}
-Dla $\bm{KK}_3$:
+Zgodnie z wyznaczonymi wskaźnikami uwarunkowania te tory powinny być najlepsze. Dla $\bm{KK}_3$:
 \begin{itemize}
   \item $y_1$ -- $u_1$
  \item $y_2$ -- $u_2$
@@ -154,12 +157,12 @@ Po kilku eksperymentach otrzymaliśmy następujące nastawy:
   K_3 = \num{7.2400} \qquad T_{i3} = 10, \qquad T_{d3} = 0 \nonumber
 \end{equation}
 Wskaźnik jakości regulacji dla takich nastaw wynosił $E_2 = \num{134.8370}$, czyli
-wbrew temu co wyszło z wyliczeń wskaźników jakości --- lepszy niż ten dla pierwszego
+lepszy niż ten dla pierwszego
 toru sterowania. Podobnie jak wcześniej, dodanie różniczkowania nie poprawiało
 wyników w sensie wskaźnika jakości, więc z niego zrezygnowaliśmy. Działanie
 tych regulatoróœ przedstawiają wykresy \ref{fig:z3_pid2_y1},
 \ref{fig:z3_pid2_y2} oraz \ref{fig:z3_pid2_y3}. Dla ułatwienia porównania zastosowano
-tą samą skalę co w przypadku poprzedniego zestawu regulatorów.
+tą samą skalę co w przypadku poprzedniego zestawu regulatorów. 
 
 Dla torów wynikających z macierzy $\bm{KK}_3$ otrzymaliśmy nastawy:
 \begin{equation}
@@ -176,8 +179,7 @@ w przypadku macierzy $\bm{KK}_2$, która dała najlepsze rezultaty.
 Działanie takich regulatorów przedstawiają wykresy \ref{fig:z3_pid4_y1},
 \ref{fig:z3_pid4_y2} oraz \ref{fig:z3_pid4_y3}.
 
-Macierz $\bm{KK}_3$ nie dała nam żadnego toru sterowania wyjściami, więc przeszlśmy
-od razu do zestawu który wynikł z macierzy $\bm{KK}_4$. Otrzymane nastawy
+Dla macierzy $\bm{KK}_4$ otrzymane nastawy
 były nasępujące:
 \begin{equation}
   K_1 = \num{1.3170} \qquad T_{i1} = 4, \qquad T_{d1} = 0 \nonumber
