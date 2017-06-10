@@ -1,0 +1,17 @@
+\chapter{Zadanie 7}
+Od tego rozdziału wszystkie zadania będą dotyczyć obiektu Inteco,
+opisanego w rozdziale \ref{sec:inteco}. Na początku został opracowany sposób
+komunikacji z obiektem. Zarówno wejścia jak i wyjścia obiektu są sterowane
+przy pomocy PWM. Do generacji sygnałów wejściowych do obiektu, użyta
+została specjalna funkcja PWM sterownika. Generuje ona potrzebny sygnał
+o zadanej częstotliwości, oraz poziomie wypełnienia fali. Tak wygenerowana
+fala wysyłana jest na wyjście sterownika. Odczyt pomiarów został
+wykonany przy pomocy, również wbudowanej w sterownik, opcji szybkiego licznika
+na wejściu. Przy tak skonfigurowanym programie sprawdzona została możliwość
+sterowania obiektem, jak i odczytywania wejść. Aby ułatwić ocenę działania
+jakiegokolwiek regulatora, pojdęliśmy próbę przeskalowania wartości mierzonych
+tak, aby skala była taka sama jak skala umieszczona bezpośrednio na zbiornikach.
+Zastosowaliśmy przy tym skalę liniową opartą na pomiarze przy niskim stanie
+wody, oraz na pomiarze w górnych granicach skali. Na podstawie dwóch pomiarów
+stworzyliśmy skalę liniową, która dobrze przybliżała poziom wody w odniesieniu
+do skali na zbiornikach.

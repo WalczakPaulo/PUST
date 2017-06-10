@@ -1,0 +1,18 @@
+\chapter{Zadanie 11}
+Ostatecznie do sterowania obiektem zostały użyte trzy regulatory PID.
+Użyta została gotowa funkcja PID, która jest częścią środowiska developerskiego
+dla sterownika. Nastawy dla każdego z regulatorów były następujące:
+\begin{equation}
+  K = 200, \qquad T_i = 20, \qquad T_d = 0.
+\end{equation}
+Nastawy były dobierane metodą eksperymentalną. Zaczęliśmy od regulatora
+P i dobraliśmy wzmocnienie, które zdawało się działać dobrze, a następnie,
+dodaliśmy całkowanie. Byliśmy zadowoleni z efektów i uznaliśmy różniczkę za
+zbędną dla tego obiektu. Proces ten został wykonany dla najwyższego ze
+zbiorników, dla pozostałych zbiorników przyjęliśmy takie same nastawy,
+gdyż ich charakterystyka jest nieliniowa i musielibyśmy spędzić więcej
+czasu nad nastawami. Napięte ramy czasowe nie pozwoliły nam też odpowiednio
+skonfigurować komunikacji między sterownikiem i komputerem, tak aby utworzyć
+wykresy, dlatego, aby obiekt był jakkolwiek udokumentowany nagraliśmy krótką
+prezentację jego działania w formie video. Plik wideo dostępny jest w folderze
+z tym sprawozdaniem pod nazwą \texttt{prezentacja.mp4}.
