@@ -194,14 +194,14 @@ if(draw)
 end
 
 if(to_file)
-    write_to_file('dmc_y1_l_03_02_01_03_psi_1_1_1',1:kk,y(1,:))
-    write_to_file('dmc_y2_l_03_02_01_03_psi_1_1_1',1:kk,y(2,:))
-    write_to_file('dmc_y3_l_03_02_01_03_psi_1_1_1',1:kk,y(3,:))
+    write_to_file('dmc_y1_l_03_02_01_03_psi_65_7_2',1:kk,y(1,:))
+    write_to_file('dmc_y2_l_03_02_01_03_psi_65_7_2',1:kk,y(2,:))
+    write_to_file('dmc_y3_l_03_02_01_03_psi_65_7_2',1:kk,y(3,:))
     
-    write_to_file('dmc_u1_l_03_02_01_03_psi_1_1_1',1:kk,u(1,:))
-    write_to_file('dmc_u2_l_03_02_01_03_psi_1_1_1',1:kk,u(2,:))
-    write_to_file('dmc_u3_l_03_02_01_03_psi_1_1_1',1:kk,u(3,:))
-    write_to_file('dmc_u4_l_03_02_01_03_psi_1_1_1',1:kk,u(4,:))
+    write_to_file('dmc_u1_l_03_02_01_03_psi_65_7_2',1:kk,u(1,:))
+    write_to_file('dmc_u2_l_03_02_01_03_psi_65_7_2',1:kk,u(2,:))
+    write_to_file('dmc_u3_l_03_02_01_03_psi_65_7_2',1:kk,u(3,:))
+    write_to_file('dmc_u4_l_03_02_01_03_psi_65_7_2',1:kk,u(4,:))
 
     write_to_file('yzad1',1:kk,yzad(1,:))
     write_to_file('yzad2',1:kk,yzad(2,:))

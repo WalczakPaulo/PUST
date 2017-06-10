@@ -1,0 +1,274 @@
+\section{Parametr $\psi$}
+W wyniku testowania różnych wartości współczynnika $\psi$ zaobserwowaliśmy, że błąd regulacji jest najmniejszy dla duzych wartości $\psi$. Podobnie jednak jak w przypadku dobierania $\lambda$ zauważamy, że wysokie wartości parametru powodują, że przebieg sterowania jest znacznie "ostrzejszy", występują duże i nagłe skoki $u$ przy zmianach wartości zadanej. W przypadku rzeczywistego obiektu, zjawisko to mogłoby mieć negatywny efekt, na przykład uszkodzenie części sterujących. Staraliśmy się więc doprowadzić do kompromisu między niskim wskaźnikiem błędu a łagodnym przebiegiem sterowania.
+
+Testując różne wartości parametru $psi$, przyjęliśmy długości horyzontów $N=40$ i $N_u=5$ oraz współczynniki $\lambda_1=\num{0,3}$, $\lambda_2=\num{0,2}$, $\lambda_3=\num{0,1}$, $\lambda_4=\num{0,3}$.
+
+Próba ustawienia parametrów $\psi$ na wartość poniżej 1 dała w rezultacie wyższe błędy regulacji.
+Próba zmniejszenia wartości parametrów $psi$ do $\num{0,8}$ okazała się przynosić wyższe współczynniki błędu.
+\begin{itemize}
+\item $E_1=\num{36,9114}$
+\item $E_2=\num{39,0784}$
+\item $E_3=\num{17,3408}$
+\item $E=\num{93,3306}$
+\end{itemize}
+Zdecydowaliśmy więc, że kolejne testy przeprowadzane będą na wartościach $\psi$ powyżej 1. Przebiegi wyjść i sterowań przedstawiają wykresy \ref{fig:dmc_y_l_03_02_01_03_psi_08_08_08} i \ref{fig:dmc_y_l_03_02_01_03_psi_08_08_08}.
+
+Zwiększenie współczynników $\psi$ do wartości 5 dało w rezultacie bardzo dużą poprawę błędu regulacji.
+\begin{itemize}
+\item $E_1=\num{34,6604}$
+\item $E_2=\num{34,131}$
+\item $E_3=\num{9,0736}$
+\item $E=\num{78,8650}$
+\end{itemize}
+Należy jednak odnotować, że przebieg sterowania jest teraz znacznie ostrzejszy, co jest szczególnie widoczne na torze sterowania 4 (wykres \ref{fig:dmc_u_l_03_02_01_03_psi_5_5_5}). Zmiana $\psi$ nie miała dużego wpływu na pozostałe tory. Spróbujemy więc, manipulując parametrami $\psi$, złagodzić sterowanie na torze 4, zachowując jednocześnie poprawę błędu regulacji. Wyjścia obiektu przedstawia wykres \ref{fig:dmc_y_l_03_02_01_03_psi_5_5_5}.
+
+W wyniku eksperymentów dowiedzieliśmy się, że najbardziej na sterowanie na torze czwartym wpływa parametr $\psi_3$. Postanowiliśmy więc zmniejszyć $\psi_3$, jednocześnie zwiększająć $\psi_1$ i $\psi_2$. Przetestowaliśmy działanie obiektu na wartościach $\psi_1=\num{6,5}$, $\psi_2=7$, $\psi_3=2$. Jak widać na wykresie \ref{fig:dmc_u_l_03_02_01_03_psi_65_7_2}, sterowanie zostało nieco złagodzone, choć w rezultacie nieznacznie pogorszył się wskaźnik błędu regulacji.
+\begin{itemize}
+\item $E_1=\num{34,584}$
+\item $E_2=\num{35,2223}$
+\item $E_3=\num{10,3634}$
+\item $E=\num{80,1697}$
+\end{itemize}
+Uznaliśmy jednak, że takie nastawy dają dobry kompromis między jakością regulacji a łagodnym sterowaniem. Przebiegi wyjść obiektu przedstawia wykres \ref{fig:dmc_y_l_03_02_01_03_psi_65_7_2}.
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.3\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_l_03_02_01_03_psi_08_08_08.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad1.txt};
+	\legend{$y_1$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y2_l_03_02_01_03_psi_08_08_08.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad2.txt};
+	\legend{$y_2$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y3_l_03_02_01_03_psi_08_08_08.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad3.txt};
+	\legend{$y_3$,$y_{zad}$}
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi wyjść obiektu dla $\psi_1=\num{0,8}$, $\psi_2=\num{0,8}$, $\psi_3=\num{0,8}$.}
+	\label{fig:dmc_y_l_03_02_01_03_psi_08_08_08}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.25\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_l_03_02_01_03_psi_08_08_08.txt};
+
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u2_l_03_02_01_03_psi_08_08_08.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u3_l_03_02_01_03_psi_08_08_08.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_4$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u4_l_03_02_01_03_psi_08_08_08.txt};
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi sterowań obiektu dla $\psi_1=\num{0,8}$, $\psi_2=\num{0,8}$, $\psi_3=\num{0,8}$.}
+	\label{fig:dmc_u_l_03_02_01_03_psi_08_08_08}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.3\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_l_03_02_01_03_psi_5_5_5.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad1.txt};
+	\legend{$y_1$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y2_l_03_02_01_03_psi_5_5_5.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad2.txt};
+	\legend{$y_2$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y3_l_03_02_01_03_psi_5_5_5.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad3.txt};
+	\legend{$y_3$,$y_{zad}$}
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi wyjść obiektu dla $\psi_1=5$, $\psi_2=5$, $\psi_3=5$.}
+	\label{fig:dmc_y_l_03_02_01_03_psi_5_5_5}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.25\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_l_03_02_01_03_psi_5_5_5.txt};
+
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u2_l_03_02_01_03_psi_5_5_5.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u3_l_03_02_01_03_psi_5_5_5.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_4$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u4_l_03_02_01_03_psi_5_5_5.txt};
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi sterowań obiektu dla $\psi_1=5$, $\psi_2=5$, $\psi_3=5$.}
+	\label{fig:dmc_u_l_03_02_01_03_psi_5_5_5}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.3\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_l_03_02_01_03_psi_65_7_2.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad1.txt};
+	\legend{$y_1$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y2_l_03_02_01_03_psi_65_7_2.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad2.txt};
+	\legend{$y_2$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y3_l_03_02_01_03_psi_65_7_2.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad3.txt};
+	\legend{$y_3$,$y_{zad}$}
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi wyjść obiektu dla $\psi_1=\num{6,5}$, $\psi_2=7$, $\psi_3=2$.}
+	\label{fig:dmc_y_l_03_02_01_03_psi_65_7_2}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.25\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_l_03_02_01_03_psi_65_7_2.txt};
+
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u2_l_03_02_01_03_psi_65_7_2.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u3_l_03_02_01_03_psi_65_7_2.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_4$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u4_l_03_02_01_03_psi_65_7_2.txt};
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi sterowań obiektu dla $\psi_1=\num{6,5}$, $\psi_2=7$, $\psi_3=2$.}
+	\label{fig:dmc_u_l_03_02_01_03_psi_65_7_2}
+\end{figure}
