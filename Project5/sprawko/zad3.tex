@@ -1,0 +1,253 @@
+\chapter{Zadanie 3: Algorytmy PID i DMC}
+\section{Cyfrowy algorytm PID}
+
+Celem zadania trzeciego było zaimplementowanie regulatorów $PID$ i $DMC$ odpowiednich do podanego procesu. Należy zwrócić uwagę, że dany dla projektu procesu
+cechuje się większą liczbą wejść ( $4$ ) niż wyjść ( $3$ ), co wpływa na realizację implementacji regulatorów.
+
+\section{Cyfrowy algorytm PID}
+ 
+Regulator $PID$ jest opisany danymi parametrami: $K$ - wzmocnienie, $T_p$ - czas próbkowania, $T_d$ - czas wyprzedzenia, $T_i$ - czas zdwojenia, $N_u$ - ilość sterowań oraz $N_y$ - ilość wyjść.
+
+W implementacji regulatora będziemy wykorzystywać współczynniki:
+
+\begin{equation}
+{r_0}^j=K^j*(1+T_p/(2*{T_i}^j)+{T_d}^j/T_p) \quad \forall j \in <1,n_u>
+\label{r0}
+\end{equation}
+
+
+\begin{equation}
+{r_1}^j=K^j*(T_p/(2*{T_i}^j)-2*{T_d}^j/T_p-1) \quad \forall j \in <1,n_u> 
+\label{r1}
+\end{equation}
+
+\begin{equation}
+{r_2}^j=K*{T_d}^j/T_p \quad \forall j \in <1,n_u>
+\label{r2}
+\end{equation}
+
+Po każdej iteracji obliczany jest nowy uchyb każdego wyjscia, jako różnica wartości zadanej i aktualnej wartości wyjścia. 
+Sterowania również są obliczane tak jak w klasycznym regulatorze PID.
+
+\begin{equation}
+U(k)^j = {r_2}^j*e(k-2)^i + {r_1}^j*e(k-1)^i + {r_0}^j*e(k)^i + u(k-1)^j \quad gdzie \quad j \in <1,n_u>, \quad i \in <1,n_y>
+\label{Uk}
+\end{equation}
+
+Należy podkreślić, że w przypadku naszego procesu, każdemu wyjściu odpowiada jedno wejście, co oznacza że jedno z wejść nie będzie używane.
+
+
+\section{Algorytm DMC}
+W algorytmie wykonujemy następujące obliczenia: 
+
+\begin{equation}
+\boldsymbol{y}^{\mathrm{zad}}(k)=\left[
+\begin{array}{c}
+y^{\mathrm{zad}}_1(k)\\
+\vdots\\
+y^{\mathrm{zad}}_{ny}(k)
+\end{array}
+\right]_{\mathrm{n_yx1}}
+\label{yzadm}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{y}(k)=\left[
+\begin{array}{c}
+y_1(k)\\
+\vdots\\
+y_{ny}(k)
+\end{array}
+\right]_{\mathrm{n_yx1}}
+\label{ym}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{u}(k)=\left[
+\begin{array}{c}
+u_1(k)\\
+\vdots\\
+u_{n_u}(k)
+\end{array}
+\right]_{\mathrm{n_ux1}}
+\label{Um}
+\end{equation}
+
+\begin{equation}
+\triangle\boldsymbol{u}(k)=\left[
+\begin{array}{c}
+\triangle u_1(k)\\
+\vdots\\
+\triangle u_{n_u}(k)
+\end{array}
+\right]_{\mathrm{n_ux1}}
+\label{dUm}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{Y}(k)=\left[
+\begin{array}{c}
+y(k|k)\\
+\vdots\\
+y(k|k)
+\end{array}
+\right]_{\mathrm{N*n_yx1}}
+\label{Y}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{Y}^{\mathrm{zad}}(k)=\left[
+\begin{array}{c}
+y^{\mathrm{zad}}(k|k)\\
+\vdots\\
+y^{\mathrm{zad}}(k|k)
+\end{array}
+\right]_{\mathrm{N*n_yx1}}
+\label{Yzad}
+\end{equation}
+
+\begin{equation}
+\triangle\boldsymbol{U}(k)=\left[
+\begin{array}{c}
+\triangle u(k|k)\\
+\vdots\\
+\triangle u(k+N_u-1|k)
+\end{array}
+\right]_{\mathrm{N_u*n_ux1}}
+\label{dUms}
+\end{equation}
+
+\begin{equation}
+\triangle\boldsymbol{U^P}(k)=\left[
+\begin{array}{c}
+\triangle u(k-1)\\
+\vdots\\
+\triangle u(k-(D-1))
+\end{array}
+\right]_{\mathrm{(D-1)*n_ux1}}
+\label{dUPm}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{S_l}=\left[
+\begin{array}
+{cccc}
+s^{11}_l & s^{12}_l & \ldots & s^{1n_u}_l\\
+s^{21}_l & s^{22}_l & \ldots & s^{2n_u}_l\\
+\vdots & \vdots & \ddots & \vdots\\
+s^{n_y1}_l& s^{n_y2}_l & \ldots &  s^{n_yn_u}_l
+\end{array}
+\right]_{\mathrm{n_yxn_u}}
+\label{S}
+, l=1,...,D.
+\end{equation}
+
+\begin{equation}
+\boldsymbol{M}=\left[
+\begin{array}
+{cccc}
+S_{1} & 0 & \ldots & 0\\
+S_{2} & S_{1} & \ldots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+S_{N} & S_{N-1} & \ldots &  S_{N-N_{\mathrm{u}}+1}
+\end{array}
+\right]_{\mathrm{(N*n_y)x(N_u*n_u)}}
+\label{Mm}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{M^P}=\left[
+\begin{array}
+{cccc}
+S_{2}-S_{1} & S_{3}-S_{2} & \ldots & S_{D}-S_{D-1}\\
+S_{3}-S_{1} & S_{4}-S_{2} & \ldots & S_{D+1}-S_{D-1}\\
+\vdots & \vdots & \ddots & \vdots\\
+S_{N+1}-S_{1} & S_{N+2}-S_{2} & \ldots &  S_{N+D-1}-S_{D-1}
+\end{array}
+\right]_{\mathrm{(N*n_y)x((D-1)*n_u)}}
+\label{MPm}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{\Psi}=\left[
+\begin{array}
+{cccccccccc}
+\psi_{1,1} & & & & & & & & & \\
+ & \ddots & & & & & & & & \\
+ & & \psi_{1,n_y} & & & & & & & \\
+ & & & \psi_{2,1} & & & & & & \\
+ & & & & \ddots & & & & & \\
+ & & & & & \psi_{2,n_y} & & & & \\
+ & & & & & & \ddots & & & \\
+ & & & & & & & \psi_{N,1} & & \\
+ & & & & & & & & \ddots & \\
+ & & & & & & & & & \psi_{N,n_y} \\
+\end{array}
+\right]_{(N*n_y)x(N*n_y)}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{\Lambda}=\left[
+\begin{array}
+{cccccccccc}
+\lambda_{0,1} & & & & & & & & & \\
+& \ddots & & & & & & & & \\
+& & \lambda_{0,n_u} & & & & & & & \\
+& & & \lambda_{1,1} & & & & & & \\
+& & & & \ddots & & & & & \\
+& & & & & \lambda_{1,n_u} & & & & \\
+& & & & & & \ddots & & & \\
+& & & & & & & \lambda_{N_u-1,1} & & \\
+& & & & & & & & \ddots & \\
+& & & & & & & & & \lambda_{N_u-1,n_u} \\
+\end{array}
+\right]_{(N_u*n_u)x(N_u*n_u)}
+\end{equation}
+
+\begin{equation}
+Y^0(k)=Y(k)+M^P
+\triangle U^P(k)
+\label{Y0}
+\end{equation}
+
+\begin{equation}
+K=(M^T\Psi M+\Lambda)^{-1}M^T\Psi
+\label{K}
+\end{equation}
+
+\begin{equation}
+\triangle U(k)=K(Y^{zad}(k)-Y^0(k))
+\label{dU1}
+\end{equation}
+
+W naszym zadaniu używamy tylko pierwszy element $\triangle U(k)$ czyli inaczej $\triangle u(k|k)$. W tym celu macierz K przekształcamy do postaci:
+
+\begin{equation}
+	\boldsymbol{K}=\left[
+	\begin{array}{c}
+	K_1\\
+	K_2\\
+	\vdots\\
+	K_{N_u}
+	\end{array}
+	\right]=\left[
+	\begin{array}
+	{cccc}
+	k_{1,1} & k_{1,2} & \ldots & k_{1,N}\\
+	k_{2,1} & k_{2,2} & \ldots & k_{2,N}\\
+	\vdots & \vdots & \ddots & \vdots\\
+	k_{N_u,1} & k_{N_u,2} & \ldots & k_{N_u,N}
+	\end{array}
+	\right]
+\end{equation}
+gdzie $k_{i,j}$ to macierz o wymiarach $n_u$ x $n_y$, a więc $K_i$ to macierz o wymiarach $n_u$ x (N*$n_y$). Prawo regulacji wygląda następująco:
+
+\begin{equation}
+	\triangle u(k)=K_1(Y^{zad}(k)-Y^0(k))=K_1(Y^{zad}(k)-Y(k)-M^P\triangle U^P(k))
+\end{equation}
+
+
+Aktualne sterowanie obliczamy jako suma sterowania poprzedniego i aktualnie wyliczonego $\triangle u(k|k)$. 
+
+
+\end{equation}
