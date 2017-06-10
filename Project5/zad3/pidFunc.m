@@ -76,33 +76,32 @@ csvwrite('E3.csv',E3);
 
 
 if(draw)
-figure;
-subplot(131)
-plot(u(whichUs(1),:));
-title(['K = ', num2str(K(1)), ', Ti = ', num2str(Ti(1)),', Td = ',num2str(Td(1))]);
-ylabel(sprintf('U%d',whichUs(1)))
-xlabel('iter')
-    
-subplot(132)
-plot(u(whichUs(2),:));
-title(['K = ', num2str(K(2)), ', Ti = ', num2str(Ti(2)),', Td = ',num2str(Td(2))]);
-ylabel(sprintf('U%d',whichUs(2)))
-xlabel('iter')
-    
-subplot(133)
-plot(u(whichUs(3),:));
-title(['K = ', num2str(K(3)), ', Ti = ', num2str(Ti(3)),', Td = ',num2str(Td(3))]);
-ylabel(sprintf('U%d',whichUs(3)))
-xlabel('iter')
-
-    
-figure;
+% figure;
+% subplot(131)
+% plot(u(whichUs(1),:));
+% title(['K = ', num2str(K(1)), ', Ti = ', num2str(Ti(1)),', Td = ',num2str(Td(1))]);
+% ylabel(sprintf('U%d',whichUs(1)))
+% xlabel('iter')
+%     
+% subplot(132)
+% plot(u(whichUs(2),:));
+% title(['K = ', num2str(K(2)), ', Ti = ', num2str(Ti(2)),', Td = ',num2str(Td(2))]);
+% ylabel(sprintf('U%d',whichUs(2)))
+% xlabel('iter')
+%     
+% subplot(133)
+% plot(u(whichUs(3),:));
+% title(['K = ', num2str(K(3)), ', Ti = ', num2str(Ti(3)),', Td = ',num2str(Td(3))]);
+% ylabel(sprintf('U%d',whichUs(3)))
+% xlabel('iter')
+clf('reset')
+% figure;
 subplot(131)
 plot(Yzad(1,:),'r--')
 title('Yzad1 && Y1');
 hold on;
 plot(Y(1,:),'b');
-legend('Y1','Yzad1','location','best');
+legend('Y1','Yzad1','location','northeast');
 ylabel('Y1')
 xlabel('iter')
     
@@ -111,7 +110,7 @@ plot(Yzad(2,:),'r--')
 title('Yzad2 && Y2');
 hold on;
 plot(Y(2,:),'g');
-legend('Y2','Yzad2','location','best');
+legend('Y2','Yzad2','location','northeast');
 ylabel('Y2')  
 xlabel('iter')
   
@@ -120,7 +119,7 @@ plot(Yzad(3,:),'r--')
 title('Yzad3 && Y3');
 hold on;
 plot(Y(3,:),'r');
-legend('Y3','Yzad3','location','best');
+legend('Y3','Yzad3','location','northeast');
 ylabel('Y3')
 xlabel('iter')
 end

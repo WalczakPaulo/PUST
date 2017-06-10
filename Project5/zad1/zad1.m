@@ -12,9 +12,10 @@ for k=5:n
         y(3,k-1),y(3,k-2),y(3,k-3),y(3,k-4));
 end
 
-%plot(y(1,:));
-%plot(y(2,:))
-%plot(y(3,:))
+plot(y(1,:));
+hold on
+plot(y(2,:))
+plot(y(3,:))
 
 csvwrite('Y1.csv', y(1,:));
 csvwrite('Y2.csv', y(2,:));

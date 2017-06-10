@@ -1,0 +1,95 @@
+\chapter{Odpowiedzi skokowe}
+Celem zadania drugiego było symulacyjne wyznaczenie wszystkich odpowiedzi skokowych (każdego toru).
+Założyliśmy, że obiekt będzie znajdował się przed wykonaniem skoku w wyznaczonym w zadaniu 1. punkcie pracy,
+a skok będzie jednostkowy.
+Na podanych niżej wykresach znajdują się wykresy odpowiedzi skokowych dla każdego toru.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=200,ymin=0,ymax=2,
+xlabel={Numer próbki},
+ylabel={Wyjście znormalizowane},
+xtick={0, 50, 100, 150, 200},
+ytick={0, .5, 1, 1.5, 2},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z2_y1u1.txt};
+\addplot[red,semithick] file {wykresy/z2_y1u2.txt};
+\addplot[orange,semithick] file {wykresy/z2_y1u3.txt};
+\addplot[violet,semithick] file {wykresy/z2_y1u4.txt};
+\legend{Odpowiedź na skok $u_1$, Odpowiedź na skok $u_2$, Odpowiedź na skok $u_3$, Odpowiedź na skok $u_4$,}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Odpowiedzi skokowe wyjścia $y_1$}
+\label{fig:z2_y1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=200,ymin=0,ymax=2,
+xlabel={Numer próbki},
+ylabel={Wyjście znormalizowane},
+xtick={0, 50, 100, 150, 200},
+ytick={0, .5, 1, 1.5, 2},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z2_y2u1.txt};
+\addplot[red,semithick] file {wykresy/z2_y2u2.txt};
+\addplot[orange,semithick] file {wykresy/z2_y2u3.txt};
+\addplot[violet,semithick] file {wykresy/z2_y2u4.txt};
+\legend{Odpowiedź na skok $u_1$, Odpowiedź na skok $u_2$, Odpowiedź na skok $u_3$, Odpowiedź na skok $u_4$,}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Odpowiedzi skokowe wyjścia $y_2$}
+\label{fig:z2_y2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.6\textwidth,
+xmin=0,xmax=200,ymin=0,ymax=2,
+xlabel={Numer próbki},
+ylabel={Wyjście znormalizowane},
+xtick={0, 50, 100, 150, 200},
+ytick={0, .5, 1, 1.5, 2},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z2_y3u1.txt};
+\addplot[red,semithick] file {wykresy/z2_y3u2.txt};
+\addplot[orange,semithick] file {wykresy/z2_y3u3.txt};
+\addplot[violet,semithick] file {wykresy/z2_y3u4.txt};
+\legend{Odpowiedź na skok $u_1$, Odpowiedź na skok $u_2$, Odpowiedź na skok $u_3$, Odpowiedź na skok $u_4$,}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Odpowiedzi skokowe wyjścia $y_3$}
+\label{fig:z2_y3}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,84 @@
+\chapter{Punkt pracy}
+Celem zadania pierwszego było zweryfikowanie poprawności punktu pracy procesu. Podany punkt pracy to
+$u1=u2=u3=u4=y1=y2=y3=0$.
+Poprawność sprawdzimy, poprzez podanie na wejście obiektu $u1=u2=u3=u4=0$ i sprawdzenie czy wyjścia obiektu stabilizują
+się na wartości 0. Eksperyment wykazał, że rzeczywiście obiekt stabilizuje się na wartościach wyjść
+$y1=y2=y3=0$, a pokazują to wykresy \ref{fig:z1_y1}, \ref{fig:z1_y2} oraz \ref{fig:z1_y3}.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=150,ymin=-1,ymax=1,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 50, 100, 150},
+ytick={-1, -0.5, 0, 0.5, 1},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z1_y1.txt};
+% \legend{Znormalizowane wyjście obiektu, Aproksymacja odpowiedzi skokowej}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście $y_1$}
+\label{fig:z1_y1}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=150,ymin=-1,ymax=1,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 50, 100, 150},
+ytick={-1, -0.5, 0, 0.5, 1},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z1_y2.txt};
+% \legend{Znormalizowane wyjście obiektu, Aproksymacja odpowiedzi skokowej}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście $y_2$}
+\label{fig:z1_y2}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=150,ymin=-1,ymax=1,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 50, 100, 150},
+ytick={-1, -0.5, 0, 0.5, 1},
+legend pos=south east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z1_y3.txt};
+% \legend{Znormalizowane wyjście obiektu, Aproksymacja odpowiedzi skokowej}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Wyjście $y_3$}
+\label{fig:z1_y3}
+\end{figure}

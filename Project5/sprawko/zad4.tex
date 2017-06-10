@@ -1,0 +1,435 @@
+\chapter{PID}
+Na początku strojenia wyznaczona została macierz wzmocnień, zawierająca
+wzmocnienie każdego z wyjść w zależności od wejścia. Macierz ta jest następująca:
+\begin{equation}
+  \bm{K} =
+  \begin{bmatrix}
+    1.9500  &  1.5000  &  1.2500 \\
+    1.5500  &  1.2000  &  0.1500 \\
+    0.8500  &  0.9000  &  0.3000 \\
+    1.0000 &   0.5500  &  1.2000
+  \end{bmatrix}
+\end{equation}
+Następnie otrzymujemy z tego cztery macierze $\bm{K}_i$. Każda z nich powstaje poprzez
+usunięcie $i$-tego wiersza z macierzy $\bm{K}$. Macierze te są następujące:
+\begin{equation}
+  \bm{K}_1 =
+  \begin{bmatrix}
+    1.5500   & 1.2000 &   0.1500 \\
+        0.8500   & 0.9000 &   0.3000 \\
+        1.0000   & 0.5500  &  1.2000
+  \end{bmatrix}
+\end{equation}
+\begin{equation}
+  \bm{K}_2 =
+  \begin{bmatrix}
+    1.9500 &   1.5000 &   1.2500 \\
+       0.8500   & 0.9000 &   0.3000 \\
+       1.0000   & 0.5500 &   1.2000
+  \end{bmatrix}
+\end{equation}
+\begin{equation}
+  \bm{K}_3 =
+  \begin{bmatrix}
+    1.9500 &   1.5000 &   1.2500 \\
+       1.5500   & 1.2000 &   0.1500 \\
+       1.0000   & 0.5500  &  1.2000
+  \end{bmatrix}
+\end{equation}
+\begin{equation}
+  \bm{K}_4 =
+  \begin{bmatrix}
+    1.5500 &   1.2000 &   0.1500 \\
+       0.8500   & 0.9000 &   0.3000 \\
+       1.0000   & 0.5500  &  1.2000
+  \end{bmatrix}
+\end{equation}
+Następnie obliczane są wskaźniki uwarunkowania każdej z czterech macierzy:
+\begin{align}
+  \text{cond}(\bm{K}_1) &= 14.0133 \\
+  \text{cond}(\bm{K}_2) &= 46.4314 \\
+  \text{cond}(\bm{K}_3) &= 35.4269 \\
+  \text{cond}(\bm{K}_4) &= 20.1116
+\end{align}
+Nastęnie wylicza się macierz $KK_i = K_i * K_i^{-1}$. Z tej macierzy
+wybiera się tory sterowania, poprzez wybranie najmniejszych wartości dodatnich
+z macierzy $KK_i$, tak aby wybrana była tylko jedna wartość w danym wierszu i kolumnie.
+Wartości ujemne są wykluczone. Tory sterowania są wyznaczane poprzez numer kolumny
+i wiersza wybranych wartości. Numer kolumny odpowiada wyjściu, a numer wiersza sterowaniu.
+Teoretycznie najlepszy wynik będzie osiągnięty dla
+macierzy $KK_i$, dla której wskaźnik uwarunkowania $K_i$ był najmniejszy, czyli
+w naszym wypadku $K_1$, ale mimo to sprawdzimy wszystkie cztery opcje. Macierze
+wychodzą następujące:
+\begin{equation}
+  \bm{KK}_1 =
+  \begin{bmatrix}
+    2.8981  & -1.7655 &  -0.1326 \\
+      -2.3579  &  3.1448   & 0.2130 \\
+       0.4598 &  -0.3793   & 0.9195
+  \end{bmatrix}
+\end{equation}
+\begin{equation}
+  \bm{KK}_2 =
+  \begin{bmatrix}
+    10.9045 &  -6.6005  & -3.3040 \\
+      -5.7792 &   5.9954   & 0.7838 \\
+      -4.1253  &  1.6050   & 3.5202
+  \end{bmatrix}
+\end{equation}
+\begin{equation}
+  \bm{KK}_3 =
+  \begin{bmatrix}
+    -7.5149 &   7.2818 &   1.2331 \\
+      4.8953   &-3.7133   &-0.1820 \\
+      3.6196  & -2.5685  & -0.0511
+  \end{bmatrix}
+\end{equation}
+\begin{equation}
+  \bm{KK}_2 =
+  \begin{bmatrix}
+    1.0935  & -1.2617 &   1.1682 \\
+     2.6075  & -1.4280 &  -0.1794 \\
+    -2.7009 &   3.6897 &   0.0112
+  \end{bmatrix}
+\end{equation}
+Stąd wybieramy cztery opcje torów sterowania. Dla $\bm{KK}_1$:
+\begin{itemize}
+  \item $y_1$ -- $u_2$
+ \item $y_2$ -- $u_3$
+ \item $y_3$ -- $u_4$
+\end{itemize}
+Zgodnie z wyznaczonymi wskaźnikami uwarunkowania te tory powinny być najlepsze. Dla $\bm{KK}_2$:
+\begin{itemize}
+  \item $y_1$ -- $u_1$
+ \item $y_2$ -- $u_3$
+ \item $y_3$ -- $u_4$
+\end{itemize}
+Dla $\bm{KK}_3$ nie udało się wyznaczyć torów. Dla $\bm{KK}_4$:
+\begin{itemize}
+  \item $y_1$ -- $u_2$
+ \item $y_2$ -- $u_3$
+ \item $y_3$ -- $u_1$
+\end{itemize}
+Mając teoretycznie najlepsze tory sterowania przystąpiliśmy do dobierania nastaw
+dla regulatorów. Nasza taktyka polegała na wyłączeniu wszelkich regulatorów, a
+następnie znalezieniu wartości wzmocnienia pierwszego regulatora, dla którego
+oscylacje są niegasnące. Mając tą wartość wzmocnienia dzielona była ona przez
+dwa i dołączany był regulator drugi. Znów szukaliśmy wartości oscylacji niegasnących
+i po znalezieniu dzieliliśmy wzmocnienie drugiego regulatora na dwa. Następnie
+dołączaliśmy trzeci regulator i postępowaliśmy tak samo. Następnie dobieraliśmy
+wartości całkowania, metodą prób i błędów, a na końcu tak samo dobieraliśmy
+wartości członów różniczkujących dla regulatorów. Zaskakująco metoda ta okazała się
+przynosić zadowalające rezultaty. Dla toru otrzymanego na podstawie macierzy $\bm{KK}_1$
+ta metoda dała nastawy:
+\begin{equation}
+  K_1 = \num{1.3170} \qquad T_{i1} = 5, \qquad T_{d1} = 0 \nonumber
+\end{equation}
+\begin{equation}
+  K_2 = \num{14.8350} \qquad T_{i2} = 10, \qquad T_{d2} = 0
+\end{equation}
+\begin{equation}
+  K_3 = \num{6.2700} \qquad T_{i3} = 8, \qquad T_{d3} = 0 \nonumber
+\end{equation}
+Wskaźnik jakości regulacji dla takich nastaw wynosił $E_1 = \num{301.8303}$.
+Co ciekawe włączenie różniczki nie dawało poprawy wskaźnika jakości, więc z niej
+zrezygnowaliśmy.
+Wyniki działania takiego regulatora dla tych nastaw przedstawiają wykresy \ref{fig:z3_pid1_y1},
+\ref{fig:z3_pid1_y2} oraz \ref{fig:z3_pid1_y3}.
+
+Następnie sprawdzony został tor otrzymany na podstawie macierzy $\bm{KK}_2$.
+Po kilku eksperymentach otrzymaliśmy następujące nastawy:
+\begin{equation}
+  K_1 = \num{5.1325} \qquad T_{i1} = 9, \qquad T_{d1} = 0 \nonumber
+\end{equation}
+\begin{equation}
+  K_2 = \num{3.1150} \qquad T_{i2} = 10, \qquad T_{d2} = 0
+\end{equation}
+\begin{equation}
+  K_3 = \num{7.2400} \qquad T_{i3} = 10, \qquad T_{d3} = 0 \nonumber
+\end{equation}
+Wskaźnik jakości regulacji dla takich nastaw wynosił $E_2 = \num{134.8370}$, czyli
+wbrew temu co wyszło z wyliczeń wskaźników jakości --- lepszy niż ten dla pierwszego
+toru sterowania. Podobnie jak wcześniej, dodanie różniczkowania nie poprawiało
+wyników w sensie wskaźnika jakości, więc z niego zrezygnowaliśmy. Działanie
+tych regulatoróœ przedstawiają wykresy \ref{fig:z3_pid2_y1},
+\ref{fig:z3_pid2_y2} oraz \ref{fig:z3_pid2_y3}. Dla ułatwienia porównania zastosowano
+tą samą skalę co w przypadku poprzedniego zestawu regulatorów.
+
+
+Macierz $\bm{KK}_3$ nie dała nam żadnego toru sterowania wyjściami, więc przeszlśmy
+od razu do zestawu który wynikł z macierzy $\bm{KK}_4$. Otrzymane nastawy
+były nasępujące:
+\begin{equation}
+  K_1 = \num{1.3170} \qquad T_{i1} = 4, \qquad T_{d1} = 0 \nonumber
+\end{equation}
+\begin{equation}
+  K_2 = \num{14.8350} \qquad T_{i2} = 9, \qquad T_{d2} = 0
+\end{equation}
+\begin{equation}
+  K_3 = \num{5.6000} \qquad T_{i3} = 6, \qquad T_{d3} = 0 \nonumber
+\end{equation}
+Wskaźnik jakości wynosił $\num{565.3247}$, czyli był najgorszy ze wszystkich.
+Znów, dodanie różniczkowania jedynie pogarszało wyniki. Działanie tych
+regulatorów ukazują wykresy \ref{fig:z3_pid3_y1},
+\ref{fig:z3_pid3_y2} oraz \ref{fig:z3_pid3_y3}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-15,ymax=15,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-15, -10, -5, 0, 5, 10, 15},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/z3_pid1_y1.txt};
+\legend{Wartość zadana, Wyjście $y_1$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_1$, dla pierwszego zestawu regulatorów PID}
+\label{fig:z3_pid1_y1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-5,ymax=5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-5, -4, -2, 0, 2, 4, 5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/z3_pid1_y2.txt};
+\legend{Wartość zadana, Wyjście $y_2$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_2$, dla pierwszego zestawu regulatorów PID}
+\label{fig:z3_pid1_y2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-2.5,ymax=2.5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/z3_pid1_y3.txt};
+\legend{Wartość zadana, Wyjście $y_3$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_3$, dla pierwszego zestawu regulatorów PID}
+\label{fig:z3_pid1_y3}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-15,ymax=15,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-15, -10, -5, 0, 5, 10, 15},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/z3_pid2_y1.txt};
+\legend{Wartość zadana, Wyjście $y_1$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_1$, dla drugiego zestawu regulatorów PID}
+\label{fig:z3_pid2_y1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-5,ymax=5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-5, -4, -2, 0, 2, 4, 5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/z3_pid2_y2.txt};
+\legend{Wartość zadana, Wyjście $y_2$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_2$, dla drugiego zestawu regulatorów PID}
+\label{fig:z3_pid2_y2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-2.5,ymax=2.5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/z3_pid2_y3.txt};
+\legend{Wartość zadana, Wyjście $y_3$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_3$, dla drugiego zestawu regulatorów PID}
+\label{fig:z3_pid2_y3}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-15,ymax=15,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-15, -10, -5, 0, 5, 10, 15},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/z3_pid3_y1.txt};
+\legend{Wartość zadana, Wyjście $y_1$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_1$, dla trzeciego zestawu regulatorów PID}
+\label{fig:z3_pid3_y1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-5,ymax=5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-5, -4, -2, 0, 2, 4, 5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/z3_pid3_y2.txt};
+\legend{Wartość zadana, Wyjście $y_2$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_2$, dla trzeciego zestawu regulatorów PID}
+\label{fig:z3_pid3_y2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-2.5,ymax=2.5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/z3_pid3_y3.txt};
+\legend{Wartość zadana, Wyjście $y_3$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_3$, dla trzeciego zestawu regulatorów PID}
+\label{fig:z3_pid3_y3}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
