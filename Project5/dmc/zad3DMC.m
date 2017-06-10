@@ -1,4 +1,6 @@
 function [ E ] = zad3DMC(D,N,Nu,lambda,psi,draw,to_file)
+close all;
+
 D=round(D);
 N=round(N);
 Nu=round(Nu);
@@ -122,9 +124,9 @@ for k=10:kk
     end
    dUP(1:4)=du(:,k);
    u(:,k)=u(:,k-1)+du(:,k);
-   e1(k)=yzad(1,k)-y(1,k);
-   e2(k)=yzad(2,k)-y(2,k);
-   e3(k)=yzad(3,k)-y(3,k);
+   e1(k)= yzad(1,k)-y(1,k);
+   e2(k)= yzad(2,k)-y(2,k);
+   e3(k)= yzad(3,k)-y(3,k);
 end
 
 % e=yzad-y;
@@ -134,6 +136,9 @@ E3=sum(e3(3,:).^2);
 E=E1+E2+E3;
 
 if(draw)
+    disp(['E1 = ', num2str(E1)])
+    disp(['E2 = ', num2str(E2)])
+    disp(['E3 = ', num2str(E3)])
     
     subplot(241)
     plot(u(1,:));
@@ -189,14 +194,14 @@ if(draw)
 end
 
 if(to_file)
-    write_to_file('dmc_y1_N40_Nu2',1:kk,y(1,:))
-    write_to_file('dmc_y2_N40_Nu2',1:kk,y(2,:))
-    write_to_file('dmc_y3_N40_Nu2',1:kk,y(3,:))
+    write_to_file('dmc_y1_l_03_02_01_03_psi_1_1_1',1:kk,y(1,:))
+    write_to_file('dmc_y2_l_03_02_01_03_psi_1_1_1',1:kk,y(2,:))
+    write_to_file('dmc_y3_l_03_02_01_03_psi_1_1_1',1:kk,y(3,:))
     
-    write_to_file('dmc_u1_N40_Nu2',1:kk,u(1,:))
-    write_to_file('dmc_u2_N40_Nu2',1:kk,u(2,:))
-    write_to_file('dmc_u3_N40_Nu2',1:kk,u(3,:))
-    write_to_file('dmc_u4_N40_Nu2',1:kk,u(4,:))
+    write_to_file('dmc_u1_l_03_02_01_03_psi_1_1_1',1:kk,u(1,:))
+    write_to_file('dmc_u2_l_03_02_01_03_psi_1_1_1',1:kk,u(2,:))
+    write_to_file('dmc_u3_l_03_02_01_03_psi_1_1_1',1:kk,u(3,:))
+    write_to_file('dmc_u4_l_03_02_01_03_psi_1_1_1',1:kk,u(4,:))
 
     write_to_file('yzad1',1:kk,yzad(1,:))
     write_to_file('yzad2',1:kk,yzad(2,:))

@@ -1,17 +1,52 @@
 \section{Dobór horyzontów predykcji i sterowania}
-Dobór horyzontów przeprowadzaliśmy korzystając z parametrów $\mu$ i $\lambda$ równymi 1. Rozpoczęliśmy od nastaw $N=N_u=D=80$. Dla tych parametrów błąd wynosił $E=\num{115,6910}$. Przebieg wyjść obiektu przedstawia wykres \ref{fig:dmc_y_N80_Nu80}, a sterowań wykres \ref{fig:dmc_u_N80_Nu80}.
+Dobór horyzontów przeprowadzaliśmy korzystając z parametrów $\psi$ i $\lambda$ równymi 1. Rozpoczęliśmy od nastaw $N=N_u=D=80$. Dla tych parametrów błędy wynosiły:
+\begin{itemize}
+\item $E_1=\num{45,0725}$
+\item $E_2=\num{45,9624}$
+\item $E_3=\num{24,6561}$
+\item $E=\num{115,6910}$
+\end{itemize}
+Przebieg wyjść obiektu przedstawia wykres \ref{fig:dmc_y_N80_Nu80}, a sterowań wykres \ref{fig:dmc_u_N80_Nu80}.
 
-Postanowiliśmy skrócić horyzonty do wartości $N=N_u=50$. Otrzymany błąd wyniósł $E=\num{115,6908}$, a więc był praktycznie jednakowy jak dla dłuższych horyzontów. Przebiegi wyjść i sterowań przedstawiają wykresy \ref{fig:dmc_y_N50_Nu50} i \ref{fig:dmc_u_N50_Nu50}.
+Postanowiliśmy skrócić horyzonty do wartości $N=N_u=50$. Otrzymane błędy wyniosły:
+\begin{itemize}
+\item $E_1=\num{45,0726}$
+\item $E_2=\num{45,962}$
+\item $E_3=\num{24,6562}$
+\item $E=\num{115,6908}$
+\end{itemize}
+Błędy regulacji były więc praktycznie jednakowe jak dla dłuższych horyzontów. Przebiegi wyjść i sterowań przedstawiają wykresy \ref{fig:dmc_y_N50_Nu50} i \ref{fig:dmc_u_N50_Nu50}.
 
-W kolejnym kroku skróciliśmy horyzont predykcji do wartości $N=40$, a sterowania  $N_u=10$. Taka zmiana przyniosła niewielką poprawę wskaźnika błędu do wartości $E=\num{115,6152}$. Przebieg wyjść obiektu przedstawiają wykresy \ref{fig:dmc_y_N40_Nu10} i \ref{fig:dmc_u_N40_Nu10}.
+W kolejnym kroku skróciliśmy horyzont predykcji do wartości $N=40$, a sterowania  $N_u=10$. Taka zmiana przyniosła niewielką poprawę wskaźników błędu:
+\begin{itemize}
+\item $E_1=\num{45,0801}$
+\item $E_2=\num{45,933}$
+\item $E_3=\num{24,6021}$
+\item $E=\num{115,6152}$
+\end{itemize}
+Przebieg wyjść obiektu przedstawiają wykresy \ref{fig:dmc_y_N40_Nu10} i \ref{fig:dmc_u_N40_Nu10}.
 
-Jak się okazało, dalsze skracanie horyzontu sterowania przyniosło znacznie bardziej wymierne rezultaty - dla $N_u=5$  wskaźnik błędu zmalał do wartości $E=\num{111,7038}$. Przebieg wyjść obiektu przedstawiają wykresy \ref{fig:dmc_y_N40_Nu5} i \ref{fig:dmc_u_N40_Nu5}.
+Jak się okazało, dalsze skracanie horyzontu sterowania przyniosło znacznie bardziej wymierne rezultaty - dla $N_u=5$  wskaźniki błędów zmalały do wartości:
+\begin{itemize}
+\item $E_1=\num{44,4289}$
+\item $E_2=\num{44,1988}$
+\item $E_3=\num{23,0761}$
+\item $E=\num{111,7038}$
+\end{itemize}
+Przebieg wyjść obiektu przedstawiają wykresy \ref{fig:dmc_y_N40_Nu5} i \ref{fig:dmc_u_N40_Nu5}.
 
-Dalsze skracanie horyzontu predykcji nie przyniosło pozytywnych rezultatów. Dla $N_u=2$ wskaźnik błędu wyniósł $E=\num{124,1625}$. Można więc przypuszczać, że jeszcze mniejsze wartości horyzontu sterowania przyniosłyby pogorszenie jakości regulacji. Przebieg wyjść obiektu przedstawiają wykresy \ref{fig:dmc_y_N40_Nu2} i \ref{fig:dmc_u_N40_Nu2}.
+Dalsze skracanie horyzontu predykcji nie przyniosło pozytywnych rezultatów. Dla $N_u=2$ wskaźniki błędów wyniosły:
+\begin{itemize}
+\item $E_1=\num{46,6684}$
+\item $E_2=\num{50,4711}$
+\item $E_3=\num{27,023}$
+\item $E=\num{124,1625}$
+\end{itemize}
+Można więc przypuszczać, że jeszcze mniejsze wartości horyzontu sterowania przyniosłyby pogorszenie jakości regulacji. Przebieg wyjść obiektu przedstawiają wykresy \ref{fig:dmc_y_N40_Nu2} i \ref{fig:dmc_u_N40_Nu2}.
 
 W kolejnych zadaniach używane będą horyzonty $N=40$ i $N_u=5$.
 
-\begin{figure}[tb]
+\begin{figure}
 	\centering
 	\begin{tikzpicture}
 	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
@@ -49,7 +84,7 @@ W kolejnych zadaniach używane będą horyzonty $N=40$ i $N_u=5$.
 	\label{fig:dmc_y_N80_Nu80}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}
 	\centering
 	\begin{tikzpicture}
 	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
@@ -91,7 +126,7 @@ W kolejnych zadaniach używane będą horyzonty $N=40$ i $N_u=5$.
 	\label{fig:dmc_u_N80_Nu80}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}
 	\centering
 	\begin{tikzpicture}
 	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
@@ -129,7 +164,7 @@ W kolejnych zadaniach używane będą horyzonty $N=40$ i $N_u=5$.
 	\label{fig:dmc_y_N50_Nu50}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}
 	\centering
 	\begin{tikzpicture}
 	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
@@ -171,7 +206,7 @@ W kolejnych zadaniach używane będą horyzonty $N=40$ i $N_u=5$.
 	\label{fig:dmc_u_N50_Nu50}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}
 	\centering
 	\begin{tikzpicture}
 	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
@@ -209,7 +244,7 @@ W kolejnych zadaniach używane będą horyzonty $N=40$ i $N_u=5$.
 	\label{fig:dmc_y_N40_Nu10}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}
 	\centering
 	\begin{tikzpicture}
 	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
@@ -252,7 +287,7 @@ W kolejnych zadaniach używane będą horyzonty $N=40$ i $N_u=5$.
 \end{figure}
 
 
-\begin{figure}[tb]
+\begin{figure}
 	\centering
 	\begin{tikzpicture}
 	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
@@ -290,7 +325,7 @@ W kolejnych zadaniach używane będą horyzonty $N=40$ i $N_u=5$.
 	\label{fig:dmc_y_N40_Nu5}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}
 	\centering
 	\begin{tikzpicture}
 	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
@@ -332,7 +367,7 @@ W kolejnych zadaniach używane będą horyzonty $N=40$ i $N_u=5$.
 	\label{fig:dmc_u_N40_Nu5}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}
 	\centering
 	\begin{tikzpicture}
 	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
@@ -370,7 +405,7 @@ W kolejnych zadaniach używane będą horyzonty $N=40$ i $N_u=5$.
 	\label{fig:dmc_y_N40_Nu2}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}
 	\centering
 	\begin{tikzpicture}
 	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
