@@ -3,7 +3,7 @@ W wyniku testowania różnych wartości współczynnika $\lambda$ zaobserwowali�
 
 Testując różne wartości parametru $\lambda$, przyjęliśmy długości horyzontów $N=40$ i $N_u=5$, a parametry $\psi = 1$.
 
-Próba zwiększenia wartości parametrów $\lambda$ okazała się przynosić znacznie wyższe współczynniki błędu.
+Próba zwiększenia wartości parametrów $\lambda$ do wartości 2 okazała się przynosić znacznie wyższe współczynniki błędu.
 \begin{itemize}
 \item $E_1=\num{49,4821}$
 \item $E_2=\num{49,361}$
@@ -21,7 +21,7 @@ Ustawienie parametrów na wartości $\lambda_1=\lambda_2=\lambda_3=\lambda_4=\nu
 \end{itemize}
 Charakterystykę sterowania uznaliśmy za akceptowalną. Przebiegi wyjść i sterowań przedstawiają wykresy \ref{fig:dmc_y_l_02_02_02_02_psi_1_1_1} i \ref{fig:dmc_u_l_02_02_02_02_psi_1_1_1}.
 
-Parametry $\lambda$ o wartościach $\num{0,1}$ dały w rezultacie jeszcze mniejsze wskaźniki błędów. Można jednak dostrzec, że skoki sterowania na torach 1 i 4 mają znacznie większe wartości, niż na torach 2 i 3. Tor sterowania 3 natomiast ma łagodniejszy przebieg niż pozostałe. Z tego powodu przetestujemy, jak zachowuje się obiekt w przypadku, gdy parametry $\lambda_1$ i $\lambda_4$ mają wyższe wartości niż $\lambda_2$, a $\lambda_3$ ma niższą wartość. 
+ Można dostrzec, że skoki sterowania na torach 1 i 4 osiągają znacznie większe wartości, niż na torach 2 i 3. Tor sterowania 3 natomiast ma łagodniejszy przebieg niż pozostałe. Z tego powodu przetestujemy, jak zachowuje się obiekt w przypadku, gdy parametry $\lambda_1$ i $\lambda_4$ mają wyższe wartości niż $\lambda_2$, a $\lambda_3$ ma niższą wartość. W ten sposób tory sterowania 1 i 4 powinny zostać złagodzone, a tor 3 przyspieszony. 
 
 Przyjęliśmy parametry o następujących wartościach:
 \begin{itemize}

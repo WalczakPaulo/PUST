@@ -4,10 +4,10 @@ wzmocnienie każdego z wyjść w zależności od wejścia. Macierz ta jest nast�
 \begin{equation}
   \bm{K} =
   \begin{bmatrix}
-    \num{1.9500}  &  \num{1.5000}  &  \num{1.2500} \\
-    \num{1.5500}  &  \num{1.2000}  &  \num{0.1500} \\
-    \num{0.8500}  &  \num{0.9000}  &  \num{0.3000} \\
-    \num{0.1000} &   \num{0.5500}  &  \num{1.2000}
+    \num{1,9500}  &  \num{1,5000}  &  \num{1,2500} \\
+    \num{1,5500}  &  \num{1,2000}  &  \num{0,1500} \\
+    \num{0,8500}  &  \num{0,9000}  &  \num{0,3000} \\
+    \num{0,1000} &   \num{0,5500}  &  \num{1,2000}
   \end{bmatrix}
 \end{equation}
 Następnie otrzymujemy z tego cztery macierze $\bm{K}_i$. Każda z nich powstaje poprzez
@@ -15,41 +15,41 @@ usunięcie $i$-tego wiersza z macierzy $\bm{K}$. Macierze te są następujące:
 \begin{equation}
   \bm{K}_1 =
   \begin{bmatrix}
-    \num{1.5500}   & \num{1.2000} &   \num{0.1500} \\
-        \num{0.8500}   & \num{0.9000} &   \num{0.3000} \\
-        \num{0.1000}   & \num{0.5500}  &  \num{1.2000}
+    \num{1,5500}   & \num{1,2000} &   \num{0,1500} \\
+        \num{0,8500}   & \num{0,9000} &   \num{0,3000} \\
+        \num{0,1000}   & \num{0,5500}  &  \num{1,2000}
   \end{bmatrix}
 \end{equation}
 \begin{equation}
   \bm{K}_2 =
   \begin{bmatrix}
-    \num{1.9500} &   \num{1.5000} &   \num{1.2500} \\
-       \num{0.8500}   & \num{0.9000} &   \num{0.3000} \\
-       \num{0.1000}   & \num{0.5500} &   \num{1.2000}
+    \num{1,9500} &   \num{1,5000} &   \num{1,2500} \\
+       \num{0,8500}   & \num{0,9000} &   \num{0,3000} \\
+       \num{0,1000}   & \num{0,5500} &   \num{1,2000}
   \end{bmatrix}
 \end{equation}
 \begin{equation}
   \bm{K}_3 =
   \begin{bmatrix}
-    \num{1.9500} &   \num{1.5000} &   \num{1.2500} \\
-       \num{1.5500}   & \num{1.2000} &   \num{0.1500} \\
-       \num{0.1000}   & \num{0.5500}  &  \num{1.2000}
+    \num{1,9500} &   \num{1,5000} &   \num{1,2500} \\
+       \num{1,5500}   & \num{1,2000} &   \num{0,1500} \\
+       \num{0,1000}   & \num{0,5500}  &  \num{1,2000}
   \end{bmatrix}
 \end{equation}
 \begin{equation}
   \bm{K}_4 =
   \begin{bmatrix}
-    \num{1.9500}  &  \num{1.5000}  &  \num{1.2500} \\
-    \num{1.5500}  &  \num{1.2000}  &  \num{0.1500} \\
-    \num{0.8500}  &  \num{0.9000}  &  \num{0.3000}
+    \num{1,9500}  &  \num{1,5000}  &  \num{1,2500} \\
+    \num{1,5500}  &  \num{1,2000}  &  \num{0,1500} \\
+    \num{0,8500}  &  \num{0,9000}  &  \num{0,3000}
   \end{bmatrix}
 \end{equation}
 Następnie obliczane są wskaźniki uwarunkowania każdej z czterech macierzy:
 \begin{align}
-  \text{cond}(\bm{K}_1) &= \num{23.8517} \\
-  \text{cond}(\bm{K}_2) &=  \num{12.4174} \\
-  \text{cond}(\bm{K}_3) &= \num{17.5922} \\
-  \text{cond}(\bm{K}_4) &= \num{20.1116}
+  \text{cond}(\bm{K}_1) &= \num{23,8517} \\
+  \text{cond}(\bm{K}_2) &=  \num{12,4174} \\
+  \text{cond}(\bm{K}_3) &= \num{17,5922} \\
+  \text{cond}(\bm{K}_4) &= \num{20,1116}
 \end{align}
 Nastęnie wylicza się macierz $KK_i = K_i * K_i^{-1}$. Z tej macierzy
 wybiera się tory sterowania, poprzez wybranie najmniejszych wartości dodatnich
@@ -66,33 +66,33 @@ wychodzą następujące:
 \begin{equation}
   \bm{KK}_1 =
   \begin{bmatrix}
-   \num{ 4.9438} &  \num{-4.1412}  & \num{ 0.1974} \\
-   \num{-4.0222}  & \num{ 5.7882}  & \num{-0.7660} \\
-   \num{ 0.0784} &  \num{-0.6471} &  \num{ 1.5686}
+   \num{ 4,9438} &  \num{-4,1412}  & \num{ 0,1974} \\
+   \num{-4,0222}  & \num{ 5,7882}  & \num{-0,7660} \\
+   \num{ 0,0784} &  \num{-0,6471} &  \num{ 1,5686}
   \end{bmatrix}
 \end{equation}
 \begin{equation}
   \bm{KK}_2 =
   \begin{bmatrix}
-   \num{ 2.3138} &  \num{-1.9258}  & \num{ 0.6119} \\
-   \num{-1.2263}   & \num{ 2.5852}  & \num{-0.3589} \\
-   \num{-0.0875}   &\num{ 0.3406} &  \num{ 0.7470}
+   \num{ 2,3138} &  \num{-1,9258}  & \num{ 0,6119} \\
+   \num{-1,2263}   & \num{ 2,5852}  & \num{-0,3589} \\
+   \num{-0,0875}   &\num{ 0,3406} &  \num{ 0,7470}
   \end{bmatrix}
 \end{equation}
 \begin{equation}
   \bm{KK}_3 =
   \begin{bmatrix}
-   \num{ 3.3287} &  \num{-3.4800}  & \num{ 1.1514} \\
-   \num{-2.1683}  & \num{ 3.3423} &  \num{-0.1740} \\
-   \num{-0.1603}  & \num{ 1.1377}  & \num{ 0.0226}
+   \num{ 3,3287} &  \num{-3,4800}  & \num{ 1,1514} \\
+   \num{-2,1683}  & \num{ 3,3423} &  \num{-0,1740} \\
+   \num{-0,1603}  & \num{ 1,1377}  & \num{ 0,0226}
   \end{bmatrix}
 \end{equation}
 \begin{equation}
   \bm{KK}_4 =
   \begin{bmatrix}
-   \num{ 1.0935}  & \num{-1.2617}  & \num{ 1.1682} \\
-   \num{ 2.6075} &  \num{-1.4280}  & \num{-0.1794} \\
-   \num{-2.7009}  & \num{ 3.6897} &  \num{ 0.0112}
+   \num{ 1,0935}  & \num{-1,2617}  & \num{ 1,1682} \\
+   \num{ 2,6075} &  \num{-1,4280}  & \num{-0,1794} \\
+   \num{-2,7009}  & \num{ 3,6897} &  \num{ 0,0112}
   \end{bmatrix}
 \end{equation}
 Stąd wybieramy cztery opcje torów sterowania. Dla $\bm{KK}_1$:
