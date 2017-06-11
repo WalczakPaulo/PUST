@@ -1,8 +1,8 @@
-\chapter{PID/DMC Optymalizacja}
+\chapter{Optymalizacja}
 Zadanie piąte polegało na znalezieniu optymalnych wartości nastaw dla regulatora PID oraz DMC, wykorzystując do optymalizacji ilościowy wskaźnik błędu regulacji E.
 Stworzyliśmy do tego skrypt, który używa funkcji $fmincon$ w celu dobierania nastaw dla regulatorów. 
 
-
+\section{PID}
 Rozpoczniemy od optymalizacji nastaw regulatora PID. Jako cele optymalizacji przyjmujemy parametry $K$ oraz $T_i$. Zdecydowaliśmy się odgórnie narzucić zerowe wartości
 $T_d$ ze względu na wyniki badań jakie przeprowadziliśmy w poprzednim punkcie sprawozdania. 
 Jako ograniczenia przyjmujemy zgodnie z logiką, wartości nie mniejsze niż 0 oraz mniejsze od nieskonczoności.
@@ -27,7 +27,7 @@ otrzymujemy nastawy:
 \begin{equation}
   K_3 = \num{0.1696} \qquad T_{i3} = \num{300220}, \qquad T_{d3} = 0 \nonumber
 \end{equation}
-Takie nastawy dają błąd regulacji \num{486.6761}. Jest to o tyle dziwny wynik, że jest gorszy niż
+Takie nastawy dają błąd regulacji $\num{486,6761}$. Jest to o tyle dziwny wynik, że jest gorszy niż
 dla naszych regulatorów wyznaczonych metodą inżynierską dla tej konfiguracji torów. Możliwą przyczyną
 takie sytuacji jest trudne dla $fmincon$ uwarunkowanie funkcji celu. 
 
@@ -41,16 +41,16 @@ Dla toru:
 
 otrzymujemy nastawy:
 \begin{equation}
-  K_1 = \num{2.7249} \qquad T_{i1} = \num{3.9641}, \qquad T_{d1} = 0 \nonumber
+  K_1 = \num{2,7249} \qquad T_{i1} = \num{3,9641}, \qquad T_{d1} = 0 \nonumber
 \end{equation}
 \begin{equation}
-  K_2 = \num{2.9122} \qquad T_{i2} = \num{3.1237}, \qquad T_{d2} = 0
+  K_2 = \num{2,9122} \qquad T_{i2} = \num{3,1237}, \qquad T_{d2} = 0
 \end{equation}
 \begin{equation}
-  K_3 = \num{5.5929} \qquad T_{i3} = \num{9.8384}, \qquad T_{d3} = 0 \nonumber
+  K_3 = \num{5,5929} \qquad T_{i3} = \num{9,8384}, \qquad T_{d3} = 0 \nonumber
 \end{equation}
 
-Błąd regulacji wynosi: \num{104.4858} . Jest to najlepszy ogólnie otrzymany wynik.
+Błąd regulacji wynosi: $\num{104,4858}$ . Jest to najlepszy ogólnie otrzymany wynik.
 
 Dla toru:
 \begin{itemize}
@@ -61,16 +61,16 @@ Dla toru:
 
 otrzymujemy nastawy:
 \begin{equation}
-  K_1 = \num{2.9883} \qquad T_{i1} = \num{4.4246}, \qquad T_{d1} = 0 \nonumber
+  K_1 = \num{2,9883} \qquad T_{i1} = \num{4,4246}, \qquad T_{d1} = 0 \nonumber
 \end{equation}
 \begin{equation}
-  K_2 = \num{0.6972} \qquad T_{i2} = \num{8824.7}, \qquad T_{d2} = 0
+  K_2 = \num{0,6972} \qquad T_{i2} = \num{8824,7}, \qquad T_{d2} = 0
 \end{equation}
 \begin{equation}
-  K_3 = \num{5.6629} \qquad T_{i3} = \num{11.6449}, \qquad T_{d3} = 0 \nonumber
+  K_3 = \num{5,6629} \qquad T_{i3} = \num{11,6449}, \qquad T_{d3} = 0 \nonumber
 \end{equation}
 
-Błąd regulacji wynosi: \num{115.6349} .
+Błąd regulacji wynosi: $\num{115,6349}$ .
 Jest to bardzo dobry wynik, jednakże nieco gorszy niż dla poprzedniego toru.
 Zauważmy, że wyznaczone nastawy dla pierwszego i trzeciego regulatora są bardzo podobne do tych dla poprzedniego toru.
 Wynika to z faktu, że zmienił się tu jedynie tor dla drugiego regulatora, gdzie teraz wpływa na wyjscie drugie regulator drugi.
@@ -84,16 +84,16 @@ Dla toru:
 
 otrzymujemy nastawy:
 \begin{equation}
-  K_1 = \num{1.1001} \qquad T_{i1} = \num{1.7044}, \qquad T_{d1} = 0 \nonumber
+  K_1 = \num{1,1001} \qquad T_{i1} = \num{1,7044}, \qquad T_{d1} = 0 \nonumber
 \end{equation}
 \begin{equation}
-  K_2 = \num{2.2444} \qquad T_{i2} = \num{3.7464}, \qquad T_{d2} = 0
+  K_2 = \num{2,2444} \qquad T_{i2} = \num{3,7464}, \qquad T_{d2} = 0
 \end{equation}
 \begin{equation}
-  K_3 = \num{4.0054} \qquad T_{i3} = \num{15.7112}, \qquad T_{d3} = 0 \nonumber
+  K_3 = \num{4,0054} \qquad T_{i3} = \num{15,7112}, \qquad T_{d3} = 0 \nonumber
 \end{equation}
 
-Błąd regulacji wynosi: \num{207.1231} .
+Błąd regulacji wynosi: $\num{207,1231}$ .
 Jest to wynik nieco gorszej jakości niż dla poprzednich dwóch torów.
 
 Analizując otrzymane wyniki, zauważamy że dla trzech z czterech przypadków funkcja optymalizacji
@@ -101,3 +101,102 @@ znalazła lepsze wyniki niż dla regulatorów wyznaczonych metodą inżynierską
 Również potwierdziła się metoda Multiple Gain Array. Najlepsze wyniki otrzymaliśmy dla regulatora o konfiguracji
 torów odpowiadającej najmniejszej wartości współczynnika uwarunkowania macierzy, zaś najgorsze wyniki
 dla torów odpowiadających największej wartości współczynnika uwarunkowania macierzy.
+
+\section{DMC}
+Optymalizacja nastaw algorytmu DMC dała bardzo zaskakujące rezultaty. Wyznaczone parametry $\lambda$ i $\psi$ to:
+\begin{equation}
+\lambda_1=\num{50200} \qquad \lambda_2 = 2390 \qquad \lambda_3 = 546370 \lambda_4 = 140
+\end{equation}
+\begin{equation}
+\psi_1 = 120050 \qquad \psi_2 = 234440 \qquad \psi_3 = 43840
+\end{equation}
+
+Nastawy te mają bardzo duże wartości, odbiegające od wyznaczonych przez nas. Błędy regulacji są następujące:
+\begin{itemize}
+\item $E_1 = \num{34,6239}$
+\item $E_2 = \num{34,5739}$
+\item $E_3 = \num{0,57272}$
+\item $E = \num{69,7705}$
+\end{itemize}
+Błąd regulacji jest zatem znacznie mniejszy od błędy zwracanego przez nasz najlepszy regulator. Na wykresie \ref{fig:dmc_u_fmincon} widać jednak, że przebieg sterowania na torze 4 osiąga bardzo duże wartości i byłby nieakceptowalny na rzeczywistym obiekcie. Przebieg wyjść obiektu przedstawia wykres \ref{fig:dmc_y_fmincon}.
+
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 3,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.3\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y1_fmincon.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad1.txt};
+	\legend{$y_1$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y2_fmincon.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad2.txt};
+	\legend{$y_2$,$y_{zad}$}
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$y_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_y3_fmincon.txt};
+	\addplot[red,semithick,densely dashed] file {wykresy/yzad3.txt};
+	\legend{$y_3$,$y_{zad}$}
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi wyjść obiektu dla nastaw wyznaczonych narzędziem fmincon}
+	\label{fig:dmc_y_fmincon}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	\begin{groupplot}[group style={group size=1 by 4,vertical sep={1.5 cm}},
+	width=0.9\textwidth,height=0.25\textwidth,xmin=0]
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_1$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u1_fmincon.txt};
+
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_2$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u2_fmincon.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_3$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u3_fmincon.txt};
+	
+	\nextgroupplot
+	[
+	xlabel={$k$},
+	ylabel={$u_4$},
+	y tick label style={/pgf/number format/1000 sep=},
+	]
+	\addplot[blue,semithick] file {wykresy/dmc_u4_fmincon.txt};
+	\end{groupplot}
+	\end{tikzpicture}
+	\caption{Przebiegi sterowań obiektu dla nastaw wyznaczonych narzędziem fmincon}
+	\label{fig:dmc_u_fmincon}
+\end{figure}
