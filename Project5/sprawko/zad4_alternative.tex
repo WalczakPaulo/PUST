@@ -129,22 +129,8 @@ dołączaliśmy trzeci regulator i postępowaliśmy tak samo. Następnie dobiera
 wartości całkowania, metodą prób i błędów, a na końcu tak samo dobieraliśmy
 wartości członów różniczkujących dla regulatorów. Zaskakująco metoda ta okazała się
 przynosić zadowalające rezultaty. Dla toru otrzymanego na podstawie macierzy $\bm{KK}_1$
-ta metoda dała nastawy:
-\begin{equation}
-  K_1 = \num{1.3170} \qquad T_{i1} = 5, \qquad T_{d1} = 0 \nonumber
-\end{equation}
-\begin{equation}
-  K_2 = \num{14.8350} \qquad T_{i2} = 10, \qquad T_{d2} = 0
-\end{equation}
-\begin{equation}
-  K_3 = \num{6.2700} \qquad T_{i3} = 8, \qquad T_{d3} = 0 \nonumber
-\end{equation}
-Wskaźnik jakości regulacji dla takich nastaw wynosił $E_1 = \num{301.8303}$.
-Co ciekawe włączenie różniczki nie dawało poprawy wskaźnika jakości, więc z niej
-zrezygnowaliśmy.
-Wyniki działania takiego regulatora dla tych nastaw przedstawiają wykresy \ref{fig:z3_pid1_y1},
-\ref{fig:z3_pid1_y2} oraz \ref{fig:z3_pid1_y3}.
-
+nie udało nam się wyznaczyć ręcznie nastaw. W tym przypadku zadanie było niezwykle
+trudne. Dopiero funkcja minimalizacji dała nam nastawy, dla których obiekt działał.
 Następnie sprawdzony został tor otrzymany na podstawie macierzy $\bm{KK}_2$.
 Po kilku eksperymentach otrzymaliśmy następujące nastawy:
 \begin{equation}
@@ -162,7 +148,7 @@ toru sterowania. Podobnie jak wcześniej, dodanie różniczkowania nie poprawia�
 wyników w sensie wskaźnika jakości, więc z niego zrezygnowaliśmy. Działanie
 tych regulatoróœ przedstawiają wykresy \ref{fig:z3_pid2_y1},
 \ref{fig:z3_pid2_y2} oraz \ref{fig:z3_pid2_y3}. Dla ułatwienia porównania zastosowano
-tą samą skalę co w przypadku poprzedniego zestawu regulatorów. 
+tą samą skalę co w przypadku poprzedniego zestawu regulatorów.
 
 Dla torów wynikających z macierzy $\bm{KK}_3$ otrzymaliśmy nastawy:
 \begin{equation}
@@ -194,93 +180,6 @@ Wskaźnik jakości wynosił $\num{565.3247}$, czyli był najgorszy ze wszystkich
 Znów, dodanie różniczkowania jedynie pogarszało wyniki. Działanie tych
 regulatorów ukazują wykresy \ref{fig:z3_pid3_y1},
 \ref{fig:z3_pid3_y2} oraz \ref{fig:z3_pid3_y3}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}[b]
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-width=0.75\textwidth,
-height = 0.4\textwidth,
-xmin=0,xmax=1100,ymin=-15,ymax=15,
-xlabel={Numer próbki},
-ylabel={Wyjście},
-xtick={0, 200, 400, 600, 800, 1000},
-ytick={-15, -10, -5, 0, 5, 10, 15},
-legend pos=north east,
-/pgf/number format/.cd,
-use comma,
-1000 sep={}
-]
-
-\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
-\addplot[red,semithick] file {wykresy/z3_pid1_y1.txt};
-\legend{Wartość zadana, Wyjście $y_1$}
-
-\end{axis}
-\end{tikzpicture}
-\caption{Trajektoria wyjścia $y_1$, dla pierwszego zestawu regulatorów PID}
-\label{fig:z3_pid1_y1}
-\end{figure}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}[b]
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-width=0.75\textwidth,
-height = 0.4\textwidth,
-xmin=0,xmax=1100,ymin=-5,ymax=5,
-xlabel={Numer próbki},
-ylabel={Wyjście},
-xtick={0, 200, 400, 600, 800, 1000},
-ytick={-5, -4, -2, 0, 2, 4, 5},
-legend pos=north east,
-/pgf/number format/.cd,
-use comma,
-1000 sep={}
-]
-
-\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
-\addplot[red,semithick] file {wykresy/z3_pid1_y2.txt};
-\legend{Wartość zadana, Wyjście $y_2$}
-
-\end{axis}
-\end{tikzpicture}
-\caption{Trajektoria wyjścia $y_2$, dla pierwszego zestawu regulatorów PID}
-\label{fig:z3_pid1_y2}
-\end{figure}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}[b]
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-width=0.75\textwidth,
-height = 0.4\textwidth,
-xmin=0,xmax=1100,ymin=-2.5,ymax=2.5,
-xlabel={Numer próbki},
-ylabel={Wyjście},
-xtick={0, 200, 400, 600, 800, 1000},
-ytick={-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5},
-legend pos=north east,
-/pgf/number format/.cd,
-use comma,
-1000 sep={}
-]
-
-\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
-\addplot[red,semithick] file {wykresy/z3_pid1_y3.txt};
-\legend{Wartość zadana, Wyjście $y_3$}
-
-\end{axis}
-\end{tikzpicture}
-\caption{Trajektoria wyjścia $y_3$, dla pierwszego zestawu regulatorów PID}
-\label{fig:z3_pid1_y3}
-\end{figure}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[b]

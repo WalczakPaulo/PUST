@@ -1,14 +1,14 @@
 \chapter{PID/DMC Optymalizacja}
 Zadanie piąte polegało na znalezieniu optymalnych wartości nastaw dla regulatora PID oraz DMC, wykorzystując do optymalizacji ilościowy wskaźnik błędu regulacji E.
-Stworzyliśmy do tego skrypt, który używa funkcji $fmincon$ w celu dobierania nastaw dla regulatorów. 
+Stworzyliśmy do tego skrypt, który używa funkcji $fmincon$ w celu dobierania nastaw dla regulatorów.
 
 
 Rozpoczniemy od optymalizacji nastaw regulatora PID. Jako cele optymalizacji przyjmujemy parametry $K$ oraz $T_i$. Zdecydowaliśmy się odgórnie narzucić zerowe wartości
-$T_d$ ze względu na wyniki badań jakie przeprowadziliśmy w poprzednim punkcie sprawozdania. 
+$T_d$ ze względu na wyniki badań jakie przeprowadziliśmy w poprzednim punkcie sprawozdania.
 Jako ograniczenia przyjmujemy zgodnie z logiką, wartości nie mniejsze niż 0 oraz mniejsze od nieskonczoności.
-Jako punkt startowy wybieramy wartości wzmocnień równe $1$ a  czasy zdwojenia jako $1000$. 
-Optymalizacji poddajemy trzy regulatory PID w czterech konfiguracjach, tzn. 
-rozważamy cztery rózne konfiguracje torów sterowania wyznaczone w poprzednim punkcie sprawozdania. 
+Jako punkt startowy wybieramy wartości wzmocnień równe $1$ a  czasy zdwojenia jako $1000$.
+Optymalizacji poddajemy trzy regulatory PID w czterech konfiguracjach, tzn.
+rozważamy cztery rózne konfiguracje torów sterowania wyznaczone w poprzednim punkcie sprawozdania.
 
 Dla toru:
 \begin{itemize}
@@ -27,9 +27,10 @@ otrzymujemy nastawy:
 \begin{equation}
   K_3 = \num{0.1696} \qquad T_{i3} = \num{300220}, \qquad T_{d3} = 0 \nonumber
 \end{equation}
-Takie nastawy dają błąd regulacji \num{486.6761}. Jest to o tyle dziwny wynik, że jest gorszy niż
-dla naszych regulatorów wyznaczonych metodą inżynierską dla tej konfiguracji torów. Możliwą przyczyną
-takie sytuacji jest trudne dla $fmincon$ uwarunkowanie funkcji celu. 
+Takie nastawy dają błąd regulacji \num{486.6761}. Jest to dziwnie trudny przypadek,
+gdyż nie udało nam się znaleźć nastaw dla niego ręcznie, a lekka modyfikacja nastaw
+wygenerowanych funkcją \texttt{fmincon} daje ogromny skok błędu. Działanie
+przedstawiają wykresy \ref{fig:pid1_fmincon_y1}, \ref{fig:pid1_fmincon_y2} i \ref{fig:pid1_fmincon_y3}.
 
 
 Dla toru:
@@ -51,6 +52,8 @@ otrzymujemy nastawy:
 \end{equation}
 
 Błąd regulacji wynosi: \num{104.4858} . Jest to najlepszy ogólnie otrzymany wynik.
+Działanie
+przedstawiają wykresy \ref{fig:pid2_fmincon_y1}, \ref{fig:pid2_fmincon_y2} i \ref{fig:pid2_fmincon_y3}.
 
 Dla toru:
 \begin{itemize}
@@ -74,6 +77,8 @@ Błąd regulacji wynosi: \num{115.6349} .
 Jest to bardzo dobry wynik, jednakże nieco gorszy niż dla poprzedniego toru.
 Zauważmy, że wyznaczone nastawy dla pierwszego i trzeciego regulatora są bardzo podobne do tych dla poprzedniego toru.
 Wynika to z faktu, że zmienił się tu jedynie tor dla drugiego regulatora, gdzie teraz wpływa na wyjscie drugie regulator drugi.
+Działanie
+przedstawiają wykresy \ref{fig:pid3_fmincon_y1}, \ref{fig:pid3_fmincon_y2} i \ref{fig:pid3_fmincon_y3}.
 
 Dla toru:
 \begin{itemize}
@@ -95,9 +100,359 @@ otrzymujemy nastawy:
 
 Błąd regulacji wynosi: \num{207.1231} .
 Jest to wynik nieco gorszej jakości niż dla poprzednich dwóch torów.
+Działanie
+przedstawiają wykresy \ref{fig:pid4_fmincon_y1}, \ref{fig:pid4_fmincon_y2} i \ref{fig:pid4_fmincon_y3}.
 
-Analizując otrzymane wyniki, zauważamy że dla trzech z czterech przypadków funkcja optymalizacji
+Analizując otrzymane wyniki, zauważamy że dla wszystkich przypadków funkcja optymalizacji
 znalazła lepsze wyniki niż dla regulatorów wyznaczonych metodą inżynierską. Jest to jak najbardziej normalne zjawisko.
 Również potwierdziła się metoda Multiple Gain Array. Najlepsze wyniki otrzymaliśmy dla regulatora o konfiguracji
 torów odpowiadającej najmniejszej wartości współczynnika uwarunkowania macierzy, zaś najgorsze wyniki
 dla torów odpowiadających największej wartości współczynnika uwarunkowania macierzy.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-15,ymax=15,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-15, -10, -5, 0, 5, 10, 15},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/pid1_fmincon_y1.txt};
+\legend{Wartość zadana, Wyjście $y_1$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_1$, dla pierwszego zestawu regulatorów PID, dostrojonych funkcją optymalizacyjną}
+\label{fig:pid1_fmincon_y1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-5,ymax=5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-5, -4, -2, 0, 2, 4, 5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/pid1_fmincon_y2.txt};
+\legend{Wartość zadana, Wyjście $y_2$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_2$, dla pierwszego zestawu regulatorów PID, dostrojonych funkcją optymalizacyjną}
+\label{fig:pid1_fmincon_y2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-2.5,ymax=2.5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/pid1_fmincon_y3.txt};
+\legend{Wartość zadana, Wyjście $y_3$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_3$, dla pierwszego zestawu regulatorów PID, dostrojonych funkcją optymalizacyjną}
+\label{fig:pid1_fmincon_y3}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-15,ymax=15,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-15, -10, -5, 0, 5, 10, 15},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/pid2_fmincon_y1.txt};
+\legend{Wartość zadana, Wyjście $y_1$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_1$, dla drugiego zestawu regulatorów PID, dostrojonych funkcją optymalizacyjną}
+\label{fig:pid2_fmincon_y1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-5,ymax=5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-5, -4, -2, 0, 2, 4, 5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/pid2_fmincon_y2.txt};
+\legend{Wartość zadana, Wyjście $y_2$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_2$, dla drugiego zestawu regulatorów PID, dostrojonych funkcją optymalizacyjną}
+\label{fig:pid2_fmincon_y2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-2.5,ymax=2.5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/pid2_fmincon_y3.txt};
+\legend{Wartość zadana, Wyjście $y_3$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_3$, dla drugiego zestawu regulatorów PID, dostrojonych funkcją optymalizacyjną}
+\label{fig:pid2_fmincon_y3}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-15,ymax=15,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-15, -10, -5, 0, 5, 10, 15},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/pid3_fmincon_y1.txt};
+\legend{Wartość zadana, Wyjście $y_1$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_1$, dla trzeciego zestawu regulatorów PID, dostrojonych funkcją optymalizacyjną}
+\label{fig:pid3_fmincon_y1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-5,ymax=5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-5, -4, -2, 0, 2, 4, 5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/pid3_fmincon_y2.txt};
+\legend{Wartość zadana, Wyjście $y_2$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_2$, dla trzeciego zestawu regulatorów PID, dostrojonych funkcją optymalizacyjną}
+\label{fig:pid3_fmincon_y2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-2.5,ymax=2.5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/pid3_fmincon_y3.txt};
+\legend{Wartość zadana, Wyjście $y_3$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_3$, dla trzeciego zestawu regulatorów PID, dostrojonych funkcją optymalizacyjną}
+\label{fig:pid3_fmincon_y3}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-15,ymax=15,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-15, -10, -5, 0, 5, 10, 15},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/pid4_fmincon_y1.txt};
+\legend{Wartość zadana, Wyjście $y_1$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_1$, dla czwartego zestawu regulatorów PID, dostrojonych funkcją optymalizacyjną}
+\label{fig:pid4_fmincon_y1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-5,ymax=5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-5, -4, -2, 0, 2, 4, 5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/pid4_fmincon_y2.txt};
+\legend{Wartość zadana, Wyjście $y_2$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_2$, dla czwartego zestawu regulatorów PID, dostrojonych funkcją optymalizacyjną}
+\label{fig:pid4_fmincon_y2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[b]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.75\textwidth,
+height = 0.4\textwidth,
+xmin=0,xmax=1100,ymin=-2.5,ymax=2.5,
+xlabel={Numer próbki},
+ylabel={Wyjście},
+xtick={0, 200, 400, 600, 800, 1000},
+ytick={-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5},
+legend pos=north east,
+/pgf/number format/.cd,
+use comma,
+1000 sep={}
+]
+
+\addplot[blue,semithick] file {wykresy/z3_yzad.txt};
+\addplot[red,semithick] file {wykresy/pid4_fmincon_y3.txt};
+\legend{Wartość zadana, Wyjście $y_3$}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Trajektoria wyjścia $y_3$, dla czwartego zestawu regulatorów PID, dostrojonych funkcją optymalizacyjną}
+\label{fig:pid4_fmincon_y3}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
