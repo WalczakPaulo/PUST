@@ -62,6 +62,7 @@ E1=sum(e1(:).^2);
 E2=sum(e2(:).^2);
 E3=sum(e3(:).^2);
 E = E1 + E2 + E3;
+disp(E)
 
 csvwrite('yzad.csv', Yzad);
 csvwrite('Y1.csv',Y(1,:));

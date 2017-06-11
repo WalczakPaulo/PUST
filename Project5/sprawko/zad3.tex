@@ -5,7 +5,7 @@ Celem zadania trzeciego było zaimplementowanie regulatorów $PID$ i $DMC$ odpow
 cechuje się większą liczbą wejść ( $4$ ) niż wyjść ( $3$ ), co wpływa na realizację implementacji regulatorów.
 
 \section{Cyfrowy algorytm PID}
- 
+
 Regulator $PID$ jest opisany danymi parametrami: $K$ - wzmocnienie, $T_p$ - czas próbkowania, $T_d$ - czas wyprzedzenia, $T_i$ - czas zdwojenia, $N_u$ - ilość sterowań oraz $N_y$ - ilość wyjść.
 
 W implementacji regulatora będziemy wykorzystywać współczynniki:
@@ -17,7 +17,7 @@ W implementacji regulatora będziemy wykorzystywać współczynniki:
 
 
 \begin{equation}
-{r_1}^j=K^j*(T_p/(2*{T_i}^j)-2*{T_d}^j/T_p-1) \quad \forall j \in <1,n_u> 
+{r_1}^j=K^j*(T_p/(2*{T_i}^j)-2*{T_d}^j/T_p-1) \quad \forall j \in <1,n_u>
 \label{r1}
 \end{equation}
 
@@ -26,7 +26,7 @@ W implementacji regulatora będziemy wykorzystywać współczynniki:
 \label{r2}
 \end{equation}
 
-Po każdej iteracji obliczany jest nowy uchyb każdego wyjscia, jako różnica wartości zadanej i aktualnej wartości wyjścia. 
+Po każdej iteracji obliczany jest nowy uchyb każdego wyjscia, jako różnica wartości zadanej i aktualnej wartości wyjścia.
 Sterowania również są obliczane tak jak w klasycznym regulatorze PID.
 
 \begin{equation}
@@ -38,7 +38,7 @@ Należy podkreślić, że w przypadku naszego procesu, każdemu wyjściu odpowia
 
 
 \section{Algorytm DMC}
-W algorytmie wykonujemy następujące obliczenia: 
+W algorytmie wykonujemy następujące obliczenia:
 
 \begin{equation}
 \boldsymbol{y}^{\mathrm{zad}}(k)=\left[
@@ -247,7 +247,7 @@ gdzie $k_{i,j}$ to macierz o wymiarach $n_u$ x $n_y$, a więc $K_i$ to macierz o
 \end{equation}
 
 
-Aktualne sterowanie obliczamy jako suma sterowania poprzedniego i aktualnie wyliczonego $\triangle u(k|k)$. 
+Aktualne sterowanie obliczamy jako suma sterowania poprzedniego i aktualnie wyliczonego $\triangle u(k|k)$.
 
 
-\end{equation}
+% \end{equation}
